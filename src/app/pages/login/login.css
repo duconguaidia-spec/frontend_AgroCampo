@@ -1,0 +1,245 @@
+:host {
+  display: block;
+  min-height: 100dvh;
+  font-family: Georgia, "Times New Roman", serif;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.login-page {
+  position: relative;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 38px 24px 62px;
+  background:
+    linear-gradient(90deg, rgba(20, 43, 16, 0.24), transparent 52%, rgba(11, 37, 18, 0.2)),
+    url("https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1800&q=85")
+      center / cover;
+}
+
+.login-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 204, 104, 0.12), rgba(5, 42, 10, 0.2));
+  pointer-events: none;
+}
+
+.login-shell {
+  position: relative;
+  z-index: 1;
+  width: min(500px, 100%);
+  padding: 28px 34px 25px;
+  border: 1px solid #2d9c3c;
+  border-radius: 42px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(205, 205, 205, 0.94));
+  box-shadow: 0 19px 40px rgba(0, 0, 0, 0.27);
+}
+
+.login-header {
+  text-align: center;
+}
+
+.login-icono {
+  width: 74px;
+  height: 74px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 8px;
+  overflow: hidden;
+  border: 2px solid #126f22;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.login-icono img {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+  padding: 0;
+}
+
+.brand-header h1 {
+  margin: 0 0 10px;
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.form-card {
+  padding: 12px 18px 16px;
+  border-radius: 20px;
+  background: #ffffff;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 3px;
+  border-radius: 18px;
+  background: #e5e5e5;
+}
+
+.tab {
+  padding: 5px;
+  border-radius: 15px;
+  color: #171717;
+  font-size: 0.78rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+.tab.active {
+  background: #ffffff;
+  box-shadow: 0 0 0 1px #d7d7d7;
+}
+
+.form-group {
+  margin-top: 13px;
+}
+
+label {
+  display: inline-block;
+  margin-bottom: 4px;
+  font-size: 0.79rem;
+}
+
+.label-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.forgot-password {
+  color: #176d25;
+  font-size: 0.69rem;
+  text-decoration: none;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  width: 100%;
+  height: 31px;
+  padding: 7px 32px 7px 13px;
+  border: 0;
+  border-radius: 18px;
+  outline: 0;
+  background: #e5e5e5;
+  font: 0.76rem Georgia, "Times New Roman", serif;
+}
+
+input:focus {
+  box-shadow: 0 0 0 2px #239f38;
+}
+
+.input-error {
+  box-shadow: 0 0 0 2px #c63737 !important;
+}
+
+.password-field {
+  position: relative;
+}
+
+.password-button {
+  position: absolute;
+  top: 50%;
+  right: 9px;
+  padding: 2px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.error-message {
+  display: block;
+  min-height: 13px;
+  padding-left: 8px;
+  color: #b51e1e;
+  font-size: 0.67rem;
+}
+
+.remember-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 0 13px;
+  font-size: 0.75rem;
+}
+
+.remember-option input {
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  accent-color: #239f38;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 18px;
+  color: #ffffff;
+  background: #2da345;
+  font: 0.82rem Georgia, "Times New Roman", serif;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background: #1f8033;
+}
+
+.register-text {
+  margin: 13px 0 0;
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+.register-text a {
+  color: #176d25;
+  font-weight: 700;
+}
+
+footer {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 7px 12px;
+  color: #ffffff;
+  background: #148d09;
+  font-size: 0.68rem;
+  text-align: center;
+}
+
+@media (max-width: 520px) {
+  .login-page {
+    padding: 20px 14px 54px;
+  }
+
+  .login-shell {
+    padding: 24px 17px 20px;
+    border-radius: 30px;
+  }
+
+  .form-card {
+    padding: 12px;
+  }
+
+  .label-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  footer {
+    font-size: 0.55rem;
+  }
+}
