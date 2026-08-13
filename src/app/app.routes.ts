@@ -9,6 +9,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'informacion-de-inicio',
+    loadComponent: () =>
+      import('./pages/informacion-de-inicio/informacion-de-inicio').then(
+        (m) => m.InicioComponent,
+      ),
+  },
+  {
     path: 'mas-informacion',
     loadComponent: () =>
       import('./pages/mas-informacion/mas-informacion').then(
