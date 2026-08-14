@@ -1,52 +1,39 @@
 import { Routes } from '@angular/router';
-import { Login } from './pages/login/login';
+
+import { LoginComponent } from './pages/login/login';
 import { RegisterComponent } from './pages/register/register';
+import { PaginaDeInicio } from './pages/pagina-de-inicio/pagina-de-inicio';
+import { InicioComponent } from './pages/informacion-de-inicio/informacion-de-inicio';
+import { MasInformacionComponent } from './pages/mas-informacion/mas-informacion';
 
 export const routes: Routes = [
-    {
-        path: 'login',
-        component: Login
-    },
-     {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full',
-  },
-
-
-export const routes: Routes = [
-    {
-        path: '',
-        redirectTo: 'register',
-        pathMatch: 'full'
-    },
-    {
-        path: 'register',
-        component: RegisterComponent
-    },
   {
-    path: '',
-    loadComponent: () =>
-      import('./pages/pagina-de-inicio/pagina-de-inicio').then(
-        (m) => m.PaginaDeInicio,
-      ),
+    path: 'pagina-de-inicio',
+    component: PaginaDeInicio,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
   },
   {
     path: 'informacion-de-inicio',
-    loadComponent: () =>
-      import('./pages/informacion-de-inicio/informacion-de-inicio').then(
-        (m) => m.InicioComponent,
-      ),
+    component: InicioComponent,
   },
   {
     path: 'mas-informacion',
-    loadComponent: () =>
-      import('./pages/mas-informacion/mas-informacion').then(
-        (m) => m.MasInformacionComponent,
-      ),
+    component: MasInformacionComponent,
+  },
+  {
+    path: '',
+    redirectTo: 'pagina-de-inicio',
+    pathMatch: 'full',
   },
   {
     path: '**',
-    redirectTo: ''
-  }
+    redirectTo: 'pagina-de-inicio',
+  },
 ];

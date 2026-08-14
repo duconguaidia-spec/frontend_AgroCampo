@@ -1,13 +1,25 @@
 <main class="login-page">
   <section class="login-shell" aria-labelledby="register-title">
-    <header class="brand-header">
-      <div class="brand-badge" aria-hidden="true">🌾</div>
-      <h1>AgroCampo</h1>
-    </header>
+    <header class="login-header">
+  <div class="logo-frame">
+    <img
+      class="login-logo"
+      src="/assets/images/logo-agrocampo.png"
+      alt="Logo de AgroCampo"
+    />
+  </div>
+
+  <h1>AgroCampo</h1>
+</header>
     <section class="form-card">
       <nav class="tabs" aria-label="Acceso a la cuenta">
-        <a class="tab" href="#login">Inicio sesión</a>
-        <a class="tab active" href="#registro" aria-current="page">Regístrate</a>
+          <a class="tab" routerLink="/login">
+            Inicio sesión
+          </a>
+
+        <span class="tab active" aria-current="page">
+          Regístrate
+        </span>
       </nav>
 
       <form [formGroup]="registerForm" (ngSubmit)="registroUsuario()" novalidate>
