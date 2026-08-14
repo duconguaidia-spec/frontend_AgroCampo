@@ -1,0 +1,128 @@
+<div class="inicio-container">
+
+  <!-- Barra de navegación superior -->
+  <nav class="navbar">
+    <div class="navbar-marca">
+      <img class="navbar-logo" src="assets/images/logo-agrocampo.png" alt="Logo AgroCampo" />
+      <span class="navbar-nombre">AgroCampo</span>
+    </div>
+
+    <ul class="navbar-links">
+      <li><a href="#" routerLink="/">Inicio</a></li>
+      <li><a href="#" routerLink="/estadisticas">Estadisticas</a></li>
+      <li><a href="#" routerLink="/veterinarias">Veterinarias</a></li>
+      <li><a href="#" routerLink="/noticias">Noticias</a></li>
+      <li><a href="#" routerLink="/foro">Foro</a></li>
+    </ul>
+
+    <div class="navbar-usuario">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="8" r="4"/>
+        <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+      </svg>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <img class="hero-imagen" src="assets/images/agricultor-dron-cultivo.jpg" alt="Agricultor revisando su cultivo con dron y tablet" />
+    <div class="hero-overlay"></div>
+
+    <div class="hero-contenido">
+      <h1 class="hero-titulo">
+        Plataforma integral<br />
+        para la gestión agropecuaria
+      </h1>
+      <p class="hero-subtitulo">
+        Administra cultivos, ganado, veterinaria y estadísticas del sector en un solo sistema digital
+      </p>
+    </div>
+  </section>
+
+  <!-- Todo lo que necesitas -->
+  <section class="caracteristicas">
+    <img class="caracteristicas-imagen" src="assets/images/campo-atardecer.jpg" alt="Cultivo al atardecer" />
+    <div class="caracteristicas-overlay"></div>
+
+    <h2 class="caracteristicas-titulo">Todo lo que necesitas para el sector agropecuario</h2>
+
+    <div class="caracteristicas-grid">
+      <div class="caracteristica-card" *ngFor="let car of caracteristicas">
+        <div class="caracteristica-icono" [ngSwitch]="car.icono">
+          <svg *ngSwitchCase="'educacion'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M2 5c3-1.5 6-1.5 9 0v14c-3-1.5-6-1.5-9 0V5z"/>
+            <path d="M22 5c-3-1.5-6-1.5-9 0v14c3-1.5 6-1.5 9 0V5z"/>
+            <path d="M18 3v6" stroke-width="2"/>
+            <path d="M15 6h6" stroke-width="2"/>
+          </svg>
+          <svg *ngSwitchCase="'reportes'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M4 20V10"/><path d="M11 20V4"/><path d="M18 20v-7"/>
+            <path d="M3 20h19" stroke-width="2"/>
+          </svg>
+        </div>
+        <h3>{{ car.titulo }}</h3>
+        <p class="caracteristica-subtitulo">{{ car.subtitulo }}</p>
+        <div class="caracteristica-badge">
+          <strong>{{ car.cifra }}</strong>
+          <span>{{ car.cifraLabel }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quién puede usar AgroCampo -->
+  <section class="perfiles">
+    <img class="perfiles-imagen" src="assets/images/campo-atardecer.jpg" alt="Campo de cultivo" />
+    <div class="perfiles-overlay"></div>
+
+    <h2 class="perfiles-titulo">¿Quien puede usar AgroCampo?</h2>
+
+    <div class="perfiles-grid">
+      <div class="perfil-card" *ngFor="let perfil of perfiles">
+        <img class="perfil-foto" [src]="perfil.imagen" [alt]="perfil.titulo" />
+        <div class="perfil-texto">
+          <h4>{{ perfil.titulo }}</h4>
+          <p>{{ perfil.descripcion }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="inicio-footer">
+    <div class="footer-superior">
+      <div class="footer-marca">
+        <img class="footer-logo" src="assets/images/logo-agrocampo.png" alt="Logo AgroCampo" />
+        <span>AgroCampo</span>
+        <ul class="footer-links">
+          <li><a href="#" routerLink="/">Inicio</a></li>
+          <li><a href="#" routerLink="/estadisticas">Estadisticas</a></li>
+          <li><a href="#" routerLink="/noticias">Noticias</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-columna">
+        <h5>Enlaces de ayuda</h5>
+        <ul>
+          <li><a href="#">Quienes somos</a></li>
+          <li><a href="#">Contactarnos</a></li>
+          <li><a href="#">Servicio Técnico</a></li>
+          <li><a href="#">Blog AgroCampo</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-columna">
+        <h5>Contacto</h5>
+        <ul>
+          <li>+57 326 456 0845</li>
+          <li>agroinfo&#64;gmail.com</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-inferior">
+      <p>&#169; {{ anioActual }} - Sistema de gestión de información agropecuaria y veterinaria AgroCampo</p>
+    </div>
+  </footer>
+
+</div>

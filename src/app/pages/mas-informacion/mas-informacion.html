@@ -1,0 +1,95 @@
+<div class="mas-info-container">
+
+  <!-- Barra de navegación superior -->
+  <nav class="navbar">
+    <div class="navbar-marca">
+      <img class="navbar-logo" src="assets/images/logo-agrocampo.png" alt="Logo AgroCampo" />
+      <span class="navbar-nombre">AgroCampo</span>
+    </div>
+
+    <ul class="navbar-links">
+      <li><a href="#" routerLink="/">Inicio</a></li>
+      <li><a href="#" routerLink="/estadisticas">Estadisticas</a></li>
+      <li><a href="#" routerLink="/veterinaria">Veterinaria</a></li>
+      <li><a href="#" routerLink="/noticia">Noticia</a></li>
+      <li><a href="#" routerLink="/foro">Foro</a></li>
+      <li><a href="#" routerLink="/videos">Videos</a></li>
+    </ul>
+
+    <div class="navbar-usuario">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="8" r="4"/>
+        <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+      </svg>
+    </div>
+  </nav>
+
+  <!-- Encabezado con degradado -->
+  <header class="mi-header">
+    <h1 class="mi-header-titulo">Mas Información</h1>
+  </header>
+
+  <!-- Fondo de campo detrás de introducción y misión/visión -->
+  <div class="mi-fondo-campo">
+    <img class="mi-fondo-imagen" src="assets/images/campo-verde.jpg" alt="Finca rural con cultivos" />
+
+    <!-- Introducción -->
+    <section class="mi-intro-card">
+      <span class="mi-eyebrow">Sobre La Pagina</span>
+      <h2>El campo colombiano en<br />la era digital</h2>
+      <p>
+        AgroCampo es una plataforma web integral que centraliza la información y los servicios
+        del sector agropecuario y veterinario. Permite a productores, veterinarios y comunidades
+        acceder, registrar y analizar datos sobre cultivos, producción animal y servicios veterinarios
+        en un solo lugar seguro, actualizado y de fácil acceso desde cualquier dispositivo.
+      </p>
+    </section>
+
+    <!-- Misión y visión -->
+    <section class="mi-mision-vision">
+      <div class="mv-card">
+        <span class="mi-eyebrow">Misión</span>
+        <h3>Optimizar la gestión de información rural</h3>
+        <p>
+          Desarrollar una plataforma web que democratice el acceso al conocimiento agropecuario,
+          permitiendo a los usuarios registrar, consultar y analizar datos de forma sencilla,
+          segura y confiable, promoviendo la innovación tecnológica en el ámbito rural.
+        </p>
+      </div>
+
+      <div class="mv-card">
+        <span class="mi-eyebrow">Visión</span>
+        <h3>Ser el referente digital del agro colombiano</h3>
+        <p>
+          Convertirnos en la herramienta de referencia para el sector agropecuario y veterinario en
+          Colombia, impulsando la digitalización del campo, fomentando la educación continua y
+          fortaleciendo el vínculo entre tecnología, productores y comunidades rurales.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Módulos de la plataforma -->
+  <section class="mi-modulos">
+    <span class="mi-eyebrow claro">Funcionalidades</span>
+    <h2>Cinco módulos,<br />una sola plataforma</h2>
+    <p class="mi-modulos-desc">
+      Cada módulo fue diseñado para atender necesidades específicas del sector. Juntos forman
+      un ecosistema digital robusto que conecta a todos los actores del campo.
+    </p>
+
+    <div class="mi-modulos-grid">
+      <div class="modulo-card" *ngFor="let mod of modulos">
+        <h4>{{ mod.titulo }}</h4>
+        <p>{{ mod.descripcion }}</p>
+        <span class="modulo-etiqueta">— {{ mod.etiqueta }} —</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pie de página -->
+  <footer class="mi-footer">
+    <p>{{ anioActual }} - Sistema de gestión de información agropecuaria y veterinaria AgroCampo</p>
+  </footer>
+
+</div>

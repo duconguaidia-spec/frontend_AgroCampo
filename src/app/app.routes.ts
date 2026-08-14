@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { Login } from './pages/login/login';
+import { RegisterComponent } from './pages/register/register';
 
 export const routes: Routes = [
     {
@@ -12,4 +13,40 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
 
+
+export const routes: Routes = [
+    {
+        path: '',
+        redirectTo: 'register',
+        pathMatch: 'full'
+    },
+    {
+        path: 'register',
+        component: RegisterComponent
+    },
+  {
+    path: '',
+    loadComponent: () =>
+      import('./pages/pagina-de-inicio/pagina-de-inicio').then(
+        (m) => m.PaginaDeInicio,
+      ),
+  },
+  {
+    path: 'informacion-de-inicio',
+    loadComponent: () =>
+      import('./pages/informacion-de-inicio/informacion-de-inicio').then(
+        (m) => m.InicioComponent,
+      ),
+  },
+  {
+    path: 'mas-informacion',
+    loadComponent: () =>
+      import('./pages/mas-informacion/mas-informacion').then(
+        (m) => m.MasInformacionComponent,
+      ),
+  },
+  {
+    path: '**',
+    redirectTo: ''
+  }
 ];
