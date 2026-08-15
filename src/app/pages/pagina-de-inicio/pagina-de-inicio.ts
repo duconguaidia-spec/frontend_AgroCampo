@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class PaginaDeInicioComponent {
 
+  anioActual: number = new Date().getFullYear();
+
   constructor(private router: Router){}
 
   inicioSesion(): void{
