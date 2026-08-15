@@ -17,7 +17,7 @@
   padding: 38px 24px 62px;
   background:
     linear-gradient(90deg, rgba(20, 43, 16, 0.24), transparent 52%, rgba(11, 37, 18, 0.2)),
-    url("/assets/images/fondo-login.png")
+    url('/assets/images/fondo-login.png')
       center / cover;
 }
 
@@ -60,7 +60,7 @@
   transform: translateY(-1px);
 }
 
-.brand-header h1 {
+.login-header h1 {
   margin: 0 0 10px;
   font-size: 1.3rem;
   font-weight: 200;

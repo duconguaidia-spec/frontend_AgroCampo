@@ -1,24 +1,28 @@
 <main class="login-page">
+
   <section class="login-shell" aria-labelledby="login-title">
     <header class="login-header">
- <div class="logo-frame">
+      
+  <div class="logo-frame">
   <img
     class="login-logo"
     src="/assets/images/logo-agrocampo.png"
     alt="Logo de AgroCampo"
   />
 </div>
+
       <h1>AgroCampo</h1>
     </header>
 
     <section class="form-card">
       <nav class="tabs" aria-label="Acceso a la cuenta">
-        <button class="btn-Inicia-Sesion active" (click)="inicioSesion()">
-          Inicia Sesión
-        </button>
-        <button class="btn-crear-cuenta" (click)="register()">
-          Registrarse
-        </button>
+        <span class="tab active" aria-current="page">
+          Inicio sesión
+        </span>
+
+        <a class="tab" routerLink="/register">
+          Regístrate
+        </a>
       </nav>
 
       <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()" novalidate>
@@ -87,6 +91,11 @@
         </button>
       </form>
     </section>
+
+    <p class="register-text">
+      ¿No tienes una cuenta?
+      <a routerLink="/register">Regístrate</a>
+    </p>
   </section>
 
   <footer>
