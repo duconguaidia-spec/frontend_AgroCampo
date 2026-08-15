@@ -8,9 +8,15 @@ import { Router } from '@angular/router';
   templateUrl: './pagina-de-inicio.html',
   styleUrl: './pagina-de-inicio.css',
 })
-export class PaginaDeInicio {
+export class PaginaDeInicioComponent {
+
+  anioActual: number = new Date().getFullYear();
 
   constructor(private router: Router){}
+
+  inicioSesion(): void{
+    this.router.navigate(['/login']);
+  }
 
   crearCuenta(): void{
     this.router.navigate(['/register']);
