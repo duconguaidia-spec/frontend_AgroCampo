@@ -63,7 +63,7 @@
 .login-header h1 {
   margin: 0 0 10px;
   font-size: 1.3rem;
-  font-weight: 500;
+  font-weight: 200;
   letter-spacing: 0.05em;
 }
 
@@ -81,18 +81,33 @@
   background: #e5e5e5;
 }
 
-.tab {
-  padding: 5px;
-  border-radius: 15px;
-  color: #171717;
-  font-size: 0.78rem;
-  text-align: center;
-  text-decoration: none;
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 3px;
+  border-radius: 999px;      /* totalmente redondeado en los extremos, como en la imagen */
+  background: #e5e5e5;
 }
 
-.tab.active {
+.btn-Inicia-Sesion,
+.btn-crear-cuenta {
+  padding: 7px 5px;
+  border: 0;
+  border-radius: 999px;      /* mismo redondeo en el botón activo */
+  background: transparent;
+  color: #171717;
+  font-size: 0.78rem;
+  font-family: Georgia, "Times New Roman", serif;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.btn-Inicia-Sesion.active,
+.btn-crear-cuenta.active {
   background: #ffffff;
-  box-shadow: 0 0 0 1px #d7d7d7;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);   /* sombra suave, más parecida a la imagen que el borde fino que teníamos */
+  font-weight: 600;
 }
 
 .form-group {

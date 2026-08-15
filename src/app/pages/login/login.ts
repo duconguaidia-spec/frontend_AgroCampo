@@ -14,7 +14,10 @@ export class LoginComponent {
 
   loginForm;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) {
     this.loginForm = this.formBuilder.group({
       correo: ['', [Validators.required, Validators.email]],
       contrasena: ['', [Validators.required, Validators.minLength(6)]],
@@ -36,5 +39,11 @@ export class LoginComponent {
   campoInvalido(campo: 'correo' | 'contrasena'): boolean {
     const control = this.loginForm.get(campo);
     return !!control && control.invalid && control.touched;
+  }
+  inicioSesion(): void{
+    this.router.navigate(['/login']);
+  }
+  register(): void{
+    this.router.navigate(['/register']);
   }
 }
