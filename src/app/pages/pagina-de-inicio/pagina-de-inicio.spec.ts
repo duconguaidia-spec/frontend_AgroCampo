@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter, Router } from '@angular/router';
-import { PaginaDeInicio } from './pagina-de-inicio';
+import { PaginaDeInicioComponent } from './pagina-de-inicio';
 
-describe('PaginaDeInicio', () => {
-  let component: PaginaDeInicio;
-  let fixture: ComponentFixture<PaginaDeInicio>;
+describe('PaginaDeInicioComponent', () => {
+  let component: PaginaDeInicioComponent;
+  let fixture: ComponentFixture<PaginaDeInicioComponent>;
   let router:Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PaginaDeInicio],
+      imports: [PaginaDeInicioComponent],
       providers: [provideRouter([])]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PaginaDeInicio);
+    fixture = TestBed.createComponent(PaginaDeInicioComponent);
     component = fixture.componentInstance;
     router=TestBed.inject(Router);
    fixture.detectChanges();
