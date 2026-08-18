@@ -1,0 +1,159 @@
+:host {
+  display: block;
+}
+
+.header {
+  width: 100%;
+  min-height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 16px 30px;
+  background: #173f29;
+  color: #fff;
+  box-shadow: 0 3px 12px rgb(11 40 24 / 28%);
+}
+
+.system,
+.user {
+  display: flex;
+  align-items: center;
+}
+
+.system {
+  gap: 16px;
+  min-width: 0;
+}
+
+.logo-frame {
+  width: 62px;
+  height: 62px;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 2px solid #a8c69f;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 20%);
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.system-text,
+.user-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.system-text h1,
+.user-data h2 {
+  margin: 0;
+}
+
+.system-text h1 {
+  font-size: clamp(1.35rem, 2vw, 1.75rem);
+  line-height: 1.15;
+}
+
+.system-text span,
+.user-data span {
+  margin-top: 4px;
+  color: #ddebd6;
+  font-size: 0.875rem;
+}
+
+.user {
+  gap: 20px;
+}
+
+.user-data {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.user-data h2 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.user-data small {
+  margin-top: 3px;
+  color: #ddebd6;
+  font-size: 0.75rem;
+}
+
+.logout {
+  padding: 10px 18px;
+  border: 1px solid #a8c69f;
+  border-radius: 9px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.logout:hover {
+  border-color: #8bc34a;
+  background: #0b2818;
+  transform: translateY(-1px);
+}
+
+.logout:focus-visible {
+  outline: 3px solid #8bc34a;
+  outline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .user {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 480px) {
+  .system {
+    align-items: flex-start;
+  }
+
+  .logo-frame {
+    width: 52px;
+    height: 52px;
+  }
+
+  .logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .system-text span {
+    font-size: 0.78rem;
+  }
+
+  .user {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .user-data {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .logout {
+    width: 100%;
+  }
+}

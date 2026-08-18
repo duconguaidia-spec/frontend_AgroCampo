@@ -1,0 +1,25 @@
+<header class="header">
+  <section class="system" aria-label="Información del sistema">
+    <div class="logo-frame">
+      <img class="logo" src="assets/images/logo-agrocampo.png" alt="Logo de AgroCampo" />
+    </div>
+
+    <div class="system-text">
+      <h1>{{ nombreSistema }}</h1>
+      <span>{{ descripcionSistema }}</span>
+    </div>
+  </section>
+
+  <section class="user" aria-label="Sesión actual">
+    <div class="user-data">
+      <h2>{{ usuario }}</h2>
+      <span>{{ rol }}</span>
+      <small>📅 {{ fechaActual() }}</small>
+      <small>🕒 {{ horaActual() }}</small>
+    </div>
+
+    <button class="logout" type="button" (click)="cerrarSesion()">
+      Cerrar sesión
+    </button>
+  </section>
+</header>
