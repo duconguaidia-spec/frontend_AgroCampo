@@ -1,5 +1,6 @@
 :host {
   display: block;
+  width: 100%;
   min-height: 100dvh;
   font-family: Georgia, "Times New Roman", serif;
 }
@@ -16,8 +17,7 @@
   padding: 38px 24px 62px;
   background:
     linear-gradient(90deg, rgba(20, 43, 16, 0.24), transparent 52%, rgba(11, 37, 18, 0.2)),
-    url("/assets/images/fondo-login.png")
-      center / cover;
+    url("/assets/images/fondo-login.png") center / cover;
 }
 
 .login-page::before {
@@ -59,7 +59,7 @@
   transform: translateY(-1px);
 }
 
-.brand-header h1 {
+.login-header h1 {
   margin: 0 0 10px;
   font-size: 1.3rem;
   font-weight: 200;
@@ -101,7 +101,6 @@
   font-weight: 600;
 }
 
-/* ── Fila de dos columnas (nueva, no existía en login.css) ── */
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -118,48 +117,23 @@ label {
   font-size: 0.79rem;
 }
 
-.label-row {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.forgot-password {
-  color: #176d25;
-  font-size: 0.69rem;
-  text-decoration: none;
-}
-
 input[type="email"],
 input[type="password"],
-input[type="text"] {
+input[type="text"],
+select {
   width: 100%;
   height: 31px;
   padding: 7px 32px 7px 13px;
   border: 0;
   border-radius: 18px;
   outline: 0;
-  background: #e5e5e5;
-  font: 0.76rem Georgia, "Times New Roman", serif;
-}
-
-/* ── Select de tipo de usuario (nuevo, no existía en login.css) ── */
-select {
-  width: 100%;
-  height: 31px;
-  padding: 7px 13px;
-  border: 0;
-  border-radius: 18px;
-  outline: 0;
-  background: #e5e5e5;
-  font: 0.76rem Georgia, "Times New Roman", serif;
-  appearance: none;
   color: #171717;
+  background: #e5e5e5;
+  font: 0.76rem Georgia, "Times New Roman", serif;
 }
 
-select:invalid {
-  color: #6b6b6b;
+select {
+  padding-right: 13px;
 }
 
 input:focus,
@@ -194,25 +168,10 @@ select:focus {
   font-size: 0.67rem;
 }
 
-.remember-option {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin: 8px 0 13px;
-  font-size: 0.75rem;
-}
-
-.remember-option input {
-  width: 14px;
-  height: 14px;
-  margin: 0;
-  accent-color: #239f38;
-}
-
 .submit-button {
   width: 100%;
-  padding: 8px 14px;
   margin-top: 13px;
+  padding: 8px 14px;
   border: 0;
   border-radius: 18px;
   color: #ffffff;
@@ -228,17 +187,6 @@ select:focus {
 .submit-button:disabled {
   background: #51895d;
   cursor: not-allowed;
-}
-
-.register-text {
-  margin: 13px 0 0;
-  font-size: 0.78rem;
-  text-align: center;
-}
-
-.register-text a {
-  color: #176d25;
-  font-weight: 700;
 }
 
 footer {
@@ -268,13 +216,6 @@ footer {
     padding: 12px;
   }
 
-  .label-row {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  /* En móvil, las dos columnas colapsan a una sola */
   .form-row {
     grid-template-columns: 1fr;
     gap: 0;

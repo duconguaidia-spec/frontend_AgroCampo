@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 
-import { PaginaDeInicioComponent } from './pages/pagina-de-inicio/pagina-de-inicio';
 import { LoginComponent } from './pages/login/login';
 import { RegisterComponent } from './pages/register/register';
+import { PaginaDeInicioComponent} from './pages/pagina-de-inicio/pagina-de-inicio';
 import { InicioComponent } from './pages/informacion-de-inicio/informacion-de-inicio';
 import { MasInformacionComponent } from './pages/mas-informacion/mas-informacion';
 import { LayoutComponent } from './layout/layout/layout';
@@ -10,16 +10,16 @@ import { ModuloComponent } from './pages/modulo/modulo';
 
 export const routes: Routes = [
   {
-    path: '',
-    component: PaginaDeInicioComponent
+    path: 'pagina-de-inicio',
+    component: PaginaDeInicioComponent,
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
   },
   {
     path: 'informacion-de-inicio',
@@ -79,6 +79,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: ''
-  }
+    redirectTo: 'pagina-de-inicio',
+  },
 ];
