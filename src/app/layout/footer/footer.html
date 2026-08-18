@@ -1,14 +1,32 @@
 <footer class="footer">
-  <div class="footer-left">
-    <span>Versión {{ version }}</span>
+  <div class="footer-main">
+    <section class="footer-brand">
+      <div class="brand-heading">
+        <img src="assets/images/logo-agrocampo.png" alt="Logo de AgroCampo" />
+        <span>AgroCampo</span>
+      </div>
+    </section>
+
+    <section class="footer-column">
+      <h2>Enlaces de ayuda</h2>
+      <ul>
+        <li>Quiénes somos</li>
+        <li>Contáctanos</li>
+        <li>Servicio técnico</li>
+        <li>Blog AgroCampo</li>
+      </ul>
+    </section>
+
+    <section class="footer-column">
+      <h2>Contacto</h2>
+      <ul>
+        <li>+57 326 456 8845</li>
+        <li>agroCampo@gmail.com</li>
+      </ul>
+    </section>
   </div>
 
-  <div class="footer-center">
-    <span>© {{ anio }} {{ institucion }}</span>
-  </div>
-
-  <div class="footer-right">
-    <span>Desarrollado por</span>
-    <strong>{{ desarrollador }}</strong>
+  <div class="footer-bottom">
+    © {{ anio }} · {{ institucion }} AgroCampo
   </div>
 </footer>

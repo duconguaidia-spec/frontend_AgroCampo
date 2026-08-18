@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './footer.html',
   styleUrl: './footer.css',
 })
 export class FooterComponent {
-  readonly version = '1.0.0';
   readonly anio = new Date().getFullYear();
-  readonly institucion = 'Servicio Nacional de Aprendizaje · SENA';
-  readonly desarrollador = 'Equipo AgroCampo';
+  readonly institucion = 'Sistema de gestión de información agropecuaria y veterinaria';
 }
