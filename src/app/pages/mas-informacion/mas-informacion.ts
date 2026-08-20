@@ -1,53 +1,31 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { SiteFooterComponent } from '../../shared/site-footer/site-footer';
+import { SiteHeaderComponent } from '../../shared/site-header/site-header';
 
 interface Modulo {
   titulo: string;
+  requisitos: string;
   descripcion: string;
-  etiqueta: string;
+  ruta: string;
 }
 
 @Component({
   selector: 'app-mas-informacion',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink, SiteHeaderComponent, SiteFooterComponent],
   templateUrl: './mas-informacion.html',
   styleUrl: './mas-informacion.css',
 })
 export class MasInformacionComponent {
-
-  anioActual: number = new Date().getFullYear();
-
-  modulos: Modulo[] = [
-    {
-      titulo: 'Gestion Agropecuaria',
-      descripcion: 'Registro de cultivos, lotes de siembra, producción animal e inventario de insumos con trazabilidad completa.',
-      etiqueta: 'Modulo 1'
-    },
-    {
-      titulo: 'Registro Agropecuario',
-      descripcion: 'Historiales clínicos, diagnósticos, vacunaciones y seguimiento de salud animal registrados por profesionales.',
-      etiqueta: 'Modulo 2'
-    },
-    {
-      titulo: 'Reportes Y Estadísticas',
-      descripcion: 'Dashboards con KPIs del sector, estadísticas agregadas y exportación de datos en PDF y Excel.',
-      etiqueta: 'Modulo 3'
-    },
-    {
-      titulo: 'Directorio De Servicios',
-      descripcion: 'Mapa interactivo de veterinarias geolocalizadas, catálogo de servicios, calificaciones y datos de contacto.',
-      etiqueta: 'Modulo 4'
-    },
-    {
-      titulo: 'Modulo Educativo',
-      descripcion: 'Biblioteca de artículos y videos técnicos, foro comunitario, noticias y eventos del sector agropecuario.',
-      etiqueta: 'Modulo 5'
-    },
-    {
-      titulo: 'Seguridad Y Administración',
-      descripcion: 'Control de accesos por roles, autenticación en dos pasos, auditoría de usuarios y gestión de plataforma.',
-      etiqueta: 'Modulo 6'
-    }
+  protected readonly modulos: Modulo[] = [
+    { titulo: 'Inicio de sesión', requisitos: 'RF 1–3', descripcion: 'Creación de usuarios, recuperación de contraseña y verificación en dos pasos.', ruta: '/login' },
+    { titulo: 'Roles y usuarios', requisitos: 'RF 4–5', descripcion: 'Auditoría de actividades y edición de datos personales, intereses y ubicación.', ruta: '/perfil' },
+    { titulo: 'Gestión Agropecuaria', requisitos: 'RF 6–9', descripcion: 'Registro de cultivos, ganado, producción local, inventario y noticias del sector.', ruta: '/estadisticas' },
+    { titulo: 'Veterinarias', requisitos: 'RF 10–13', descripcion: 'Mapa interactivo, registro, catálogo de servicios y contactos de veterinarias.', ruta: '/veterinarias' },
+    { titulo: 'Contenido Educativo', requisitos: 'RF 14–17', descripcion: 'Videos, artículos, guías y foro de discusión para compartir experiencias.', ruta: '/foro' },
+    { titulo: 'Reportes y Análisis', requisitos: 'RF 18–20', descripcion: 'Reportes de actividad, paneles de visualización y exportación de datos.', ruta: '/estadisticas' },
+    { titulo: 'Soporte y Mantenimiento', requisitos: 'RF 21–22', descripcion: 'Preguntas frecuentes y canal para reportar incidencias técnicas.', ruta: '/ayuda-soporte' },
   ];
 }

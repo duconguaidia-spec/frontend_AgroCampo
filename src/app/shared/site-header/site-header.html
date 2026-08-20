@@ -1,0 +1,43 @@
+<header class="site-header">
+  <a class="brand" routerLink="/inicio" (click)="closeMenus()" aria-label="Ir al inicio de AgroCampo">
+    <img src="/assets/images/logo-agrocampo.png" alt="" />
+    <span>AgroCampo</span>
+  </a>
+
+  <button
+    class="nav-toggle"
+    type="button"
+    (click)="toggleMobileMenu()"
+    [attr.aria-expanded]="mobileMenuOpen()"
+    aria-controls="main-navigation"
+    aria-label="Abrir navegación"
+  >
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav id="main-navigation" class="main-navigation" [class.is-open]="mobileMenuOpen()" aria-label="Navegación principal">
+    @for (item of navigation; track item.path) {
+      <a [routerLink]="item.path" routerLinkActive="active" (click)="closeMenus()">{{ item.label }}</a>
+    }
+  </nav>
+
+  <div class="account-menu">
+    <button
+      class="account-trigger"
+      type="button"
+      (click)="toggleAccountMenu()"
+      [attr.aria-expanded]="accountMenuOpen()"
+      aria-label="Abrir menú de usuario"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg>
+    </button>
+
+    @if (accountMenuOpen()) {
+      <div class="account-panel">
+        <a routerLink="/perfil" (click)="closeMenus()">Perfil de usuario</a>
+        <a routerLink="/ayuda-soporte" (click)="closeMenus()">Ayuda y soporte</a>
+        <a routerLink="/login" (click)="closeMenus()">Cerrar sesión</a>
+      </div>
+    }
+  </div>
+</header>

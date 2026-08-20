@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css',
@@ -31,9 +32,9 @@ export class LoginComponent {
       return;
     }
 
-    console.log('Datos de inicio de sesión:', this.loginForm.value);
-
-    // Aquí conectarás posteriormente tu servicio y API de autenticación.
+    // La autenticación remota se conectará posteriormente; por ahora se navega
+    // al inicio para que el prototipo permita recorrer los módulos.
+    this.router.navigate(['/inicio']);
   }
 
   campoInvalido(campo: 'correo' | 'contrasena'): boolean {
