@@ -1,0 +1,286 @@
+:host {
+  display: block;
+}
+.support-page {
+  min-height: 100dvh;
+  color: #263340;
+  background: #f8faf6;
+}
+.shell {
+  width: min(1200px, calc(100% - 40px));
+  margin-inline: auto;
+}
+h1,
+h2,
+h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+.support-hero {
+  min-height: 285px;
+  display: grid;
+  align-items: center;
+  color: #fff;
+  background:
+    linear-gradient(90deg, rgb(29 59 117 / 82%), rgb(33 83 135 / 37%)),
+    url('/assets/images/campo-atardecer.jpg') center / cover;
+}
+.support-hero p,
+.roles > p {
+  margin: 0 0 7px;
+  color: #d5f2bd;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.support-hero h1 {
+  margin: 0;
+  font-size: clamp(2.3rem, 4.4vw, 4.2rem);
+}
+.support-hero span {
+  display: block;
+  max-width: 570px;
+  margin-top: 12px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.help-area {
+  margin-top: -26px;
+  padding: clamp(25px, 4vw, 52px);
+  border-radius: 20px;
+  background: #eff1ed;
+  box-shadow: 0 13px 29px rgb(27 54 51 / 12%);
+}
+.help-heading {
+  display: grid;
+  grid-template-columns: 1fr minmax(280px, 510px);
+  align-items: center;
+  gap: 25px;
+}
+.help-heading h2 {
+  margin: 0;
+  color: #4c5a51;
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+  text-align: center;
+}
+.search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  border-radius: 9px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgb(31 47 38 / 8%);
+}
+.search span {
+  font-size: 1.45rem;
+}
+.search input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-family: Georgia, serif;
+  font-size: 1rem;
+}
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 38px;
+}
+.faq-grid button {
+  min-height: 67px;
+  padding: 14px;
+  border: 0;
+  border-radius: 9px;
+  color: #fff;
+  background: #8c9690;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+}
+.faq-grid button:hover,
+.faq-grid button.active {
+  background: #3d7e3e;
+}
+.empty {
+  grid-column: 1 / -1;
+  padding: 20px;
+  color: #647468;
+  background: #fff;
+  text-align: center;
+}
+.answer {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 22px;
+  padding: 22px;
+  border-left: 4px solid #2f8a3a;
+  border-radius: 9px;
+  background: #fff;
+}
+.answer p {
+  margin: 0 0 5px;
+  color: #2c8338;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.answer h3 {
+  margin: 0 0 7px;
+  font-size: 1.25rem;
+}
+.answer span {
+  color: #526257;
+  line-height: 1.5;
+}
+.answer button {
+  align-self: start;
+  border: 0;
+  color: #607264;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.7rem;
+}
+.incident {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 34px;
+  padding: 23px;
+  border-radius: 12px;
+  color: #fff;
+  background: linear-gradient(120deg, #254782, #2d8a50);
+}
+.incident p {
+  margin: 0 0 3px;
+  color: #cff0b7;
+  font-size: 0.77rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.incident h3 {
+  margin: 0 0 5px;
+  font-size: 1.35rem;
+}
+.incident span {
+  font-size: 0.88rem;
+}
+.incident button,
+.report-form button {
+  flex-shrink: 0;
+  padding: 11px 16px;
+  border: 0;
+  border-radius: 8px;
+  color: #22533a;
+  background: #e1f3d2;
+  cursor: pointer;
+  font-weight: 800;
+}
+.report-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 15px;
+  margin-top: 15px;
+  padding: 20px;
+  border-radius: 11px;
+  background: #fff;
+}
+.report-form label {
+  display: grid;
+  gap: 8px;
+  color: #354a3d;
+  font-family: Georgia, serif;
+  font-weight: 700;
+}
+.report-form textarea {
+  min-height: 88px;
+  padding: 10px;
+  border: 1px solid #cedacf;
+  border-radius: 7px;
+  resize: vertical;
+}
+.report-form button {
+  align-self: end;
+  color: #fff;
+  background: #24893c;
+}
+.success {
+  margin: 14px 0 0;
+  color: #227438;
+  font-weight: 700;
+}
+.roles {
+  padding: 65px 0 60px;
+  text-align: center;
+}
+.roles > p {
+  color: #35813b;
+}
+.roles h2 {
+  margin: 0 0 30px;
+  font-size: clamp(1.9rem, 3.5vw, 3rem);
+}
+.roles > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.roles article {
+  padding: 25px;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 9px 20px rgb(31 77 47 / 9%);
+  text-align: left;
+}
+.roles article > span {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  margin-bottom: 15px;
+  border-radius: 50%;
+  color: #fff;
+  background: #377d39;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+.roles h3 {
+  margin: 0 0 7px;
+  font-size: 1.2rem;
+}
+.roles article p {
+  margin: 0;
+  color: #65766a;
+  font-size: 0.87rem;
+  line-height: 1.5;
+}
+@media (max-width: 700px) {
+  .help-heading,
+  .report-form {
+    grid-template-columns: 1fr;
+  }
+  .faq-grid,
+  .roles > div {
+    grid-template-columns: 1fr;
+  }
+  .incident {
+    align-items: start;
+    flex-direction: column;
+  }
+  .incident button,
+  .report-form button {
+    width: 100%;
+  }
+  .help-area {
+    margin-top: 0;
+    border-radius: 0;
+  }
+  .support-hero {
+    min-height: 240px;
+  }
+}

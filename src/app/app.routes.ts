@@ -4,6 +4,7 @@ import { LoginComponent } from './pages/login/login';
 import { RegisterComponent } from './pages/register/register';
 import { PaginaDeInicioComponent} from './pages/pagina-de-inicio/pagina-de-inicio';
 import { InicioComponent } from './pages/informacion-de-inicio/informacion-de-inicio';
+import { LoginComponent } from './pages/login/login';
 import { MasInformacionComponent } from './pages/mas-informacion/mas-informacion';
 import { LayoutComponent } from './layout/layout/layout';
 import { ModuloComponent } from './pages/modulo/modulo';

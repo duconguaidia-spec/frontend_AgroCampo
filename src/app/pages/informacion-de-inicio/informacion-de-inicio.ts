@@ -12,9 +12,9 @@ interface Caracteristica {
 }
 
 interface PerfilUsuario {
-  imagen: string;
   titulo: string;
   descripcion: string;
+  etiqueta: string;
 }
 
 @Component({
@@ -22,7 +22,7 @@ interface PerfilUsuario {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './informacion-de-inicio.html',
-  styleUrls: ['./informacion-de-inicio.css']
+  styleUrl: './informacion-de-inicio.css',
 })
 export class InicioComponent {
   constructor(private router: Router) {}
