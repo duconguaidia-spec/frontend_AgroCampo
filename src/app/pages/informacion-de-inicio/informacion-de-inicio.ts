@@ -11,6 +11,7 @@ interface Caracteristica {
   ruta: string;
 }
 
+
 interface PerfilUsuario {
   titulo: string;
   descripcion: string;
