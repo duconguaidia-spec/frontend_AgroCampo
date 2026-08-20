@@ -12,6 +12,7 @@ interface Caracteristica {
   cifraLabel: string;
 }
 
+
 interface PerfilUsuario {
   titulo: string;
   descripcion: string;
