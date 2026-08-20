@@ -47,7 +47,7 @@ export class InicioComponent {
   protected readonly perfiles: PerfilUsuario[] = [
     {
 
-      titul: 'Administrador General',
+      titulo: 'Administrador General',
       etiqueta: 'AG',
       descripcion:
         'Supervisa la plataforma, permisos, registros de veterinarias y estadísticas del sector.',
