@@ -5,9 +5,8 @@
   --verde-badge-texto: #1f6b2b;
   --texto-oscuro: #1c2b22;
   display: block;
-  font-family: 'Segoe UI', Roboto, sans-serif;
+  color: #17243f;
 }
-
 .inicio-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -90,7 +89,6 @@
   font-family: Georgia, 'Times New Roman', serif;
   font-size: clamp(1.35rem, 2.5vw, 1.75rem);
 }
-
 .caracteristicas-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 280px));
@@ -134,10 +132,26 @@
   margin-bottom: 10px;
   color: var(--verde-medio);
 }
-
 .caracteristica-icono svg {
   width: 100%;
   height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+}
+.caracteristica-card h3,
+.perfil-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+}
+.caracteristica-card p,
+.perfil-card p {
+  margin: 0;
+  color: #5b6b63;
+  font-size: 0.93rem;
+  line-height: 1.55;
 }
 
 .caracteristica-card h3 {
@@ -161,15 +175,12 @@
   background: var(--verde-badge-bg);
   color: var(--verde-badge-texto);
 }
-
 .caracteristica-badge strong {
   font-size: 0.9rem;
 }
-
 .caracteristica-badge span {
   font-size: 0.7rem;
 }
-
 .perfiles-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
