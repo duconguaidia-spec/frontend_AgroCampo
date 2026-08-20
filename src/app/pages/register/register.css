@@ -185,7 +185,7 @@ select:focus {
 }
 
 .submit-button:disabled {
-  background: #94a3b8;
+  background: #51895d;
   cursor: not-allowed;
 }
 

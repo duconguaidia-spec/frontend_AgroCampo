@@ -1,0 +1,38 @@
+<header class="header">
+  <a class="system" routerLink="/informacion-de-inicio" aria-label="Ir al inicio de AgroCampo">
+    <div class="logo-frame">
+      <img class="logo" src="assets/images/logo-agrocampo.png" alt="Logo de AgroCampo" />
+    </div>
+    <h1>{{ nombreSistema }}</h1>
+  </a>
+
+  <nav class="main-nav" aria-label="Navegación principal">
+    <a routerLink="/informacion-de-inicio" routerLinkActive="active">Inicio</a>
+    <span>Estadísticas</span>
+    <span>Veterinarias</span>
+    <span>Noticias</span>
+    <span>Foro</span>
+  </nav>
+
+  <div class="user-area">
+    <button
+      class="user-button"
+      type="button"
+      aria-label="Abrir menú de usuario"
+      [attr.aria-expanded]="menuAbierto"
+      (click)="alternarMenu()"
+    >
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-5 0-9 2.5-9 5.5V22h18v-2.5c0-3-4-5.5-9-5.5Z" />
+      </svg>
+    </button>
+
+    @if (menuAbierto) {
+      <div class="user-menu" role="menu">
+        <a routerLink="/perfil" role="menuitem" (click)="cerrarMenu()">Perfil</a>
+        <a routerLink="/mas-informacion" role="menuitem" (click)="cerrarMenu()">Más información</a>
+        <button type="button" role="menuitem" (click)="cerrarSesion()">Cerrar sesión</button>
+      </div>
+    }
+  </div>
+</header>

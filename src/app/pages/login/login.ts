@@ -1,7 +1,15 @@
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
+
+interface UsuarioPrueba {
+  correo: string;
+  contrasena: string;
+  nombre: string;
+  rol: 'Administrador' | 'Veterinario' | 'Usuario';
+}
 
 @Component({
   selector: 'app-login',
@@ -11,8 +19,30 @@ import { RouterLink } from '@angular/router';
 })
 export class LoginComponent {
   mostrarContrasena = false;
+  errorLogin = '';
 
   loginForm;
+
+  // Usuarios quemados para probar el flujo mientras no hay backend
+  private usuariosPrueba: UsuarioPrueba[] = [
+    { 
+      correo: 'admin@sena.com', 
+      contrasena: '123456', 
+      nombre: 'Admin Agrocampo', 
+      rol: 'Administrador' 
+    },
+    { 
+      correo: 'instructor@agrocampo.com', 
+      contrasena: '123456', 
+      nombre: 'Instructor Agrocampo', 
+      rol: 'Veterinario' 
+    },
+    { 
+      correo: 'aprendiz@agrocampo.com', 
+      contrasena: '123456', 
+      nombre: 'Aprendiz Agrocampo', 
+      rol: 'Usuario' },
+  ];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,24 +56,36 @@ export class LoginComponent {
   }
 
   iniciarSesion(): void {
+    this.errorLogin = '';
+
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
     }
 
-    console.log('Datos de inicio de sesión:', this.loginForm.value);
+    const { correo, contrasena } = this.loginForm.value;
 
-    // Aquí conectarás posteriormente tu servicio y API de autenticación.
+    const usuarioEncontrado = this.usuariosPrueba.find(
+      (u) => u.correo === correo && u.contrasena === contrasena
+    );
+
+    if (!usuarioEncontrado) {
+      this.errorLogin = 'Correo o contraseña incorrectos.';
+      return;
+    }
+
+    // Aquí luego guardarás el token/usuario real que devuelva tu API
+    localStorage.setItem('usuarioActual', JSON.stringify(usuarioEncontrado));
+
+    this.router.navigate(['/informacion-de-inicio']);
   }
 
   campoInvalido(campo: 'correo' | 'contrasena'): boolean {
     const control = this.loginForm.get(campo);
     return !!control && control.invalid && control.touched;
   }
-  inicioSesion(): void{
-    this.router.navigate(['/login']);
-  }
-  register(): void{
+
+  register(): void {
     this.router.navigate(['/register']);
   }
 }
