@@ -2,27 +2,23 @@
 
   <section class="login-shell" aria-labelledby="login-title">
     <header class="login-header">
-      
-  <div class="logo-frame">
-  <img
-    class="login-logo"
-    src="/assets/images/logo-agrocampo.png"
-    alt="Logo de AgroCampo"
-  />
-</div>
-
+      <div class="logo-frame">
+        <img
+          class="login-logo"
+          src="/assets/images/logo-agrocampo.png"
+          alt="Logo de AgroCampo"
+        />
+      </div>
       <h1>AgroCampo</h1>
     </header>
-
     <section class="form-card">
       <nav class="tabs" aria-label="Acceso a la cuenta">
-        <span class="tab active" aria-current="page">
-          Inicio sesión
-        </span>
-
-        <a class="tab" routerLink="/register">
-          Regístrate
-        </a>
+        <button class="btn-Inicia-Sesion active" type="button">
+          Inicia Sesión
+        </button>
+        <button class="btn-crear-cuenta" type="button" (click)="register()">
+          Registrarse
+        </button>
       </nav>
 
       <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()" novalidate>
@@ -48,7 +44,6 @@
         <div class="form-group">
           <div class="label-row">
             <label for="contrasena">Contraseña</label>
-
             <a class="forgot-password" href="#recuperar">
               ¿Olvidaste tu contraseña?
             </a>
@@ -85,6 +80,10 @@
           <input type="checkbox" formControlName="recordarme" />
           <span>Recordarme</span>
         </label>
+
+        @if (errorLogin) {
+          <p class="error-message">{{ errorLogin }}</p>
+        }
 
         <button class="submit-button" type="submit">
           Iniciar sesión
