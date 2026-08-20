@@ -59,7 +59,7 @@ export class InicioComponent {
         'Publica servicios, productos y responde consultas de la comunidad agropecuaria.',
     },
     {
-      titulo: 'Usuario General',
+      titulo: 'Usuario General ',
       etiqueta: 'UG',
       descripcion:
         'Consulta información, mapa interactivo, contenido educativo, noticias y videos.',
