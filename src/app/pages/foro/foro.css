@@ -355,7 +355,7 @@ h2 {
     grid-column: 1 / -1;
   }
 }
-.@media (max-width: 650px) {
+@media (max-width: 650px) {
   .shell {
     width: min(100% - 28px, 1360px);
   }
