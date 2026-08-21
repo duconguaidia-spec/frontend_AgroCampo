@@ -41,10 +41,10 @@ export class LoginComponent {
     const control = this.loginForm.get(campo);
     return !!control && control.invalid && control.touched;
   }
-  inicioSesion(): void{
+  inicioSesion(): void {
     this.router.navigate(['/login']);
   }
-  register(): void{
+  register(): void {
     this.router.navigate(['/register']);
   }
 }

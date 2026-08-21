@@ -1,7 +1,38 @@
 <div class="profile-page">
   <app-site-header />
-  <main class="profile-main"><section class="profile-shell"><aside class="profile-summary"><div class="portrait">RC</div><p class="role-pill">{{ perfil.rol }}</p><h1>{{ perfil.nombre }}<br />{{ perfil.apellido }}</h1><p class="location">⌖ {{ perfil.ubicacion }}</p><div class="summary-note"><strong>Perfil AgroCampo</strong><span>Actualiza tus datos e intereses para recibir contenido más relevante.</span></div></aside>
-    <section class="profile-form" aria-labelledby="profile-form-title"><div class="form-heading"><p>Roles y usuarios · RF 4–5</p><h2 id="profile-form-title">Información personal</h2><span>Estos datos se usan para personalizar tu experiencia dentro de la plataforma.</span></div><div class="fields"><label>Nombre<input [(ngModel)]="perfil.nombre" name="nombre" placeholder="Ingrese su nombre" /></label><label>Apellido<input [(ngModel)]="perfil.apellido" name="apellido" placeholder="Ingrese su apellido" /></label><label>Teléfono<input [(ngModel)]="perfil.telefono" name="telefono" placeholder="Ingrese su teléfono" /></label><label>Ubicación<input [(ngModel)]="perfil.ubicacion" name="ubicacion" placeholder="Ingrese su ubicación" /></label></div><section class="interests"><h3>Intereses</h3><p>Selecciona los temas sobre los que quieres recibir recomendaciones.</p><div>@for (interes of intereses; track interes) { <button type="button" [class.selected]="interesesActivos.has(interes)" (click)="alternarInteres(interes)">{{ interesesActivos.has(interes) ? '✓ ' : '' }}{{ interes }}</button> }</div></section><div class="save-row"><span role="status">@if (guardado) { Cambios guardados correctamente. }</span><button type="button" (click)="guardar()">Guardar cambios</button></div></section>
-  </section></main>
+  <main class="profile-main">
+    <section class="profile-shell">
+      <aside class="profile-summary">
+        <div class="portrait">RC</div>
+        <p class="role-pill">{{ perfil.rol }}</p>
+        <h1>{{ perfil.nombre }}<br />{{ perfil.apellido }}</h1>
+        <p class="location">⌖ {{ perfil.ubicacion }}</p>
+        <div class="summary-note"><strong>Perfil AgroCampo</strong><span>Actualiza tus datos e intereses para recibir
+            contenido más relevante.</span></div>
+      </aside>
+      <section class="profile-form" aria-labelledby="profile-form-title">
+        <div class="form-heading">
+          <p>Roles y usuarios · RF 4–5</p>
+          <h2 id="profile-form-title">Información personal</h2><span>Estos datos se usan para personalizar tu
+            experiencia dentro de la plataforma.</span>
+        </div>
+        <div class="fields"><label>Nombre<input [(ngModel)]="perfil.nombre" name="nombre"
+              placeholder="Ingrese su nombre" /></label><label>Apellido<input [(ngModel)]="perfil.apellido"
+              name="apellido" placeholder="Ingrese su apellido" /></label><label>Teléfono<input
+              [(ngModel)]="perfil.telefono" name="telefono"
+              placeholder="Ingrese su teléfono" /></label><label>Ubicación<input [(ngModel)]="perfil.ubicacion"
+              name="ubicacion" placeholder="Ingrese su ubicación" /></label></div>
+        <section class="interests">
+          <h3>Intereses</h3>
+          <p>Selecciona los temas sobre los que quieres recibir recomendaciones.</p>
+          <div>@for (interes of intereses; track interes) { <button type="button"
+              [class.selected]="interesesActivos.has(interes)" (click)="alternarInteres(interes)">{{
+              interesesActivos.has(interes) ? '✓ ' : '' }}{{ interes }}</button> }</div>
+        </section>
+        <div class="save-row"><span role="status">@if (guardado) { Cambios guardados correctamente. }</span><button
+            type="button" (click)="guardar()">Guardar cambios</button></div>
+      </section>
+    </section>
+  </main>
   <app-site-footer />
 </div>
