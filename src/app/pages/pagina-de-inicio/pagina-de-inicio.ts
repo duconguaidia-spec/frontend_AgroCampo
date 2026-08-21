@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-pagina-de-inicio',
-  standalone:true,
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './pagina-de-inicio.html',
   styleUrl: './pagina-de-inicio.css',
@@ -12,17 +12,17 @@ export class PaginaDeInicioComponent {
 
   anioActual: number = new Date().getFullYear();
 
-  constructor(private router: Router){}
+  constructor(private router: Router) { }
 
-  inicioSesion(): void{
+  inicioSesion(): void {
     this.router.navigate(['/login']);
   }
 
-  crearCuenta(): void{
+  crearCuenta(): void {
     this.router.navigate(['/register']);
   }
 
-  irMasInformacion():void{
+  irMasInformacion(): void {
     this.router.navigate(['/mas-informacion']);
   }
 
