@@ -1,7 +1,7 @@
 :host {
   display: block;
   min-height: 100dvh;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Georgia, 'Times New Roman', serif;
   width: 100%;
 }
 
@@ -17,12 +17,11 @@
   padding: 38px 24px 62px;
   background:
     linear-gradient(90deg, rgba(20, 43, 16, 0.24), transparent 52%, rgba(11, 37, 18, 0.2)),
-    url('/assets/images/fondo-login.png')
-      center / cover;
+    url('/assets/images/fondo-login.png') center / cover;
 }
 
 .login-page::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgba(255, 204, 104, 0.12), rgba(5, 42, 10, 0.2));
@@ -85,7 +84,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 3px;
-  border-radius: 999px;      /* totalmente redondeado en los extremos, como en la imagen */
+  border-radius: 999px; /* totalmente redondeado en los extremos, como en la imagen */
   background: #e5e5e5;
 }
 
@@ -93,21 +92,23 @@
 .btn-crear-cuenta {
   padding: 7px 5px;
   border: 0;
-  border-radius: 999px;      /* mismo redondeo en el botón activo */
+  border-radius: 999px; /* mismo redondeo en el botón activo */
   background: transparent;
   color: #171717;
   font-size: 0.78rem;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Georgia, 'Times New Roman', serif;
   text-decoration: none;
   text-align: center;
   cursor: pointer;
-  transition: background 0.2s, box-shadow 0.2s;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
 }
 
 .btn-Inicia-Sesion.active,
 .btn-crear-cuenta.active {
   background: #ffffff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);   /* sombra suave, más parecida a la imagen que el borde fino que teníamos */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15); /* sombra suave, más parecida a la imagen que el borde fino que teníamos */
   font-weight: 600;
 }
 
@@ -134,9 +135,9 @@ label {
   text-decoration: none;
 }
 
-input[type="email"],
-input[type="password"],
-input[type="text"] {
+input[type='email'],
+input[type='password'],
+input[type='text'] {
   width: 100%;
   height: 31px;
   padding: 7px 32px 7px 13px;
@@ -144,7 +145,10 @@ input[type="text"] {
   border-radius: 18px;
   outline: 0;
   background: #e5e5e5;
-  font: 0.76rem Georgia, "Times New Roman", serif;
+  font:
+    0.76rem Georgia,
+    'Times New Roman',
+    serif;
 }
 
 input:focus {
@@ -200,7 +204,10 @@ input:focus {
   border-radius: 18px;
   color: #ffffff;
   background: #2da345;
-  font: 0.82rem Georgia, "Times New Roman", serif;
+  font:
+    0.82rem Georgia,
+    'Times New Roman',
+    serif;
   cursor: pointer;
 }
 
