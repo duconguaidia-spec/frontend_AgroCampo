@@ -3,7 +3,6 @@ import { AyudaSoporteComponent } from './pages/ayuda-soporte/ayuda-soporte';
 import { EstadisticasComponent } from './pages/estadisticas/estadisticas';
 import { ForoComponent } from './pages/foro/foro';
 import { InicioComponent } from './pages/informacion-de-inicio/informacion-de-inicio';
-import { LoginComponent } from './pages/login/login';
 import { MasInformacionComponent } from './pages/mas-informacion/mas-informacion';
 import { NoticiasComponent } from './pages/noticias/noticias';
 import { PaginaDeInicioComponent } from './pages/pagina-de-inicio/pagina-de-inicio';

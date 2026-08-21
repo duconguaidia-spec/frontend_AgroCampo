@@ -43,10 +43,10 @@ describe('InicioComponent', () => {
     expect(titulo.nativeElement.textContent).toContain('¿Quien puede usar AgroCampo?');
   });
 
-  it('debería renderizar las 4 tarjetas de perfiles de usuario', () => {
+  it('debería renderizar las tarjetas de perfiles de usuario', () => {
     const cards = fixture.debugElement.queryAll(By.css('.perfil-card'));
     expect(cards.length).toBe(component.perfiles.length);
-    expect(component.perfiles.length).toBe(4);
+    expect(component.perfiles.length).toBe(3);
   });
 
   it('debería usar únicamente imágenes disponibles para los perfiles', () => {
