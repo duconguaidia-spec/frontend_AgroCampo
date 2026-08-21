@@ -18,21 +18,14 @@
       <p class="section-eyebrow">Módulos conectados</p>
       <h2>Todo lo que necesitas para el sector agropecuario</h2>
       <div class="caracteristicas-grid">
-        <article class="caracteristica-card" *ngFor="let car of caracteristicas">
+        <a class="caracteristica-card" *ngFor="let car of caracteristicas" [routerLink]="car.ruta">
           <div class="caracteristica-icono" [ngSwitch]="car.icono">
-            <svg *ngSwitchCase="'educacion'" viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M3 5.5c3-1.3 5.7-1.1 8 1v12c-2.3-2.1-5-2.3-8-1V5.5Zm18 0c-3-1.3-5.7-1.1-8 1v12c2.3-2.1 5-2.3 8-1V5.5Z" />
-              <path d="M17 3v6m-3-3h6" />
-            </svg>
-            <svg *ngSwitchCase="'reportes'" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 20V10m7 10V4m7 16v-7M3 20h19" />
-            </svg>
+            <svg *ngSwitchCase="'educacion'" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5c3-1.3 5.7-1.1 8 1v12c-2.3-2.1-5-2.3-8-1V5.5Zm18 0c-3-1.3-5.7-1.1-8 1v12c2.3-2.1 5-2.3 8-1V5.5Z"/><path d="M17 3v6m-3-3h6"/></svg>
           </div>
           <h3>{{ car.titulo }}</h3>
           <p>{{ car.subtitulo }}</p>
           <div class="caracteristica-badge"><strong>{{ car.cifra }}</strong><span>{{ car.cifraLabel }}</span></div>
-        </article>
+        </a>
       </div>
     </section>
 

@@ -93,7 +93,7 @@ h3 {
 }
 .caracteristicas-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(240px, 330px));
+  grid-template-columns: minmax(240px, 390px);
   justify-content: center;
   gap: 22px;
 }
@@ -103,7 +103,14 @@ h3 {
   border-radius: 16px;
   background: rgb(255 255 255 / 95%);
   box-shadow: 0 12px 25px rgb(28 72 35 / 11%);
+  color: inherit;
   text-align: left;
+  text-decoration: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.caracteristica-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 30px rgb(28 72 35 / 18%);
 }
 .caracteristica-icono {
   width: 48px;
