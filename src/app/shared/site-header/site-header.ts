@@ -15,7 +15,7 @@ interface NavigationItem {
 })
 export class SiteHeaderComponent {
   protected readonly navigation: NavigationItem[] = [
-    { label: 'Inicio', path: '/inicio' },
+    { label: 'Inicio', path: '/home' },
     { label: 'Estadísticas', path: '/estadisticas' },
     { label: 'Veterinarias', path: '/veterinarias' },
     { label: 'Noticias', path: '/noticias' },
