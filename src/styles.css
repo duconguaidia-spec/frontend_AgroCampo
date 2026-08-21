@@ -14,5 +14,16 @@ body {
 
 app-root {
   display: block;
-  height: 100dvh;
+  min-height: 100dvh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
