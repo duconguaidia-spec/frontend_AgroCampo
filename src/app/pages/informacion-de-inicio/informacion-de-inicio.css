@@ -1,136 +1,115 @@
 :host {
-  --verde-bosque: #173f29;
-  --verde-medio: #2da345;
-  --verde-badge-bg: #d0e6d2;
-  --verde-badge-texto: #1f6b2b;
-  --texto-oscuro: #1c2b22;
   display: block;
   color: #17243f;
 }
 .inicio-container {
-  max-width: 1200px;
-  margin: 0 auto;
+  min-height: 100dvh;
   overflow: hidden;
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: 0 4px 16px rgb(11 40 24 / 10%);
+  background: #f7faf5;
 }
-
 .hero {
-  position: relative;
-  min-height: 320px;
-  overflow: hidden;
-}
-
-.hero-imagen,
-.caracteristicas-imagen,
-.perfiles-imagen {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgb(11 40 24 / 85%), rgb(23 63 41 / 55%) 50%, transparent);
-}
-
-.hero-contenido {
-  position: relative;
-  z-index: 1;
-  max-width: 560px;
-  padding: 68px 48px;
+  min-height: min(540px, 55vw);
+  display: grid;
+  align-items: center;
+  padding: 72px clamp(24px, 7vw, 116px);
   color: #fff;
+  background:
+    linear-gradient(90deg, rgb(15 42 100 / 79%), rgb(32 74 147 / 47%) 55%, rgb(15 42 100 / 4%)),
+    url('/assets/images/campo-atardecer.jpg') center / cover;
 }
-
-.hero-titulo {
-  margin: 0 0 14px;
+.hero-contenido {
+  max-width: 680px;
+}
+.hero-kicker,
+.section-eyebrow {
+  margin: 0 0 10px;
+  color: #4b8e37;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.hero-kicker {
+  color: #d7f5bd;
+}
+h1,
+h2,
+h3 {
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(1.75rem, 3vw, 2.35rem);
-  line-height: 1.2;
 }
-
-.hero-subtitulo {
+.hero h1 {
+  max-width: 650px;
   margin: 0;
-  font-size: 1rem;
-  line-height: 1.65;
+  font-size: clamp(2.2rem, 4.7vw, 4.4rem);
+  line-height: 1.08;
 }
-
-.caracteristicas,
-.perfiles {
-  position: relative;
-  overflow: hidden;
-  padding: 48px 32px;
+.hero p:not(.hero-kicker) {
+  max-width: 590px;
+  margin: 22px 0 0;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.55;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 18px;
+  border-radius: 9px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.button-primary {
+  color: #fff;
+  background: #25953c;
+  box-shadow: 0 8px 18px rgb(0 40 12 / 20%);
+}
+.button-secondary {
+  color: #fff;
+  border: 1px solid rgb(255 255 255 / 63%);
+  background: rgb(255 255 255 / 14%);
+}
+.section-shell {
+  padding: 70px clamp(24px, 7vw, 116px);
   text-align: center;
 }
-
-.caracteristicas-overlay,
-.perfiles-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgb(255 255 255 / 88%);
+.section-shell h2 {
+  max-width: 990px;
+  margin: 0 auto 38px;
+  font-size: clamp(1.85rem, 3.2vw, 3.35rem);
+  line-height: 1.2;
 }
-
-.caracteristicas-titulo,
-.perfiles-titulo,
-.caracteristicas-grid,
-.perfiles-grid {
+.caracteristicas {
   position: relative;
-  z-index: 1;
-}
-
-.caracteristicas-titulo,
-.perfiles-titulo {
-  margin: 0 0 32px;
-  color: var(--texto-oscuro);
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  background:
+    linear-gradient(rgb(255 255 255 / 88%), rgb(255 255 255 / 93%)),
+    url('/assets/images/campo-verde.jpg') center / cover;
 }
 .caracteristicas-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 280px));
+  grid-template-columns: repeat(2, minmax(240px, 330px));
   justify-content: center;
-  gap: 20px;
+  gap: 22px;
 }
-
-.caracteristica-card,
-.perfil-card {
-  overflow: hidden;
-  border: 1px solid rgb(168 198 159 / 60%);
-  border-radius: 12px;
-  background: rgb(255 255 255 / 96%);
-  box-shadow: 0 6px 16px rgb(20 30 20 / 10%);
+.caracteristica-card {
+  padding: 28px;
+  border: 1px solid #e5eadf;
+  border-radius: 16px;
+  background: rgb(255 255 255 / 95%);
+  box-shadow: 0 12px 25px rgb(28 72 35 / 11%);
   text-align: left;
 }
-
-.caracteristica-card {
-  padding: 20px;
-  width: 100%;
-  color: inherit;
-  cursor: pointer;
-  font: inherit;
-  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
-}
-
-.caracteristica-card:hover {
-  border-color: var(--verde-medio);
-  box-shadow: 0 10px 22px rgb(20 30 20 / 16%);
-  transform: translateY(-3px);
-}
-
-.caracteristica-card:focus-visible {
-  outline: 3px solid var(--verde-medio);
-  outline-offset: 3px;
-}
-
 .caracteristica-icono {
-  width: 34px;
-  height: 34px;
-  margin-bottom: 10px;
-  color: var(--verde-medio);
+  width: 48px;
+  height: 48px;
+  margin-bottom: 14px;
+  color: #439932;
 }
 .caracteristica-icono svg {
   width: 100%;
@@ -153,88 +132,64 @@
   font-size: 0.93rem;
   line-height: 1.55;
 }
-
-.caracteristica-card h3 {
-  margin: 0 0 7px;
-  color: var(--texto-oscuro);
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 1rem;
-}
-
-.caracteristica-subtitulo {
-  margin: 0 0 14px;
-  color: #526158;
-  font-size: 0.82rem;
-}
-
 .caracteristica-badge {
   display: inline-flex;
   flex-direction: column;
-  padding: 7px 12px;
+  margin-top: 18px;
+  padding: 7px 14px;
   border-radius: 8px;
-  background: var(--verde-badge-bg);
-  color: var(--verde-badge-texto);
+  color: #176d2a;
+  background: #d9f0d6;
 }
 .caracteristica-badge strong {
-  font-size: 0.9rem;
+  font-size: 1.05rem;
 }
 .caracteristica-badge span {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
+}
+.perfiles {
+  background:
+    linear-gradient(rgb(255 255 255 / 85%), rgb(255 255 255 / 91%)),
+    url('/assets/images/campo-atardecer.jpg') center / cover;
 }
 .perfiles-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 290px));
+  justify-content: center;
+  gap: 20px;
+  text-align: left;
 }
-
-.perfil-foto {
-  width: 100%;
-  height: 120px;
-  display: block;
-  object-fit: cover;
+.perfil-card {
+  min-height: 206px;
+  padding: 25px;
+  border-radius: 15px;
+  background: rgb(255 255 255 / 94%);
+  box-shadow: 0 9px 20px rgb(36 63 44 / 10%);
 }
-
-.perfil-texto {
-  padding: 14px;
-}
-
-.perfil-texto h4 {
-  margin: 0 0 7px;
-  color: var(--verde-bosque);
-  font-family: Georgia, 'Times New Roman', serif;
+.perfil-avatar {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  margin-bottom: 18px;
+  border-radius: 50%;
+  color: #fff;
+  background: linear-gradient(135deg, #2f7f37, #174f38);
   font-size: 0.9rem;
-  text-transform: uppercase;
+  font-weight: 800;
 }
-
-.perfil-texto p {
-  margin: 0;
-  color: #526158;
-  font-size: 0.78rem;
-  line-height: 1.5;
-}
-
-@media (max-width: 900px) {
-  .perfiles-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+@media (max-width: 760px) {
+  .hero {
+    min-height: 500px;
+    padding-block: 65px;
   }
-}
-
-@media (max-width: 600px) {
-  .inicio-container {
-    border-radius: 0;
-  }
-
-  .hero-contenido {
-    padding: 52px 24px;
-  }
-
-  .caracteristicas,
-  .perfiles {
-    padding: 36px 20px;
-  }
-
   .caracteristicas-grid,
   .perfiles-grid {
     grid-template-columns: 1fr;
+    max-width: 420px;
+    margin: auto;
+  }
+  .section-shell {
+    padding-block: 54px;
   }
 }

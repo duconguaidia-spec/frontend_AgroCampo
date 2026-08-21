@@ -1,64 +1,46 @@
 <div class="inicio-container">
-  <section class="hero">
-    <img class="hero-imagen" src="assets/images/campo-atardecer.jpg" alt="Cultivo al atardecer" />
-    <div class="hero-overlay"></div>
+  <app-site-header />
 
-    <div class="hero-contenido">
-      <h1 class="hero-titulo">
-        Plataforma integral<br />
-        para la gestión agropecuaria
-      </h1>
-      <p class="hero-subtitulo">
-        Administra cultivos, ganado, veterinaria y estadísticas del sector en un solo sistema digital
-      </p>
-    </div>
-  </section>
-
-  <section class="caracteristicas">
-    <img class="caracteristicas-imagen" src="assets/images/campo-atardecer.jpg" alt="Cultivo al atardecer" />
-    <div class="caracteristicas-overlay"></div>
-
-    <h2 class="caracteristicas-titulo">Todo lo que necesitas para el sector agropecuario</h2>
-
-    <div class="caracteristicas-grid">
-      <button class="caracteristica-card" type="button" *ngFor="let car of caracteristicas" (click)="irAModulo(car.ruta)">
-        <div class="caracteristica-icono" [ngSwitch]="car.icono">
-          <svg *ngSwitchCase="'educacion'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-            <path d="M2 5c3-1.5 6-1.5 9 0v14c-3-1.5-6-1.5-9 0V5z"/>
-            <path d="M22 5c-3-1.5-6-1.5-9 0v14c3-1.5 6-1.5 9 0V5z"/>
-            <path d="M18 3v6" stroke-width="2"/>
-            <path d="M15 6h6" stroke-width="2"/>
-          </svg>
-          <svg *ngSwitchCase="'reportes'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-            <path d="M4 20V10"/><path d="M11 20V4"/><path d="M18 20v-7"/>
-            <path d="M3 20h19" stroke-width="2"/>
-          </svg>
-        </div>
-        <h3>{{ car.titulo }}</h3>
-        <p class="caracteristica-subtitulo">{{ car.subtitulo }}</p>
-        <div class="caracteristica-badge">
-          <strong>{{ car.cifra }}</strong>
-          <span>{{ car.cifraLabel }}</span>
-        </div>
-      </button>
-    </div>
-  </section>
-
-  <section class="perfiles">
-    <img class="perfiles-imagen" src="assets/images/campo-atardecer.jpg" alt="Campo de cultivo" />
-    <div class="perfiles-overlay"></div>
-
-    <h2 class="perfiles-titulo">¿Quien puede usar AgroCampo?</h2>
-
-    <div class="perfiles-grid">
-      <div class="perfil-card" *ngFor="let perfil of perfiles">
-        <img class="perfil-foto" [src]="perfil.imagen" [alt]="perfil.titulo" />
-        <div class="perfil-texto">
-          <h4>{{ perfil.titulo }}</h4>
-          <p>{{ perfil.descripcion }}</p>
+  <main>
+    <section class="hero">
+      <div class="hero-contenido">
+        <p class="hero-kicker">Sistema integral AgroCampo</p>
+        <h1>Plataforma integral para la gestión agropecuaria</h1>
+        <p>Administra cultivos, ganado, servicios veterinarios y estadísticas del sector en un solo sistema digital.</p>
+        <div class="hero-actions">
+          <a routerLink="/mas-informacion" class="button button-primary">Conocer la plataforma</a>
+          <a routerLink="/estadisticas" class="button button-secondary">Ver estadísticas</a>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
+    <section class="caracteristicas section-shell">
+      <p class="section-eyebrow">Módulos conectados</p>
+      <h2>Todo lo que necesitas para el sector agropecuario</h2>
+      <div class="caracteristicas-grid">
+        <article class="caracteristica-card" *ngFor="let car of caracteristicas">
+          <div class="caracteristica-icono" [ngSwitch]="car.icono">
+            <svg *ngSwitchCase="'educacion'" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5c3-1.3 5.7-1.1 8 1v12c-2.3-2.1-5-2.3-8-1V5.5Zm18 0c-3-1.3-5.7-1.1-8 1v12c2.3-2.1 5-2.3 8-1V5.5Z"/><path d="M17 3v6m-3-3h6"/></svg>
+            <svg *ngSwitchCase="'reportes'" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10m7 10V4m7 16v-7M3 20h19"/></svg>
+          </div>
+          <h3>{{ car.titulo }}</h3>
+          <p>{{ car.subtitulo }}</p>
+          <div class="caracteristica-badge"><strong>{{ car.cifra }}</strong><span>{{ car.cifraLabel }}</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="perfiles section-shell">
+      <p class="section-eyebrow">Acceso por roles</p>
+      <h2>¿Quién puede usar AgroCampo?</h2>
+      <div class="perfiles-grid">
+        <article class="perfil-card" *ngFor="let perfil of perfiles">
+          <div class="perfil-avatar">{{ perfil.etiqueta }}</div>
+          <div class="perfil-texto"><h3>{{ perfil.titulo }}</h3><p>{{ perfil.descripcion }}</p></div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <app-site-footer />
 </div>

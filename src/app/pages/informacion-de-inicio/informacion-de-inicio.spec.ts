@@ -10,7 +10,7 @@ describe('InicioComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [InicioComponent],
-      providers: [provideRouter([])],
+      providers: [provideRouter([])]
     }).compileComponents();
 
     fixture = TestBed.createComponent(InicioComponent);
@@ -20,6 +20,16 @@ describe('InicioComponent', () => {
 
   it('debería crearse el componente', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('debería mostrar la marca "AgroCampo" en el navbar', () => {
+    const marca = fixture.debugElement.query(By.css('.navbar-nombre'));
+    expect(marca.nativeElement.textContent).toContain('AgroCampo');
+  });
+
+  it('debería mostrar los 5 enlaces del menú de navegación', () => {
+    const links = fixture.debugElement.queryAll(By.css('.navbar-links a'));
+    expect(links.length).toBe(5);
   });
 
   it('debería mostrar el título principal del hero', () => {
@@ -43,15 +53,15 @@ describe('InicioComponent', () => {
     expect(titulo.nativeElement.textContent).toContain('¿Quien puede usar AgroCampo?');
   });
 
-  it('debería renderizar las tarjetas de perfiles de usuario', () => {
+  it('debería renderizar las 4 tarjetas de perfiles de usuario', () => {
     const cards = fixture.debugElement.queryAll(By.css('.perfil-card'));
     expect(cards.length).toBe(component.perfiles.length);
-    expect(component.perfiles.length).toBe(3);
+    expect(component.perfiles.length).toBe(4);
   });
 
-  it('debería usar únicamente imágenes disponibles para los perfiles', () => {
-    const imagenes = component.perfiles.map((perfil) => perfil.imagen);
-    expect(imagenes).not.toContain('assets/images/perfil-guia.jpg');
-    expect(imagenes).not.toContain('assets/images/perfil-veterinarias.jpg');
+  it('debería mostrar el pie de página con el año actual', () => {
+    const footer = fixture.debugElement.query(By.css('.footer-inferior p'));
+    expect(footer.nativeElement.textContent).toContain(String(component.anioActual));
+    expect(footer.nativeElement.textContent).toContain('AgroCampo');
   });
 });
