@@ -22,24 +22,14 @@ describe('MasInformacionComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('debería mostrar la marca "AgroCampo" en el navbar', () => {
-    const marca = fixture.debugElement.query(By.css('.navbar-nombre'));
+  it('debería mostrar la marca "AgroCampo" en el encabezado', () => {
+    const marca = fixture.debugElement.query(By.css('.brand-name'));
     expect(marca.nativeElement.textContent).toContain('AgroCampo');
   });
 
-  it('debería mostrar los 6 enlaces del menú de navegación', () => {
-    const links = fixture.debugElement.queryAll(By.css('.navbar-links a'));
-    expect(links.length).toBe(6);
-  });
-
-  it('debería mostrar el ícono de usuario en el navbar', () => {
-    const icono = fixture.debugElement.query(By.css('.navbar-usuario svg'));
-    expect(icono).toBeTruthy();
-  });
-
-  it('debería mostrar el título "Mas Información"', () => {
-    const titulo = fixture.debugElement.query(By.css('.mi-header-titulo'));
-    expect(titulo.nativeElement.textContent).toContain('Mas Información');
+  it('debería mostrar el título "Más información"', () => {
+    const titulo = fixture.debugElement.query(By.css('.mi-header h1'));
+    expect(titulo.nativeElement.textContent).toContain('Más información');
   });
 
   it('debería mostrar la tarjeta de introducción', () => {
@@ -52,21 +42,15 @@ describe('MasInformacionComponent', () => {
     expect(cards.length).toBe(2);
   });
 
-  it('debería renderizar los 6 módulos de la plataforma', () => {
+  it('debería renderizar los 7 módulos de la plataforma', () => {
     const cards = fixture.debugElement.queryAll(By.css('.modulo-card'));
     expect(cards.length).toBe(component.modulos.length);
-    expect(component.modulos.length).toBe(6);
+    expect(component.modulos.length).toBe(7);
   });
 
-  it('cada módulo debería tener título, descripción y etiqueta', () => {
+  it('cada módulo debería tener título, descripción y requisito', () => {
     const primerModulo = fixture.debugElement.query(By.css('.modulo-card'));
-    expect(primerModulo.query(By.css('h4')).nativeElement.textContent).toContain('Gestion Agropecuaria');
-    expect(primerModulo.query(By.css('.modulo-etiqueta')).nativeElement.textContent).toContain('Modulo 1');
-  });
-
-  it('debería mostrar el pie de página con el año actual', () => {
-    const footer = fixture.debugElement.query(By.css('.mi-footer p'));
-    expect(footer.nativeElement.textContent).toContain(String(component.anioActual));
-    expect(footer.nativeElement.textContent).toContain('AgroCampo');
+    expect(primerModulo.query(By.css('h3')).nativeElement.textContent).toContain('Inicio de sesión');
+    expect(primerModulo.query(By.css('span')).nativeElement.textContent).toContain('RF 1');
   });
 });

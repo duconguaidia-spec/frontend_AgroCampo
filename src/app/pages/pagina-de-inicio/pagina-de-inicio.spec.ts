@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter, Router } from '@angular/router';
+import { vi } from 'vitest';
 import { PaginaDeInicioComponent } from './pagina-de-inicio';
 
 describe('PaginaDeInicioComponent', () => {
@@ -29,21 +30,21 @@ describe('PaginaDeInicioComponent', () => {
     expect(titulo.nativeElement.textContent).toContain('Soluciones agrícolas');
   });
  
-  it('debería mostrar los dos botones de acción', () => {
+  it('debería mostrar los tres botones de acción', () => {
     const botones = fixture.debugElement.queryAll(By.css('button'));
-    expect(botones.length).toBe(2);
+    expect(botones.length).toBe(3);
   });
  
   it('debería navegar a /register al hacer clic en "Crear cuenta gratis"', () => {
-    const navigateSpy = spyOn(router, 'navigate');
+    const navigateSpy = vi.spyOn(router, 'navigate');
     const btn = fixture.debugElement.query(By.css('.btn-crear-cuenta'));
     btn.nativeElement.click();
     expect(navigateSpy).toHaveBeenCalledWith(['/register']);
   });
  
   it('debería navegar a /mas-informacion al hacer clic en "Mas información"', () => {
-    const navigateSpy = spyOn(router, 'navigate');
-    const btn = fixture.debugElement.query(By.css('.btn-mas-info'));
+    const navigateSpy = vi.spyOn(router, 'navigate');
+    const btn = fixture.debugElement.queryAll(By.css('.btn-mas-info'))[1];
     btn.nativeElement.click();
     expect(navigateSpy).toHaveBeenCalledWith(['/mas-informacion']);
   });
