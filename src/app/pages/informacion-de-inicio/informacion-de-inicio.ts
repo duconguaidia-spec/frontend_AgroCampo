@@ -12,7 +12,6 @@ interface Caracteristica {
   cifraLabel: string;
 }
 
-
 interface PerfilUsuario {
   titulo: string;
   descripcion: string;
@@ -46,7 +45,6 @@ export class InicioComponent {
 
   protected readonly perfiles: PerfilUsuario[] = [
     {
-
       titulo: 'Administrador General',
       etiqueta: 'AG',
       descripcion:
@@ -59,11 +57,10 @@ export class InicioComponent {
         'Publica servicios, productos y responde consultas de la comunidad agropecuaria.',
     },
     {
-      titulo: 'Usuario General ',
+      titulo: 'Usuario General',
       etiqueta: 'UG',
       descripcion:
         'Consulta información, mapa interactivo, contenido educativo, noticias y videos.',
     },
   ];
 }
-
