@@ -2,25 +2,21 @@
 
   <section class="login-shell" aria-labelledby="login-title">
     <header class="login-header">
-      
-  <div class="logo-frame">
-  <img
-    class="login-logo"
-    src="/assets/images/logo-agrocampo.png"
-    alt="Logo de AgroCampo"
-  />
-</div>
+
+      <div class="logo-frame">
+        <img class="login-logo" src="/assets/images/logo-agrocampo.png" alt="Logo de AgroCampo" />
+      </div>
 
       <h1>AgroCampo</h1>
     </header>
 
     <section class="form-card">
       <nav class="tabs" aria-label="Acceso a la cuenta">
-        <span class="tab active" aria-current="page">
+        <span class="btn-Inicia-Sesion active" aria-current="page">
           Inicio sesión
         </span>
 
-        <a class="tab" routerLink="/register">
+        <a class="btn-crear-cuenta" routerLink="/register">
           Regístrate
         </a>
       </nav>
@@ -29,19 +25,13 @@
         <div class="form-group">
           <label for="correo">Correo personal</label>
 
-          <input
-            id="correo"
-            type="email"
-            formControlName="correo"
-            placeholder="Ingrese su correo"
-            autocomplete="email"
-            [class.input-error]="campoInvalido('correo')"
-          />
+          <input id="correo" type="email" formControlName="correo" placeholder="Ingrese su correo" autocomplete="email"
+            [class.input-error]="campoInvalido('correo')" />
 
           @if (campoInvalido('correo')) {
-            <small class="error-message">
-              Ingresa un correo electrónico válido.
-            </small>
+          <small class="error-message">
+            Ingresa un correo electrónico válido.
+          </small>
           }
         </div>
 
@@ -55,29 +45,20 @@
           </div>
 
           <div class="password-field">
-            <input
-              id="contrasena"
-              [type]="mostrarContrasena ? 'text' : 'password'"
-              formControlName="contrasena"
-              placeholder="Ingrese su contraseña"
-              autocomplete="current-password"
-              [class.input-error]="campoInvalido('contrasena')"
-            />
+            <input id="contrasena" [type]="mostrarContrasena ? 'text' : 'password'" formControlName="contrasena"
+              placeholder="Ingrese su contraseña" autocomplete="current-password"
+              [class.input-error]="campoInvalido('contrasena')" />
 
-            <button
-              class="password-button"
-              type="button"
-              (click)="mostrarContrasena = !mostrarContrasena"
-              [attr.aria-label]="mostrarContrasena ? 'Ocultar contraseña' : 'Mostrar contraseña'"
-            >
+            <button class="password-button" type="button" (click)="mostrarContrasena = !mostrarContrasena"
+              [attr.aria-label]="mostrarContrasena ? 'Ocultar contraseña' : 'Mostrar contraseña'">
               👁
             </button>
           </div>
 
           @if (campoInvalido('contrasena')) {
-            <small class="error-message">
-              La contraseña debe tener mínimo 6 caracteres.
-            </small>
+          <small class="error-message">
+            La contraseña debe tener mínimo 6 caracteres.
+          </small>
           }
         </div>
 
