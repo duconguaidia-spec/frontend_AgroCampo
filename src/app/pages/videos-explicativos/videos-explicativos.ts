@@ -20,7 +20,13 @@ interface Video {
   styleUrl: './videos-explicativos.css',
 })
 export class VideosExplicativosComponent {
-  protected readonly categorias = ['Todo', 'Cultivos', 'Ganadería', 'Maquinaria', 'Plagas'] as const;
+  protected readonly categorias = [
+    'Todo',
+    'Cultivos',
+    'Ganadería',
+    'Maquinaria',
+    'Plagas',
+  ] as const;
   protected categoriaActiva: (typeof this.categorias)[number] = 'Todo';
   protected termino = '';
 
@@ -29,7 +35,8 @@ export class VideosExplicativosComponent {
       id: 1,
       categoria: 'Cultivos',
       titulo: '¿Cuántas veces hay que abonar el maíz?',
-      descripcion: 'Consejos prácticos para planificar la fertilización y favorecer una cosecha sana de maíz.',
+      descripcion:
+        'Consejos prácticos para planificar la fertilización y favorecer una cosecha sana de maíz.',
       imagen: 'maiz',
       enlace: 'https://www.youtube.com/results?search_query=cuantas+veces+abonar+maiz',
     },
@@ -64,7 +71,10 @@ export class VideosExplicativosComponent {
     return this.videos.filter(
       (video) =>
         (this.categoriaActiva === 'Todo' || video.categoria === this.categoriaActiva) &&
-        (!termino || `${video.titulo} ${video.descripcion} ${video.categoria}`.toLocaleLowerCase().includes(termino)),
+        (!termino ||
+          `${video.titulo} ${video.descripcion} ${video.categoria}`
+            .toLocaleLowerCase()
+            .includes(termino)),
     );
   }
 
