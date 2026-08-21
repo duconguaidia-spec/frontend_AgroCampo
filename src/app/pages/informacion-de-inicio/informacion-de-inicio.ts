@@ -5,11 +5,12 @@ import { SiteFooterComponent } from '../../shared/site-footer/site-footer';
 import { SiteHeaderComponent } from '../../shared/site-header/site-header';
 
 interface Caracteristica {
-  icono: 'educacion' | 'reportes';
+  icono: 'educacion';
   titulo: string;
   subtitulo: string;
   cifra: string;
   cifraLabel: string;
+  ruta: string;
 }
 
 
@@ -31,16 +32,10 @@ export class InicioComponent {
     {
       icono: 'educacion',
       titulo: 'Contenido Educativo',
-      subtitulo: 'Foro de discusión, guías y videos técnicos.',
-      cifra: '1.500+',
-      cifraLabel: 'Conversaciones compartidas',
-    },
-    {
-      icono: 'reportes',
-      titulo: 'Reportes y Estadísticas',
-      subtitulo: 'Panel visual y exportación de datos.',
-      cifra: '3.200+',
-      cifraLabel: 'Registros analizados',
+      subtitulo: 'Videos explicativos para aprender con expertos del sector agropecuario.',
+      cifra: 'Ver',
+      cifraLabel: 'Videos explicativos',
+      ruta: '/videos-explicativos',
     },
   ];
 
