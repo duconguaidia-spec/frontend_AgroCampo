@@ -1,0 +1,58 @@
+<div class="videos-page">
+  <app-site-header />
+  <main>
+    <section class="videos-hero">
+      <div class="shell hero-content">
+        <div>
+          <p class="eyebrow">Aprende · comparte · cultiva</p>
+          <h1>Conoce más del campo<br />con expertos en el área</h1>
+          <p class="hero-copy">Cada video está elaborado con información práctica, clara y actualizada, pensada para productores experimentados y para estudiantes y emprendedores del sector agropecuario.</p>
+        </div>
+        <aside>¿Qué fertilizantes se pueden utilizar en el maíz?</aside>
+      </div>
+    </section>
+
+    <section class="shell content-area">
+      <div class="category-tabs" aria-label="Filtrar videos por categoría">
+        @for (categoria of categorias; track categoria) {
+          <button type="button" [class.active]="categoriaActiva === categoria" (click)="seleccionarCategoria(categoria)">{{ categoria }}</button>
+        }
+      </div>
+
+      <div class="video-layout">
+        <section>
+          <label class="video-search">
+            <span class="avatar">AC</span>
+            <input type="search" placeholder="Buscar video" [value]="termino" (input)="actualizarBusqueda($event)" />
+          </label>
+
+          <div class="video-list">
+            @for (video of videosFiltrados; track video.id) {
+              <article class="video-card">
+                <div class="video-copy">
+                  <span class="video-category">{{ video.categoria }}</span>
+                  <h2>{{ video.titulo }}</h2>
+                  <p>{{ video.descripcion }}</p>
+                </div>
+                <a class="video-preview" [class]="'video-preview ' + video.imagen" [href]="video.enlace" target="_blank" rel="noopener noreferrer" [attr.aria-label]="'Buscar el video ' + video.titulo + ' en YouTube'">
+                  <span class="play" aria-hidden="true">▶</span>
+                  <span class="watch-label">Ver video</span>
+                </a>
+              </article>
+            } @empty {
+              <div class="empty-state">No encontramos videos con esa búsqueda. Prueba otra palabra o categoría.</div>
+            }
+          </div>
+        </section>
+
+        <aside class="sidebar">
+          <label class="forum-search"><span aria-hidden="true">⌕</span><input type="search" placeholder="Buscar en el foro…" /></label>
+          <section class="weather"><h2>🌤️ Pronóstico agrícola</h2><p>Bogotá, Cundinamarca</p><div><span><b>HOY</b>🌤️<small>18 °C</small></span><span><b>MAR</b>🌧️<small>14 °C</small></span><span><b>MIÉ</b>⛅<small>16 °C</small></span><span><b>JUE</b>🌦️<small>15 °C</small></span><span><b>VIE</b>☀️<small>20 °C</small></span></div></section>
+          <section class="side-card experts"><h2>Expertos del mes</h2><p><b>CR</b><span>Carlos Rodríguez<small>Agronomía · Tolima</small></span></p><p><b>SI</b><span>Sara Ibáñez<small>Veterinaria · Boyacá</small></span></p><p><b>RG</b><span>Ricardo Gómez<small>Fitosanidad · Valle</small></span></p><p><b>PM</b><span>Paola Morales<small>Suelos · Nariño</small></span></p></section>
+          <section class="side-card topics"><h2>Temas populares</h2><span>arroz</span><span class="accent">maíz</span><span>aguacate</span><span>ganado bovino</span><span>café</span><span>fertilizantes</span><span class="accent">plagas</span><span>drones agrícolas</span></section>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <app-site-footer />
+</div>
