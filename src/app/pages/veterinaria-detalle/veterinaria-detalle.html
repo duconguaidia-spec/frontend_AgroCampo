@@ -1,0 +1,49 @@
+<div class="vet-detail-page">
+  <app-site-header />
+  <main>
+    <section class="detail-hero">
+      <div class="shell"><a class="back-link" routerLink="/veterinarias">← Veterinarias cercanas</a>
+        <h1>{{ veterinaria().nombre }}</h1>
+        <p>{{ veterinaria().descripcion }}</p><label class="product-search"><input type="search"
+            placeholder="Buscar productos..." [value]="termino" (input)="buscar($event)" /><span>Buscar</span></label>
+      </div>
+    </section>
+    <section class="shell detail-content">
+      <div class="info-grid">
+        <article><i>📍</i>
+          <div>
+            <h2>Ubicación</h2>
+            <p>{{ veterinaria().direccion }}</p><a href="https://www.google.com/maps" target="_blank"
+              rel="noopener noreferrer">Abrir en Google Maps</a>
+          </div>
+        </article>
+        <article><i>🕘</i>
+          <div>
+            <h2>Horarios</h2>
+            <p>Lunes a Sábado:<br />7am – 7pm<br />Emergencias: 24/7</p>
+          </div>
+        </article>
+        <article><i>☎</i>
+          <div>
+            <h2>Teléfono</h2>
+            <p>{{ veterinaria().telefono }}<br />WhatsApp: 318 567 8901</p>
+          </div>
+        </article>
+      </div>
+      <h2 class="section-description">{{ veterinaria().descripcion }}</h2>
+      <section class="products">
+        <h2>Nuestros<br />Productos</h2>
+        <div class="products-grid">@for (producto of productosFiltrados; track producto.nombre) { <article
+            class="product-card">
+            <div class="product-image" [class]="'product-image ' + producto.estilo"><span>{{ producto.nombre }}</span>
+            </div>
+            <div>
+              <h3>{{ producto.nombre }}</h3>
+              <p>{{ producto.descripcion }}</p>
+            </div>
+          </article> } @empty { <p class="empty">No encontramos productos con esa búsqueda.</p> }</div>
+      </section>
+    </section>
+  </main>
+  <app-site-footer />
+</div>
