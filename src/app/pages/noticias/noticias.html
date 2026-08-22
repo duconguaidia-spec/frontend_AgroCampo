@@ -8,9 +8,30 @@
       </div>
     </section>
     <section class="news-layout shell">
-      <aside class="filter-panel"><label class="search"><span aria-hidden="true">⌕</span><input type="search" placeholder="Buscar noticias…" [value]="termino" (input)="actualizarBusqueda($event)" /></label><h2>Categorías</h2>@for (categoria of categorias; track categoria) { <label class="category"><input type="checkbox" [checked]="seleccionadas.has(categoria)" (change)="toggleCategoria(categoria)" /><span>{{ categoria }}</span></label> }</aside>
-      <section class="news-content"><div class="content-heading"><h2>Noticias</h2><span>{{ noticiasFiltradas.length }} resultados</span></div>@if (noticiasFiltradas.length) { <div class="news-grid"><a class="news-card" *ngFor="let noticia of noticiasFiltradas" [routerLink]="['/noticias', noticia.id]"><div class="news-image" [class]="'news-image ' + noticia.tono"><span>{{ noticia.categoria }}</span></div><div class="news-copy"><time>{{ noticia.fecha }}</time><h3>{{ noticia.titulo }}</h3><p>{{ noticia.resumen }}</p></div></a></div> } @else { <div class="empty-state"><strong>No encontramos noticias con esos filtros.</strong><span>Prueba otra palabra o activa una categoría.</span></div> }</section>
-      <aside class="latest-panel"><h2>Últimas noticias</h2><ol>@for (noticia of noticias.slice(0, 5); track noticia.titulo) { <li><time>{{ noticia.fecha }}</time><span>{{ noticia.titulo }}</span></li> }</ol></aside>
+      <aside class="filter-panel"><label class="search"><span aria-hidden="true">⌕</span><input type="search"
+            placeholder="Buscar noticias…" [value]="termino" (input)="actualizarBusqueda($event)" /></label>
+        <h2>Categorías</h2>@for (categoria of categorias; track categoria) { <label class="category"><input
+            type="checkbox" [checked]="seleccionadas.has(categoria)" (change)="toggleCategoria(categoria)" /><span>{{
+            categoria }}</span></label> }
+      </aside>
+      <section class="news-content">
+        <div class="content-heading">
+          <h2>Noticias</h2><span>{{ noticiasFiltradas.length }} resultados</span>
+        </div>@if (noticiasFiltradas.length) { <div class="news-grid"><a class="news-card"
+            *ngFor="let noticia of noticiasFiltradas" [routerLink]="['/noticias', noticia.id]">
+            <div class="news-image" [class]="'news-image ' + noticia.tono"><span>{{ noticia.categoria }}</span></div>
+            <div class="news-copy"><time>{{ noticia.fecha }}</time>
+              <h3>{{ noticia.titulo }}</h3>
+              <p>{{ noticia.resumen }}</p>
+            </div>
+          </a></div> } @else { <div class="empty-state"><strong>No encontramos noticias con esos
+            filtros.</strong><span>Prueba otra palabra o activa una categoría.</span></div> }
+      </section>
+      <aside class="latest-panel">
+        <h2>Últimas noticias</h2>
+        <ol>@for (noticia of noticias.slice(0, 5); track noticia.titulo) { <li><time>{{ noticia.fecha }}</time><span>{{
+              noticia.titulo }}</span></li> }</ol>
+      </aside>
     </section>
   </main>
   <app-site-footer />
