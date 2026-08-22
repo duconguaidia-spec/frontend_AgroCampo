@@ -20,6 +20,7 @@ export class SiteHeaderComponent {
     { label: 'Veterinarias', path: '/veterinarias' },
     { label: 'Noticias', path: '/noticias' },
     { label: 'Foro', path: '/foro' },
+    { label: 'Contenido', path: '/videos-explicativos' },
   ];
 
   protected readonly mobileMenuOpen = signal(false);

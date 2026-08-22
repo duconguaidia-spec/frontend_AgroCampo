@@ -1,0 +1,368 @@
+:host {
+  display: block;
+}
+.videos-page {
+  min-height: 100dvh;
+  color: #263827;
+  background:
+    linear-gradient(rgb(245 247 239 / 78%), rgb(241 245 235 / 91%)),
+    url('/assets/images/campo-atardecer.jpg') center / cover fixed;
+}
+.shell {
+  width: min(1360px, calc(100% - 42px));
+  margin-inline: auto;
+}
+h1,
+h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+.videos-hero {
+  padding: 48px 0 45px;
+  color: #fff;
+  background: linear-gradient(105deg, rgb(27 64 133 / 96%), rgb(31 92 134 / 93%));
+}
+.hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 52px;
+}
+.eyebrow {
+  margin: 0 0 9px;
+  color: #cdecae;
+  font-size: 0.71rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.videos-hero h1 {
+  max-width: 735px;
+  margin: 0;
+  font-size: clamp(2.2rem, 4.1vw, 4.05rem);
+  line-height: 1.08;
+}
+.hero-copy {
+  max-width: 680px;
+  margin: 17px 0 0;
+  color: #eef5e8;
+  font-family: Georgia, serif;
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+.videos-hero aside {
+  max-width: 315px;
+  padding: 18px;
+  border: 1px solid rgb(255 255 255 / 25%);
+  border-radius: 17px;
+  background: rgb(255 255 255 / 14%);
+  font-family: Georgia, serif;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.content-area {
+  padding: 34px 0 58px;
+}
+.category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-bottom: 19px;
+}
+.category-tabs button {
+  min-width: 92px;
+  padding: 9px 18px;
+  border: 0;
+  border-radius: 999px;
+  color: #4d5c4b;
+  background: #efedf4;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  font-size: 0.86rem;
+}
+.category-tabs button.active {
+  color: #fff;
+  background: #417f31;
+}
+.video-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 370px;
+  gap: 29px;
+}
+.video-search {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 19px;
+  border-radius: 13px;
+  background: #eeeef5;
+  box-shadow: 0 7px 18px rgb(27 51 54 / 12%);
+}
+.avatar {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: #467d35;
+  font-family: Georgia, serif;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+.video-search input {
+  width: 100%;
+  padding: 11px 18px;
+  border: 0;
+  border-radius: 8px;
+  outline: 0;
+  color: #42533f;
+  background: #fffaf1;
+  font-family: Georgia, serif;
+}
+.video-list {
+  display: grid;
+  gap: 19px;
+  margin-top: 20px;
+}
+.video-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 43%);
+  align-items: center;
+  gap: 25px;
+  min-height: 300px;
+  padding: 35px 40px;
+  border-radius: 17px;
+  background: rgb(255 255 255 / 94%);
+  box-shadow: 0 8px 22px rgb(37 60 38 / 13%);
+}
+.video-copy {
+  text-align: center;
+}
+.video-category {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: #47793a;
+  background: #e7f1df;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.video-card h2 {
+  margin: 15px 0 10px;
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+}
+.video-card p {
+  margin: 0;
+  color: #758570;
+  font-family: Georgia, serif;
+  line-height: 1.5;
+}
+.video-preview {
+  position: relative;
+  display: grid;
+  min-height: 205px;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 3px;
+  color: #fff;
+  text-decoration: none;
+  background: #416c39 center / cover;
+  isolation: isolate;
+}
+.video-preview::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  content: '';
+  background: linear-gradient(rgb(0 30 13 / 13%), rgb(0 30 13 / 26%));
+}
+.video-preview.maiz {
+  background-image: url('/assets/images/campo-verde.jpg');
+}
+.video-preview.lechuga {
+  background-image: url('/assets/images/campo-atardecer.jpg');
+}
+.video-preview.ganado {
+  background-image: linear-gradient(135deg, #4c6d36, #b49351);
+}
+.video-preview.plagas {
+  background-image: linear-gradient(135deg, #315c43, #7f9552);
+}
+.play {
+  display: grid;
+  width: 84px;
+  height: 58px;
+  place-items: center;
+  padding-left: 4px;
+  border-radius: 14px;
+  background: #ff1119;
+  font-size: 1.9rem;
+  box-shadow: 0 7px 16px rgb(0 0 0 / 22%);
+}
+.watch-label {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 5px 9px;
+  border-radius: 4px;
+  background: rgb(0 0 0 / 55%);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+.forum-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 17px;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 7px 18px rgb(33 57 42 / 9%);
+}
+.forum-search span {
+  font-size: 1.25rem;
+}
+.forum-search input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  font-family: Georgia, serif;
+}
+.weather,
+.side-card {
+  margin-top: 20px;
+  padding: 23px 26px;
+  border-radius: 17px;
+  background: rgb(255 255 255 / 94%);
+  box-shadow: 0 8px 19px rgb(35 63 46 / 10%);
+}
+.weather {
+  color: #fff;
+  background: linear-gradient(135deg, #24526b, #175a53);
+}
+.weather h2,
+.side-card h2 {
+  margin: 0 0 12px;
+  font-size: 1.08rem;
+}
+.weather > p {
+  margin: 0;
+  padding-top: 11px;
+  border-top: 1px solid rgb(255 255 255 / 17%);
+  color: rgb(255 255 255 / 68%);
+  font-size: 0.75rem;
+}
+.weather > div {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  margin-top: 17px;
+  text-align: center;
+}
+.weather span {
+  display: grid;
+  gap: 6px;
+  font-size: 1rem;
+}
+.weather b,
+.weather small {
+  font-size: 0.61rem;
+}
+.weather small {
+  color: #ddf0d6;
+}
+.experts p {
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+  font-family: Georgia, serif;
+  font-size: 0.83rem;
+  font-weight: 700;
+}
+.experts b {
+  display: grid;
+  width: 36px;
+  height: 31px;
+  place-items: center;
+  border-radius: 999px;
+  color: #fff;
+  background: #497e36;
+  font-size: 0.63rem;
+}
+.experts small {
+  display: block;
+  margin-top: 3px;
+  color: #688066;
+  font-size: 0.7rem;
+  font-weight: 400;
+}
+.topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.topics h2 {
+  width: 100%;
+}
+.topics span {
+  padding: 7px 13px;
+  border: 1px solid #eee8dc;
+  border-radius: 999px;
+  color: #596354;
+  background: #fbf8f1;
+  font-family: Georgia, serif;
+  font-size: 0.75rem;
+}
+.topics .accent {
+  border-color: #bfe9aa;
+  color: #58a831;
+  background: #eaf8e4;
+}
+.empty-state {
+  padding: 37px;
+  border-radius: 14px;
+  color: #587157;
+  background: #fff;
+  text-align: center;
+}
+@media (max-width: 980px) {
+  .video-layout {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .sidebar > * {
+    margin-top: 0;
+  }
+  .forum-search {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 650px) {
+  .shell {
+    width: min(100% - 28px, 1360px);
+  }
+  .hero-content {
+    align-items: start;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .videos-hero aside {
+    max-width: none;
+  }
+  .video-card {
+    grid-template-columns: 1fr;
+    padding: 26px 20px;
+  }
+  .video-preview {
+    min-height: 195px;
+  }
+  .sidebar {
+    grid-template-columns: 1fr;
+  }
+}
