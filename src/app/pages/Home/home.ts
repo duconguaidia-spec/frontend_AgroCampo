@@ -24,10 +24,10 @@ interface PerfilUsuario {
   selector: 'app-inicio',
   standalone: true,
   imports: [CommonModule, RouterLink, SiteHeaderComponent, SiteFooterComponent],
-  templateUrl: './informacion-de-inicio.html',
-  styleUrl: './informacion-de-inicio.css',
+  templateUrl: './home.html',
+  styleUrl: './home.css',
 })
-export class InicioComponent {
+export class HomeComponent {
   protected readonly caracteristicas: Caracteristica[] = [
     {
       icono: 'educacion',
