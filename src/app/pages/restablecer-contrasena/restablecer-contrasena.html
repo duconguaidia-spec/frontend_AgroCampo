@@ -1,0 +1,38 @@
+<div class="recovery-container">
+  <div class="recovery-card">
+    <header class="login-header">
+      <div class="logo-frame">
+        <img class="login-logo" src="assets/images/logo_agrocampo.png" alt="Logo de AgroCampo" />
+      </div>
+    </header>
+
+    <h2>Restablecer contraseña</h2>
+
+    <form *ngIf="token" [formGroup]="formularioReset" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="nuevaContrasena">Nueva contraseña</label>
+        <input id="nuevaContrasena" type="password" formControlName="nuevaContrasena" />
+        <div class="error-text" *ngIf="nuevaContrasena?.invalid && nuevaContrasena?.touched">
+          <span *ngIf="nuevaContrasena?.errors?.['required']">La contraseña es obligatoria.</span>
+          <span *ngIf="nuevaContrasena?.errors?.['minlength']">Mínimo 6 caracteres.</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmarContrasena">Confirmar contraseña</label>
+        <input id="confirmarContrasena" type="password" formControlName="confirmarContrasena" />
+        <div class="error-text" *ngIf="formularioReset.errors?.['contrasenasNoCoinciden'] && confirmarContrasena?.touched">
+          Las contraseñas no coinciden.
+        </div>
+      </div>
+
+      <div class="success-text" *ngIf="mensajeExito">{{ mensajeExito }}</div>
+
+      <button type="submit" [disabled]="cargando">
+        {{ cargando ? 'Guardando...' : 'Restablecer contraseña' }}
+      </button>
+    </form>
+
+    <div class="error-text" *ngIf="!token && mensajeError">{{ mensajeError }}</div>
+  </div>
+</div>
