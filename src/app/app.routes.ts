@@ -12,6 +12,7 @@ import { RegisterComponent } from './pages/register/register';
 import { VeterinariasComponent } from './pages/veterinarias/veterinarias';
 import { HomeComponent } from './pages/Home/home';
 import { VeterinariaDetalleComponent } from './pages/veterinaria-detalle/veterinaria-detalle';
+import { AgregarVeterinariaComponent } from './pages/agregar-veterinaria/agregar-veterinaria';
 import { VideosExplicativosComponent } from './pages/videos-explicativos/videos-explicativos';
 import { RecuperacionContrasenaComponent } from './pages/recuperacion-contrasena/recuperacion-contrasena';
 import { RestablecerContrasenaComponent } from './pages/restablecer-contrasena/restablecer-contrasena';
@@ -21,6 +22,7 @@ export const routes: Routes = [
   { path: 'home', redirectTo: '', pathMatch: 'full' },
   { path: 'pagina-de-inicio', component: PaginaDeInicioComponent, title: 'AgroCampo | Bienvenida' },
   { path: 'estadisticas', component: EstadisticasComponent, title: 'AgroCampo | Estadísticas' },
+  { path: 'veterinarias/agregar', component: AgregarVeterinariaComponent, title: 'AgroCampo | Agregar Veterinaria' },
   { path: 'veterinarias/:id', component: VeterinariaDetalleComponent, title: 'AgroCampo | Veterinaria' },
   { path: 'veterinarias', component: VeterinariasComponent, title: 'AgroCampo | Veterinarias' },
   { path: 'veterinaria', redirectTo: 'veterinarias', pathMatch: 'full' },
