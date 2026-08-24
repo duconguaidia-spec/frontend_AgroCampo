@@ -1,0 +1,37 @@
+<div class="recovery-container">
+  <div class="recovery-card">
+    <header class="login-header">
+      <div class="logo-frame">
+        <img class="login-logo" src="assets/images/logo_agrocampo.png" alt="Logo de AgroCampo" />
+      </div>
+    </header>
+
+    <h2>Recuperar contraseña</h2>
+    <p class="subtitle">Ingresa tu correo y te enviaremos un enlace para restablecer tu contraseña.</p>
+
+    <form [formGroup]="formularioRecuperacion" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="ejemplo@correo.com"
+        />
+        <div class="error-text" *ngIf="email?.invalid && email?.touched">
+          <span *ngIf="email?.errors?.['required']">El correo es obligatorio.</span>
+          <span *ngIf="email?.errors?.['email']">Ingresa un correo válido.</span>
+        </div>
+      </div>
+
+      <div class="success-text" *ngIf="mensajeExito">{{ mensajeExito }}</div>
+      <div class="error-text" *ngIf="mensajeError">{{ mensajeError }}</div>
+
+      <button type="submit" [disabled]="cargando">
+        {{ cargando ? 'Enviando...' : 'Enviar enlace' }}
+      </button>
+    </form>
+
+    <a routerLink="/login" class="back-link">Volver al inicio de sesión</a>
+  </div>
+</div>
