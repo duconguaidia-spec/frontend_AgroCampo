@@ -23,7 +23,7 @@ export class RegisterComponent {
   errorServidor: string | null = null;
   mostrarPassword = false;
   mostrarConfirmarPassword = false;
-  tiposUsuario = ['Gestor', 'Veterinario', 'Usuario', 'Administrador'];
+  tiposUsuario = ['Veterinario', 'Usuario', 'Administrador'];
 
   constructor(
     private router: Router,

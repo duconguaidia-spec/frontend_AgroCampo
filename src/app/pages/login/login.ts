@@ -47,4 +47,7 @@ export class LoginComponent {
   register(): void {
     this.router.navigate(['/register']);
   }
+  recuperarContrasena(): void {
+    this.router.navigate(['/recuperacion-contrasena']);
+  }
 }
