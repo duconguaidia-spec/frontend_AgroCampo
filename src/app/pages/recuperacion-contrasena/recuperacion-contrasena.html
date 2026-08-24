@@ -1,37 +1,77 @@
 <div class="recovery-container">
   <div class="recovery-card">
+    <button
+      type="button"
+      class="back-arrow"
+      (click)="paso === 'email' ? volverALogin() : volverAEmail()"
+      aria-label="Volver">
+      ‹
+    </button>
+
     <header class="login-header">
       <div class="logo-frame">
         <img class="login-logo" src="assets/images/logo_agrocampo.png" alt="Logo de AgroCampo" />
       </div>
     </header>
 
-    <h2>Recuperar contraseña</h2>
-    <p class="subtitle">Ingresa tu correo y te enviaremos un enlace para restablecer tu contraseña.</p>
+    @if (paso === 'email') {
+      <h2>Recuperar contraseña</h2>
+      <p class="subtitle">Ingresa tu correo y te enviaremos un código de verificación.</p>
 
-    <form [formGroup]="formularioRecuperacion" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="email">Correo electrónico</label>
-        <input
-          id="email"
-          type="email"
-          formControlName="email"
-          placeholder="ejemplo@correo.com"
-        />
-        <div class="error-text" *ngIf="email?.invalid && email?.touched">
-          <span *ngIf="email?.errors?.['required']">El correo es obligatorio.</span>
-          <span *ngIf="email?.errors?.['email']">Ingresa un correo válido.</span>
+      <form [formGroup]="formularioRecuperacion" (ngSubmit)="onSubmitEmail()">
+        <div class="form-group">
+          <label for="email">Correo electrónico</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="ejemplo@correo.com"
+          />
+          @if (email?.invalid && email?.touched) {
+            <small class="error-text">
+              @if (email?.errors?.['required']) {
+                El correo es obligatorio.
+              }
+              @if (email?.errors?.['email']) {
+                Ingresa un correo válido.
+              }
+            </small>
+          }
         </div>
-      </div>
 
-      <div class="success-text" *ngIf="mensajeExito">{{ mensajeExito }}</div>
-      <div class="error-text" *ngIf="mensajeError">{{ mensajeError }}</div>
+        @if (mensajeError) {
+          <div class="error-text">{{ mensajeError }}</div>
+        }
 
-      <button type="submit" [disabled]="cargando">
-        {{ cargando ? 'Enviando...' : 'Enviar enlace' }}
-      </button>
-    </form>
+        <button type="submit" [disabled]="cargando">
+          {{ cargando ? 'Enviando...' : 'Enviar código' }}
+        </button>
+      </form>
+    }
 
-    <a routerLink="/login" class="back-link">Volver al inicio de sesión</a>
+    @if (paso === 'codigo') {
+      <h2>Verificar código</h2>
+      <p class="subtitle">{{ mensajeExito }} Ingresa el código de verificación.</p>
+
+      <form [formGroup]="formularioCodigo" (ngSubmit)="onSubmitCodigo()">
+        <div class="form-group">
+          <label for="codigo">Código de verificación</label>
+          <input
+            id="codigo"
+            type="text"
+            formControlName="codigo"
+            placeholder="Ingresa el código"
+          />
+          @if (codigo?.invalid && codigo?.touched) {
+            <small class="error-text">El código es obligatorio.</small>
+          }
+          @if (errorCodigo) {
+            <small class="error-text">{{ errorCodigo }}</small>
+          }
+        </div>
+
+        <button type="submit">Verificar código</button>
+      </form>
+    }
   </div>
 </div>
