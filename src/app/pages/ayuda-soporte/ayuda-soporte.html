@@ -10,13 +10,13 @@
     </section>
     <section class="help-area shell">
       <div class="help-heading">
-        <h2>Centro de ayuda</h2><label class="search"><span>⌕</span><input type="search"
-            placeholder="Buscar en soporte…" [value]="busqueda" (input)="buscar($event)" /></label>
+        <h2>Preguntas Frecuentes</h2><label class="search"><span>⌕</span><input type="search"
+            placeholder="¿Qué estás buscando?" [value]="busqueda" (input)="buscar($event)" /></label>
       </div>
       <div class="faq-grid">@for (pregunta of preguntasFiltradas; track pregunta.titulo) { <button type="button"
           (click)="seleccionar(pregunta)" [class.active]="preguntaActiva?.titulo === pregunta.titulo">{{ pregunta.titulo
-          }}</button> } @empty { <p class="empty">No se encontraron preguntas relacionadas.</p> }</div>@if
-      (preguntaActiva) { <article class="answer" aria-live="polite">
+          }}</button> } @empty { <p class="empty">No se encontraron preguntas relacionadas.</p> }</div>
+      <h3 class="faq-titulo">Soporte</h3>@if (preguntaActiva) { <article class="answer" aria-live="polite">
         <div>
           <p>Respuesta</p>
           <h3>{{ preguntaActiva.titulo }}</h3><span>{{ preguntaActiva.respuesta }}</span>
@@ -53,5 +53,6 @@
       </div>
     </section>
   </main>
+
   <app-site-footer />
 </div>
