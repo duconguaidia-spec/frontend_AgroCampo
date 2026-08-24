@@ -12,13 +12,17 @@ import { RegisterComponent } from './pages/register/register';
 import { VeterinariasComponent } from './pages/veterinarias/veterinarias';
 import { HomeComponent } from './pages/Home/home';
 import { VeterinariaDetalleComponent } from './pages/veterinaria-detalle/veterinaria-detalle';
+import { AgregarVeterinariaComponent } from './pages/agregar-veterinaria/agregar-veterinaria';
 import { VideosExplicativosComponent } from './pages/videos-explicativos/videos-explicativos';
+import { RecuperacionContrasenaComponent } from './pages/recuperacion-contrasena/recuperacion-contrasena';
+import { RestablecerContrasenaComponent } from './pages/restablecer-contrasena/restablecer-contrasena';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'AgroCampo | Inicio' },
   { path: 'home', redirectTo: '', pathMatch: 'full' },
   { path: 'pagina-de-inicio', component: PaginaDeInicioComponent, title: 'AgroCampo | Bienvenida' },
   { path: 'estadisticas', component: EstadisticasComponent, title: 'AgroCampo | Estadísticas' },
+  { path: 'veterinarias/agregar', component: AgregarVeterinariaComponent, title: 'AgroCampo | Agregar Veterinaria' },
   { path: 'veterinarias/:id', component: VeterinariaDetalleComponent, title: 'AgroCampo | Veterinaria' },
   { path: 'veterinarias', component: VeterinariasComponent, title: 'AgroCampo | Veterinarias' },
   { path: 'veterinaria', redirectTo: 'veterinarias', pathMatch: 'full' },
@@ -31,5 +35,7 @@ export const routes: Routes = [
   { path: 'mas-informacion', component: MasInformacionComponent, title: 'AgroCampo | Más información' },
   { path: 'login', component: LoginComponent, title: 'AgroCampo | Iniciar sesión' },
   { path: 'register', component: RegisterComponent, title: 'AgroCampo | Registro' },
+  { path: 'recuperacion-contrasena', component: RecuperacionContrasenaComponent, title: 'AgroCampo | Recuperar contraseña' },
+  { path: 'restablecer-contrasena/:token', component: RestablecerContrasenaComponent, title: 'AgroCampo | Restablecer contraseña' },
   { path: '**', redirectTo: '' },
 ];
