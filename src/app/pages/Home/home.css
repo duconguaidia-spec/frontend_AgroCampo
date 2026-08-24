@@ -1,202 +1,848 @@
 :host {
   display: block;
-  color: #17243f;
+
+  --azul-oscuro: #010813;
+  --azul: #0b2d5e;
+  --azul-claro: #2f7bea;
+
+  --verde: #21c45b;
+  --verde-oscuro: #129447;
+  --verde-claro: #dff8d8;
+
+  --blanco: #ffffff;
+  --gris: #64748b;
+
+  color: var(--azul-oscuro);
 }
+
+
+/* 
+   CONTENEDOR GENERAL
+ */
+
+* {
+  box-sizing: border-box;
+}
+
 .inicio-container {
   min-height: 100dvh;
   overflow: hidden;
-  background: #f7faf5;
+  background: #f7fafc;
 }
+
+
+/* 
+   HERO
+ */
+
 .hero {
-  min-height: min(540px, 55vw);
-  display: grid;
-  align-items: center;
-  padding: 72px clamp(24px, 7vw, 116px);
-  color: #fff;
+  position: relative;
+
+  min-height: 700px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 80px clamp(24px, 7vw, 90px) 150px;
+
+  color: white;
+
   background:
-    linear-gradient(90deg, rgb(15 42 100 / 79%), rgb(32 74 147 / 47%) 55%, rgb(15 42 100 / 4%)),
-    url('/assets/images/campo-atardecer.jpg') center / cover;
+    linear-gradient(
+      90deg,
+      rgba(3, 20, 47, 0.96) 0%,
+      rgba(4, 29, 61, 0.86) 35%,
+      rgba(5, 31, 65, 0.48) 60%,
+      rgba(5, 31, 65, 0.08) 100%
+    ),
+    url('/assets/images/campo-atardecer.jpg')
+    center / cover;
+
+  overflow: hidden;
 }
+
+
+/* 
+   CONTENIDO DEL HERO
+ */
+
 .hero-contenido {
-  max-width: 680px;
+  position: relative;
+
+  z-index: 2;
+
+  width: min(650px, 100%);
 }
-.hero-kicker,
-.section-eyebrow {
-  margin: 0 0 10px;
-  color: #4b8e37;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
+
+
 .hero-kicker {
-  color: #d7f5bd;
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin-bottom: 24px;
+
+  padding: 10px 17px;
+
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(27, 108, 220, 0.95),
+      rgba(18, 148, 71, 0.75)
+    );
+
+  font-size: 0.78rem;
+
+  font-weight: 800;
+
+  letter-spacing: 0.04em;
+
+  text-transform: uppercase;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.18);
 }
-h1,
-h2,
-h3 {
-  font-family: Georgia, 'Times New Roman', serif;
+
+
+.kicker-icon {
+  font-size: 1rem;
 }
+
+
+/* 
+   TITULO
+ */
+
 .hero h1 {
-  max-width: 650px;
+  max-width: 680px;
+
   margin: 0;
-  font-size: clamp(2.2rem, 4.7vw, 4.4rem);
-  line-height: 1.08;
+
+  font-family:
+    'Segoe UI',
+    Arial,
+    sans-serif;
+
+  font-size:
+    clamp(3rem, 5.5vw, 5.2rem);
+
+  font-weight: 800;
+
+  line-height: 0.99;
+
+  letter-spacing: -0.045em;
 }
-.hero p:not(.hero-kicker) {
+
+
+.hero h1 span {
+  display: block;
+
+  color: var(--verde);
+
+  text-shadow:
+    0 3px 20px rgba(0, 0, 0, 0.25);
+}
+
+
+/* 
+   DESCRIPCIÓN
+ */
+
+.hero-descripcion {
   max-width: 590px;
-  margin: 22px 0 0;
-  font-size: clamp(1rem, 1.4vw, 1.2rem);
-  line-height: 1.55;
+
+  margin: 28px 0 0;
+
+  color: rgba(255, 255, 255, 0.92);
+
+  font-size:
+    clamp(1rem, 1.3vw, 1.2rem);
+
+  line-height: 1.6;
 }
+
+
+/* 
+   BOTONES
+ */
+
 .hero-actions {
   display: flex;
+
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 28px;
+
+  gap: 14px;
+
+  margin-top: 32px;
 }
+
+
 .button {
   display: inline-flex;
+
   align-items: center;
+
   justify-content: center;
-  min-height: 44px;
-  padding: 10px 18px;
+
+  gap: 9px;
+
+  min-height: 52px;
+
+  padding: 12px 24px;
+
   border-radius: 9px;
-  font-weight: 700;
+
+  font-size: 0.95rem;
+
+  font-weight: 800;
+
   text-decoration: none;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
+
+
+.button:hover {
+  transform: translateY(-3px);
+}
+
+
+/* BOTÓN VERDE */
+
 .button-primary {
-  color: #fff;
-  background: #25953c;
-  box-shadow: 0 8px 18px rgb(0 40 12 / 20%);
-}
-.button-secondary {
-  color: #fff;
-  border: 1px solid rgb(255 255 255 / 63%);
-  background: rgb(255 255 255 / 14%);
-}
-.section-shell {
-  padding: 70px clamp(24px, 7vw, 116px);
-  text-align: center;
-}
-.section-shell h2 {
-  max-width: 990px;
-  margin: 0 auto 38px;
-  font-size: clamp(1.85rem, 3.2vw, 3.35rem);
-  line-height: 1.2;
-}
-.caracteristicas {
-  position: relative;
+  color: white;
+
   background:
-    linear-gradient(rgb(255 255 255 / 88%), rgb(255 255 255 / 93%)),
-    url('/assets/images/campo-verde.jpg') center / cover;
+    linear-gradient(
+      135deg,
+      #20c65a,
+      #16a94b
+    );
+
+  box-shadow:
+    0 10px 25px rgba(15, 159, 68, 0.35);
 }
+
+
+.button-primary:hover {
+  box-shadow:
+    0 14px 30px rgba(15, 159, 68, 0.45);
+}
+
+
+/* BOTÓN AZUL TRANSPARENTE */
+
+.button-secondary {
+  color: white;
+
+  border: 1px solid
+    rgba(77, 154, 255, 0.9);
+
+  background:
+    rgba(3, 35, 79, 0.42);
+
+  backdrop-filter: blur(5px);
+}
+
+
+.button-secondary:hover {
+  background:
+    rgba(30, 94, 180, 0.55);
+}
+
+
+/* 
+   ESTADÍSTICAS DEL HERO
+ */
+
+.hero-estadisticas {
+  position: absolute;
+
+  z-index: 3;
+
+  left: clamp(24px, 7vw, 90px);
+
+  right: clamp(24px, 7vw, 90px);
+
+  bottom: 24px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  border:
+    1px solid
+    rgba(55, 142, 255, 0.45);
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  background:
+    rgba(2, 25, 55, 0.72);
+
+  backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+
+.estadistica {
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+  padding: 24px;
+
+  border-right:
+    1px solid
+    rgba(255, 255, 255, 0.12);
+}
+
+
+.estadistica:last-child {
+  border-right: none;
+}
+
+
+.estadistica-icono {
+  flex-shrink: 0;
+
+  display: grid;
+
+  width: 62px;
+
+  height: 62px;
+
+  place-items: center;
+
+  border-radius: 50%;
+
+  font-size: 1.7rem;
+
+  background:
+    rgba(255, 255, 255, 0.04);
+}
+
+
+.estadistica-icono.verde {
+  border:
+    2px solid
+    #22c55e;
+
+  box-shadow:
+    0 0 15px rgba(34, 197, 94, 0.12);
+}
+
+
+.estadistica-icono.azul {
+  border:
+    2px solid
+    #3288ff;
+
+  box-shadow:
+    0 0 15px rgba(50, 136, 255, 0.15);
+}
+
+
+.estadistica strong {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: white;
+
+  font-size: 1.75rem;
+
+  line-height: 1;
+}
+
+
+.estadistica span {
+  display: block;
+
+  color: white;
+
+  font-size: 0.9rem;
+
+  font-weight: 700;
+}
+
+
+.estadistica small {
+  display: block;
+
+  margin-top: 4px;
+
+  color:
+    rgba(255, 255, 255, 0.55);
+
+  font-size: 0.75rem;
+}
+
+
+/* =========================================================
+   SECCIONES
+========================================================= */
+
+.section-shell {
+  padding:
+    80px
+    clamp(24px, 7vw, 90px);
+}
+
+
+/* =========================================================
+   MODULOS
+========================================================= */
+
+.caracteristicas {
+  background: #f8fafc;
+}
+
+
+.modulos-titulo {
+  margin-bottom: 38px;
+}
+
+
+.section-eyebrow {
+  margin: 0 0 12px;
+
+  color: var(--verde-oscuro);
+
+  font-size: 0.82rem;
+
+  font-weight: 900;
+
+  letter-spacing: 0.13em;
+
+  text-transform: uppercase;
+}
+
+
+.modulos-titulo h2 {
+  max-width: 700px;
+
+  margin: 0;
+
+  font-family:
+    'Segoe UI',
+    Arial,
+    sans-serif;
+
+  font-size:
+    clamp(2rem, 3.4vw, 3.4rem);
+
+  line-height: 1.1;
+
+  letter-spacing: -0.035em;
+
+  color: var(--azul-oscuro);
+}
+
+
+.modulos-titulo h2 span {
+  color: var(--verde-oscuro);
+}
+
+
+/* =========================================================
+   GRID DE TARJETAS
+========================================================= */
+
 .caracteristicas-grid {
   display: grid;
-  grid-template-columns: minmax(240px, 390px);
-  justify-content: center;
-  gap: 22px;
-}
-.caracteristica-card {
-  padding: 28px;
-  border: 1px solid #e5eadf;
-  border-radius: 16px;
-  background: rgb(255 255 255 / 95%);
-  box-shadow: 0 12px 25px rgb(28 72 35 / 11%);
-  color: inherit;
-  text-align: left;
-  text-decoration: none;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-}
-.caracteristica-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 30px rgb(28 72 35 / 18%);
-}
-.caracteristica-icono {
-  width: 48px;
-  height: 48px;
-  margin-bottom: 14px;
-  color: #439932;
-}
-.caracteristica-icono svg {
-  width: 100%;
-  height: 100%;
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1.6;
-}
-.caracteristica-card h3,
-.perfil-card h3 {
-  margin: 0 0 8px;
-  font-size: 1.2rem;
-}
-.caracteristica-card p,
-.perfil-card p {
-  margin: 0;
-  color: #5b6b63;
-  font-size: 0.93rem;
-  line-height: 1.55;
-}
-.caracteristica-badge {
-  display: inline-flex;
-  flex-direction: column;
-  margin-top: 18px;
-  padding: 7px 14px;
-  border-radius: 8px;
-  color: #176d2a;
-  background: #d9f0d6;
-}
-.caracteristica-badge strong {
-  font-size: 1.05rem;
-}
-.caracteristica-badge span {
-  font-size: 0.72rem;
-}
-.perfiles {
-  background:
-    linear-gradient(rgb(255 255 255 / 85%), rgb(255 255 255 / 91%)),
-    url('/assets/images/campo-atardecer.jpg') center / cover;
-}
-.perfiles-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 290px));
-  justify-content: center;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
   gap: 20px;
-  text-align: left;
 }
-.perfil-card {
-  min-height: 206px;
-  padding: 25px;
-  border-radius: 15px;
-  background: rgb(255 255 255 / 94%);
-  box-shadow: 0 9px 20px rgb(36 63 44 / 10%);
+
+
+/* =========================================================
+   TARJETAS
+========================================================= */
+
+.caracteristica-card {
+  min-height: 260px;
+
+  padding: 26px;
+
+  border:
+    1px solid
+    #e5eaf0;
+
+  border-radius: 18px;
+
+  background: white;
+
+  color: inherit;
+
+  text-decoration: none;
+
+  box-shadow:
+    0 10px 30px
+    rgba(15, 40, 70, 0.07);
+
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
 }
-.perfil-avatar {
+
+
+.caracteristica-card:hover {
+  transform: translateY(-7px);
+
+  border-color:
+    rgba(30, 166, 76, 0.4);
+
+  box-shadow:
+    0 18px 38px
+    rgba(15, 40, 70, 0.14);
+}
+
+
+/* =========================================================
+   ICONOS
+========================================================= */
+
+.caracteristica-icono {
   display: grid;
-  width: 52px;
-  height: 52px;
+
+  width: 60px;
+
+  height: 60px;
+
   place-items: center;
-  margin-bottom: 18px;
+
+  margin-bottom: 22px;
+
   border-radius: 50%;
-  color: #fff;
-  background: linear-gradient(135deg, #2f7f37, #174f38);
-  font-size: 0.9rem;
+
+  font-size: 1.7rem;
+}
+
+
+.caracteristica-icono.cultivo {
+  background: #dff8d8;
+
+  color: #189447;
+}
+
+
+.caracteristica-icono.ganado {
+  background: #e2edff;
+
+  color: #0757c9;
+}
+
+
+.caracteristica-icono.veterinaria {
+  background: #e1f7d9;
+
+  color: #159447;
+}
+
+
+.caracteristica-icono.estadisticas {
+  background: #dce9ff;
+
+  color: #0757c9;
+}
+
+
+/* =========================================================
+   TEXTO DE TARJETAS
+========================================================= */
+
+.caracteristica-card h3 {
+  margin: 0 0 10px;
+
+  color: var(--azul-oscuro);
+
+  font-size: 1.2rem;
+
   font-weight: 800;
 }
-@media (max-width: 760px) {
-  .hero {
-    min-height: 500px;
-    padding-block: 65px;
+
+
+.caracteristica-card p {
+  margin: 0;
+
+  color: var(--gris);
+
+  font-size: 0.92rem;
+
+  line-height: 1.6;
+}
+
+
+.card-link {
+  display: inline-block;
+
+  margin-top: 22px;
+
+  color: var(--azul);
+
+  font-size: 0.84rem;
+
+  font-weight: 800;
+}
+
+
+.caracteristica-card:hover .card-link {
+  color: var(--verde-oscuro);
+}
+
+
+/* =========================================================
+   PERFILES
+========================================================= */
+
+.perfiles {
+  background:
+    linear-gradient(
+      rgba(255, 255, 255, 0.94),
+      rgba(247, 250, 247, 0.96)
+    ),
+    url('/assets/images/campo-verde.jpg')
+    center / cover;
+}
+
+
+.perfiles h2 {
+  margin:
+    0 auto 38px;
+
+  color: var(--azul-oscuro);
+
+  text-align: center;
+
+  font-family:
+    'Segoe UI',
+    Arial,
+    sans-serif;
+
+  font-size:
+    clamp(2rem, 3.4vw, 3.2rem);
+}
+
+
+.perfiles-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 20px;
+
+  max-width: 1000px;
+
+  margin: auto;
+}
+
+
+.perfil-card {
+  padding: 26px;
+
+  border-radius: 18px;
+
+  background:
+    rgba(255, 255, 255, 0.94);
+
+  box-shadow:
+    0 10px 28px
+    rgba(15, 40, 70, 0.08);
+}
+
+
+.perfil-avatar {
+  display: grid;
+
+  width: 54px;
+
+  height: 54px;
+
+  place-items: center;
+
+  margin-bottom: 18px;
+
+  border-radius: 50%;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--azul),
+      var(--verde-oscuro)
+    );
+
+  font-weight: 900;
+}
+
+
+.perfil-card h3 {
+  margin: 0 0 8px;
+
+  color: var(--azul-oscuro);
+}
+
+
+.perfil-card p {
+  margin: 0;
+
+  color: var(--gris);
+
+  line-height: 1.6;
+
+  font-size: 0.92rem;
+}
+
+
+/* =========================================================
+   RESPONSIVE TABLET
+========================================================= */
+
+@media (max-width: 1050px) {
+
+  .hero-estadisticas {
+    grid-template-columns:
+      repeat(2, 1fr);
   }
-  .caracteristicas-grid,
+
+  .estadistica:nth-child(2) {
+    border-right: none;
+  }
+
+  .caracteristicas-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE CELULAR
+========================================================= */
+
+@media (max-width: 760px) {
+
+  .hero {
+    min-height: 760px;
+
+    padding:
+      70px
+      24px
+      310px;
+
+    justify-content: flex-start;
+
+    background-position:
+      65% center;
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(3, 20, 47, 0.9),
+        rgba(3, 20, 47, 0.72) 55%,
+        rgba(3, 20, 47, 0.95)
+      ),
+      url('/assets/images/campo-atardecer.jpg')
+      center / cover;
+  }
+
+
+  .hero h1 {
+    font-size: 3rem;
+  }
+
+
+  .hero-estadisticas {
+    left: 20px;
+
+    right: 20px;
+
+    bottom: 20px;
+
+    grid-template-columns: 1fr;
+
+    border-radius: 16px;
+  }
+
+
+  .estadistica {
+    padding: 15px 18px;
+
+    border-right: none;
+
+    border-bottom:
+      1px solid
+      rgba(255, 255, 255, 0.1);
+  }
+
+
+  .estadistica:last-child {
+    border-bottom: none;
+  }
+
+
+  .estadistica-icono {
+    width: 48px;
+
+    height: 48px;
+
+    font-size: 1.3rem;
+  }
+
+
+  .estadistica strong {
+    font-size: 1.35rem;
+  }
+
+
+  .caracteristicas-grid {
+    grid-template-columns: 1fr;
+  }
+
+
   .perfiles-grid {
     grid-template-columns: 1fr;
-    max-width: 420px;
-    margin: auto;
   }
+
+
   .section-shell {
-    padding-block: 54px;
+    padding:
+      60px
+      20px;
   }
+
+
+  .hero-actions {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+
+  .button {
+    width: 100%;
+  }
+
 }

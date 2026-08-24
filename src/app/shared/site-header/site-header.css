@@ -9,8 +9,8 @@
   align-items: center;
   gap: 28px;
   padding: 10px clamp(18px, 4vw, 64px);
-  color: #fff;
-  background: linear-gradient(100deg, #1f407d, #2764bf 62%, #3982ef);
+  color: #f1f1f1;
+  background: linear-gradient(100deg, #040b18, #0d285a 62%);
   box-shadow: 0 2px 12px rgb(9 35 80 / 20%);
 }
 .brand {
