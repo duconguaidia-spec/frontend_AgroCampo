@@ -9,6 +9,13 @@
   box-sizing: border-box;
 }
 
+.forgot-password {
+  color: #176d25;
+  font-size: 0.69rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .login-page {
   position: relative;
   min-height: 100dvh;

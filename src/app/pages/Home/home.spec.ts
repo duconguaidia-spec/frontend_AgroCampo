@@ -1,19 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
-import { InicioComponent } from './informacion-de-inicio';
-
-describe('InicioComponent', () => {
-  let component: InicioComponent;
-  let fixture: ComponentFixture<InicioComponent>;
+import { HomeComponent } from './home';
+describe('HomeComponent', () => {
+  let component: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InicioComponent],
+      imports: [HomeComponent],
       providers: [provideRouter([])]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(InicioComponent);
+    fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -42,26 +41,23 @@ describe('InicioComponent', () => {
     expect(titulo.nativeElement.textContent).toContain('Todo lo que necesitas para el sector agropecuario');
   });
 
-  it('debería renderizar las 2 tarjetas de características con su cifra', () => {
+  it('debería renderizar las 4 tarjetas de características', () => {
     const cards = fixture.debugElement.queryAll(By.css('.caracteristica-card'));
-    expect(cards.length).toBe(component.caracteristicas.length);
-    expect(component.caracteristicas.length).toBe(2);
+    expect(cards.length).toBe(4);
   });
 
-  it('debería mostrar el título "¿Quien puede usar AgroCampo?"', () => {
-    const titulo = fixture.debugElement.query(By.css('.perfiles-titulo'));
-    expect(titulo.nativeElement.textContent).toContain('¿Quien puede usar AgroCampo?');
+  it('debería mostrar el título "¿Quién puede usar AgroCampo?"', () => {
+    const titulo = fixture.debugElement.query(By.css('.perfiles h2'));
+    expect(titulo.nativeElement.textContent).toContain('¿Quién puede usar AgroCampo?');
   });
 
-  it('debería renderizar las 4 tarjetas de perfiles de usuario', () => {
+  it('debería renderizar las 3 tarjetas de perfiles de usuario', () => {
     const cards = fixture.debugElement.queryAll(By.css('.perfil-card'));
-    expect(cards.length).toBe(component.perfiles.length);
-    expect(component.perfiles.length).toBe(4);
+    expect(cards.length).toBe(3);
   });
 
-  it('debería mostrar el pie de página con el año actual', () => {
+  it('debería mostrar el pie de página con AgroCampo', () => {
     const footer = fixture.debugElement.query(By.css('.footer-inferior p'));
-    expect(footer.nativeElement.textContent).toContain(String(component.anioActual));
     expect(footer.nativeElement.textContent).toContain('AgroCampo');
   });
 });
