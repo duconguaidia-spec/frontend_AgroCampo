@@ -1,0 +1,251 @@
+<div class="vet-register-page">
+  <app-site-header />
+
+  <main class="page-main">
+    <!-- Hero / Header Section with Store Background -->
+    <section class="store-hero">
+      <div class="hero-overlay"></div>
+      <div class="shell hero-container">
+        <!-- Name of Veterinary row -->
+        <div class="vet-name-row">
+          <label class="vet-name-label" for="nombre-vet">Nombre de veterinaria:</label>
+          <input
+            id="nombre-vet"
+            type="text"
+            class="pill-input hero-pill-input"
+            [(ngModel)]="nombre"
+            placeholder="Escribe el nombre de la veterinaria"
+            autocomplete="off"
+          />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Main Content Body with Veterinary Store Background -->
+    <section class="content-body">
+      <div class="shell">
+        <!-- 3 Info Cards Grid -->
+        <div class="info-cards-grid">
+          <!-- Card 1: Ubicación -->
+          <article class="info-card">
+            <div class="card-icon-wrapper pin-icon">
+              <span class="card-icon">📍</span>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Ubicación:</h3>
+              <input
+                type="text"
+                class="pill-input card-input"
+                [(ngModel)]="ubicacion"
+                placeholder="Escribe la ubicacion"
+              />
+              <button
+                type="button"
+                class="btn-maps"
+                (click)="abrirGoogleMaps()"
+              >
+                ABRIR EN GOOGLE MAPS
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 2: Horarios -->
+          <article class="info-card">
+            <div class="card-icon-wrapper clock-icon">
+              <span class="card-icon">🕒</span>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Horarios:</h3>
+              <input
+                type="text"
+                class="pill-input card-input"
+                [(ngModel)]="horarios"
+                placeholder="Escribe los horarios de atencion"
+              />
+            </div>
+          </article>
+
+          <!-- Card 3: Teléfono -->
+          <article class="info-card">
+            <div class="card-icon-wrapper phone-icon">
+              <span class="card-icon">📞</span>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Teléfono:</h3>
+              <input
+                type="tel"
+                class="pill-input card-input"
+                [(ngModel)]="telefono"
+                placeholder="Escribe el numero de telefono"
+              />
+            </div>
+          </article>
+        </div>
+
+        <!-- Middle Long Inputs: Descripcion & Especialidad -->
+        <div class="long-inputs-section">
+          <div class="input-line-row">
+            <label class="section-label" for="vet-desc">Descripcion:</label>
+            <input
+              id="vet-desc"
+              type="text"
+              class="pill-input wide-pill-input"
+              [(ngModel)]="descripcion"
+              placeholder="Escribe Una descripcion de tu veterinaria"
+            />
+          </div>
+
+          <div class="input-line-row">
+            <label class="section-label" for="vet-espec">Especialidad:</label>
+            <input
+              id="vet-espec"
+              type="text"
+              class="pill-input wide-pill-input specialty-input"
+              [(ngModel)]="especialidad"
+              placeholder="Escribe la especialidad de la veterinaria"
+            />
+          </div>
+        </div>
+
+        <!-- Products and Services Section -->
+        <div class="products-section-layout">
+          <!-- Title on Left -->
+          <div class="products-heading">
+            <h2>Nuestros Productos<br />Y Servicios</h2>
+          </div>
+
+          <!-- Product Cards Grid -->
+          <div class="products-grid">
+            @for (prod of productos(); track prod.id) {
+              <article class="product-item-card">
+                @if (prod.tipo === 'custom') {
+                  <button
+                    type="button"
+                    class="btn-delete-prod"
+                    (click)="eliminarProducto(prod.id)"
+                    title="Eliminar producto"
+                  >
+                    ✕
+                  </button>
+                }
+
+                <div class="product-visual-box" [class]="'prod-style-' + prod.tipo">
+                  @if (prod.imagen) {
+                    <img [src]="prod.imagen" [alt]="prod.nombre" class="custom-prod-img" />
+                  } @else if (prod.tipo === 'bravecto') {
+                    <div class="mock-bravecto-box">
+                      <div class="bravecto-top-tag">BRAVECTO</div>
+                      <div class="bravecto-circle-dog">🐶</div>
+                      <div class="bravecto-bottom-bar"></div>
+                    </div>
+                  } @else if (prod.tipo === 'nexgard') {
+                    <div class="mock-nexgard-box">
+                      <div class="nexgard-header">NexGard<br/><small>SPECTRA</small></div>
+                      <div class="nexgard-inner">🐕</div>
+                    </div>
+                  } @else {
+                    <div class="mock-default-box">
+                      <span>📦</span>
+                    </div>
+                  }
+                </div>
+
+                <div class="product-caption">
+                  <h4>{{ prod.nombre }}</h4>
+                </div>
+              </article>
+            }
+
+            <!-- Add New Product Interactive Button Card -->
+            <article class="product-item-card add-product-card" (click)="prepararNuevoProducto()" tabindex="0" role="button" (keydown.enter)="prepararNuevoProducto()" aria-label="Agregar un nuevo producto">
+              <div class="add-product-inner">
+                <span class="add-title">Nuevo producto</span>
+                <span class="add-plus-symbol">+</span>
+              </div>
+            </article>
+
+            <!-- Product Form Card on Right -->
+            <article class="product-item-card product-form-card">
+              <label class="upload-image-box" for="product-file-input">
+                @if (nuevaImagen) {
+                  <img [src]="nuevaImagen" alt="Vista previa" class="preview-img" />
+                } @else {
+                  <span class="upload-text">Imagen del producto</span>
+                  <span class="upload-hint">📁 Clic para subir</span>
+                }
+                <input
+                  id="product-file-input"
+                  type="file"
+                  accept="image/*"
+                  (change)="onImageSelected($event)"
+                  style="display: none;"
+                />
+              </label>
+
+              <div class="product-fields-group">
+                <div class="prod-input-row">
+                  <label class="prod-label" for="prod-title">Titulo del producto:</label>
+                  <input
+                    id="prod-title"
+                    type="text"
+                    class="pill-input prod-pill-input"
+                    [(ngModel)]="nuevoTitulo"
+                    #tituloProducto
+                    placeholder="Escribe el título"
+                  />
+                </div>
+
+                <div class="prod-input-row">
+                  <label class="prod-label" for="prod-desc">Descripción:</label>
+                  <input
+                    id="prod-desc"
+                    type="text"
+                    class="pill-input prod-pill-input"
+                    [(ngModel)]="nuevaDescripcion"
+                    placeholder="Escribe la descripción"
+                  />
+                </div>
+
+                <button
+                  type="button"
+                  class="btn-add-inline"
+                  (click)="agregarProducto()"
+                >
+                  + Agregar a la lista
+                </button>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Bottom Action Button (Siguiente) -->
+        <div class="actions-bottom-row">
+          <button
+            type="button"
+            class="btn-siguiente"
+            (click)="guardarVeterinaria()"
+          >
+            Siguiente
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Success Modal -->
+  @if (mostrarModal) {
+    <div class="modal-backdrop" (click)="cerrarModalYVolver()">
+      <div class="modal-card" (click)="$event.stopPropagation()">
+        <div class="modal-icon">✅</div>
+        <h3>¡Registro Exitoso!</h3>
+        <p>{{ mensajeExito }}</p>
+        <button type="button" class="btn-modal-ok" (click)="cerrarModalYVolver()">
+          Ir a Veterinarias
+        </button>
+      </div>
+    </div>
+  }
+
+  <app-site-footer />
+</div>
