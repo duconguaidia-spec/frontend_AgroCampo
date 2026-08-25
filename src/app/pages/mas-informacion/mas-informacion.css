@@ -19,7 +19,7 @@ h3 {
   color: #fff;
   background:
     linear-gradient(105deg, rgb(21 55 125 / 93%), rgb(15 126 74 / 76%)),
-    url('/assets/images/campo-atardecer.jpg') center / cover;
+    url('/assets/images/campo_atardecer.jpg') center / cover;
 }
 .mi-header p {
   margin: 0 0 6px;
