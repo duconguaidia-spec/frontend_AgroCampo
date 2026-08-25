@@ -155,15 +155,20 @@ h3 {
   color: #6a7a70;
   font-size: 0.78rem;
 }
-.register {
-  padding: 9px 12px;
-  border: 0;
-  border-radius: 7px;
+.registrar {
+    display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  padding: 13px 24px;
   color: #fff;
-  background: #27873a;
-  cursor: pointer;
-  font-size: 0.78rem;
-  font-weight: 800;
+  background: #46863d;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 12%);
+}
+.registrar:hover {
+  background: #367330;
 }
 .directory {
   min-width: 0;
