@@ -1,38 +1,307 @@
 <div class="news-page">
+
   <app-site-header />
+
   <main>
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
     <section class="news-hero">
-      <div class="shell">
-        <p>Contenido educativo</p>
-        <h1>Noticias</h1><span>Mantente informado con las últimas noticias y novedades del sector agropecuario.</span>
+
+      <div class="shell hero-content">
+
+        <div class="hero-kicker">
+          CONTENIDO EDUCATIVO · RF 14–17
+        </div>
+
+        <h1>
+          Noticias
+        </h1>
+
+        <p>
+          Mantente informado con las últimas noticias y novedades
+          del sector agropecuario.
+        </p>
+
       </div>
+
     </section>
+
+
+    <!-- =====================================================
+         CONTENIDO PRINCIPAL
+    ====================================================== -->
+
     <section class="news-layout shell">
-      <aside class="filter-panel"><label class="search"><span aria-hidden="true">⌕</span><input type="search"
-            placeholder="Buscar noticias…" [value]="termino" (input)="actualizarBusqueda($event)" /></label>
-        <h2>Categorías</h2>@for (categoria of categorias; track categoria) { <label class="category"><input
-            type="checkbox" [checked]="seleccionadas.has(categoria)" (change)="toggleCategoria(categoria)" /><span>{{
-            categoria }}</span></label> }
+
+
+      <!-- =================================================
+           FILTROS
+      ================================================== -->
+
+      <aside class="filter-panel">
+
+        <div class="filter-heading">
+
+          <span>
+            EXPLORAR
+          </span>
+
+          <h2>
+            Categorías
+          </h2>
+
+        </div>
+
+
+        @for (categoria of categorias; track categoria) {
+
+          <label class="category">
+
+            <input
+              type="checkbox"
+              [checked]="seleccionadas.has(categoria)"
+              (change)="toggleCategoria(categoria)"
+            />
+
+            <span class="checkmark"></span>
+
+            <span class="category-name">
+              {{ categoria }}
+            </span>
+
+          </label>
+
+        }
+
       </aside>
+
+
+      <!-- =================================================
+           NOTICIAS
+      ================================================== -->
+
       <section class="news-content">
+
+
+        <!-- BUSCADOR -->
+
+        <div class="search-box">
+
+          <span
+            class="search-icon"
+            aria-hidden="true">
+            ⌕
+          </span>
+
+          <input
+            type="search"
+            placeholder="Buscar noticias..."
+            [value]="termino"
+            (input)="actualizarBusqueda($event)"
+          />
+
+        </div>
+
+
+        <!-- ENCABEZADO -->
+
         <div class="content-heading">
-          <h2>Noticias</h2><span>{{ noticiasFiltradas.length }} resultados</span>
-        </div>@if (noticiasFiltradas.length) { <div class="news-grid"><a class="news-card"
-            *ngFor="let noticia of noticiasFiltradas" [routerLink]="['/noticias', noticia.id]">
-            <div class="news-image" [class]="'news-image ' + noticia.tono"><span>{{ noticia.categoria }}</span></div>
-            <div class="news-copy"><time>{{ noticia.fecha }}</time>
-              <h3>{{ noticia.titulo }}</h3>
-              <p>{{ noticia.resumen }}</p>
+
+          <div>
+
+            <p class="section-eyebrow">
+              ACTUALIDAD AGROPECUARIA
+            </p>
+
+            <h2>
+              Últimas noticias
+            </h2>
+
+          </div>
+
+          <span class="results">
+            {{ noticiasFiltradas.length }}
+            {{ noticiasFiltradas.length === 1 ? 'resultado' : 'resultados' }}
+          </span>
+
+        </div>
+
+
+        <!-- =================================================
+             TARJETAS
+        ================================================== -->
+
+        @if (noticiasFiltradas.length) {
+
+          <div class="news-grid">
+
+            @for (noticia of noticiasFiltradas; track noticia.id) {
+
+              <a
+                class="news-card"
+                [routerLink]="['/noticias', noticia.id]"
+              >
+
+                <!-- Imagen -->
+
+                <div
+                  class="news-image"
+                  [class]="'news-image ' + noticia.tono"
+                >
+
+                  <span class="category-badge">
+                    {{ noticia.categoria }}
+                  </span>
+
+                </div>
+
+
+                <!-- Contenido -->
+
+                <div class="news-copy">
+
+                  <time>
+                    {{ noticia.fecha }}
+                  </time>
+
+                  <h3>
+                    {{ noticia.titulo }}
+                  </h3>
+
+                  <p>
+                    {{ noticia.resumen }}
+                  </p>
+
+                  <span class="read-more">
+                    Leer noticia
+                    <strong>→</strong>
+                  </span>
+
+                </div>
+
+              </a>
+
+            }
+
+          </div>
+
+        }
+
+        @else {
+
+          <div class="empty-state">
+
+            <div class="empty-icon">
+              🔎
             </div>
-          </a></div> } @else { <div class="empty-state"><strong>No encontramos noticias con esos
-            filtros.</strong><span>Prueba otra palabra o activa una categoría.</span></div> }
+
+            <strong>
+              No encontramos noticias
+            </strong>
+
+            <span>
+              Prueba con otra palabra o selecciona
+              una categoría diferente.
+            </span>
+
+          </div>
+
+        }
+
       </section>
+
+
+      <!-- =================================================
+           ÚLTIMAS NOTICIAS
+      ================================================== -->
+
       <aside class="latest-panel">
-        <h2>Últimas noticias</h2>
-        <ol>@for (noticia of noticias.slice(0, 5); track noticia.titulo) { <li><time>{{ noticia.fecha }}</time><span>{{
-              noticia.titulo }}</span></li> }</ol>
+
+        <div class="latest-heading">
+
+          <span>
+            ACTUALIDAD
+          </span>
+
+          <h2>
+            Más recientes
+          </h2>
+
+        </div>
+
+
+        <ol>
+
+          @for (
+            noticia of noticias.slice(0, 5);
+            track noticia.id
+          ) {
+
+            <li>
+
+              <div class="latest-number">
+                {{ $index + 1 }}
+              </div>
+
+              <div class="latest-copy">
+
+                <time>
+                  {{ noticia.fecha }}
+                </time>
+
+                <span>
+                  {{ noticia.titulo }}
+                </span>
+
+              </div>
+
+            </li>
+
+          }
+
+        </ol>
+
       </aside>
+
     </section>
+
+
+    <!-- =====================================================
+         FRANJA INFORMATIVA
+    ====================================================== -->
+
+    <section class="news-cta">
+
+      <div class="shell news-cta-content">
+
+        <div>
+
+          <p>
+            AGROCAMPO · INFORMACIÓN DEL SECTOR
+          </p>
+
+          <h2>
+            El campo también
+            se mantiene informado.
+          </h2>
+
+        </div>
+
+        <div class="cta-decoration">
+          <span>🌱</span>
+          <span>📊</span>
+          <span>🐄</span>
+        </div>
+
+      </div>
+
+    </section>
+
   </main>
+
   <app-site-footer />
+
 </div>
