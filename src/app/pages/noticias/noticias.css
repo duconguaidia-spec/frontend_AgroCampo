@@ -6,7 +6,7 @@
   color: #1d2b45;
   background:
     linear-gradient(rgb(249 247 237 / 78%), rgb(249 247 237 / 91%)),
-    url('/assets/images/campo_verde.jpg') center / cover fixed;
+    url('../../../assets/images/campo_verde.jpg') center / cover fixed;
 }
 .shell {
   width: min(1310px, calc(100% - 40px));
@@ -152,24 +152,24 @@ h3 {
 }
 .field {
   background-image:
-    linear-gradient(90deg, rgb(24 75 56 / 20%), transparent), url('/assets/images/campo-verde.jpg');
+    linear-gradient(90deg, rgb(24 75 56 / 20%), transparent), url('../../../assets/images/campo_verde.jpg');
 }
 .seedling {
   background-image:
-    linear-gradient(90deg, rgb(84 49 15 / 15%), transparent), url('/assets/images/fondo-login.png');
+    linear-gradient(90deg, rgb(84 49 15 / 15%), transparent), url('../../../assets/images/fondo_login.png');
 }
 .cattle {
   background-image:
     linear-gradient(90deg, rgb(48 56 27 / 18%), transparent),
-    url('/assets/images/campo-atardecer.jpg');
+    url('../../../assets/images/campo_atardecer.jpg');
 }
 .drone {
   background-image:
-    linear-gradient(90deg, rgb(15 47 96 / 18%), transparent), url('/assets/images/campo-verde.jpg');
+    linear-gradient(90deg, rgb(15 47 96 / 18%), transparent), url('../../../assets/images/campo_verde.jpg');
 }
 .market {
   background-image:
-    linear-gradient(90deg, rgb(158 82 21 / 18%), transparent), url('/assets/images/fondo-login.png');
+    linear-gradient(90deg, rgb(158 82 21 / 18%), transparent), url('../../../assets/images/fondo_login.png');
 }
 .news-copy {
   padding: 19px 15px 16px;

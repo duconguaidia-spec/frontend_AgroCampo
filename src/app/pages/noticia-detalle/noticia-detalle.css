@@ -6,7 +6,7 @@
   color: #202c45;
   background:
     linear-gradient(rgb(246 248 238 / 71%), rgb(246 248 238 / 86%)),
-    url('/assets/images/campo_verde.jpg') center / cover fixed;
+    url('../../../assets/images/campo_verde.jpg') center / cover fixed;
 }
 .shell {
   width: min(1245px, calc(100% - 40px));
@@ -70,16 +70,16 @@ h2 {
 }
 .feature-image.agroindustria {
   background-image:
-    linear-gradient(rgb(29 62 29 / 12%), rgb(29 62 29 / 13%)), url('/assets/images/campo-verde.jpg');
+    linear-gradient(rgb(29 62 29 / 12%), rgb(29 62 29 / 13%)), url('../../../assets/images/campo_verde.jpg');
 }
 .feature-image.sostenible {
   background-image:
-    linear-gradient(rgb(94 76 30 / 12%), rgb(94 76 30 / 13%)), url('/assets/images/fondo-login.png');
+    linear-gradient(rgb(94 76 30 / 12%), rgb(94 76 30 / 13%)), url('../../../assets/images/fondo_login.png');
 }
 .feature-image.ganaderia {
   background-image:
     linear-gradient(rgb(37 57 23 / 16%), rgb(37 57 23 / 16%)),
-    url('/assets/images/campo-atardecer.jpg');
+    url('../../../assets/images/campo_atardecer.jpg');
 }
 .feature-image.tecnologia {
   background-image: linear-gradient(135deg, #1e5b61, #8aa75a);
