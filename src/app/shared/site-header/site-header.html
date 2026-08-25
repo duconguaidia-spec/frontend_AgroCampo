@@ -1,8 +1,9 @@
 <header class="site-header">
   <a class="brand" routerLink="/inicio" (click)="closeMenus()" aria-label="Ir al inicio de AgroCampo">
-    <img src="assets/images/logo_agrocampo.png" 
-    alt="" />
-    <span>AgroCampo</span>
+    <img src="assets/images/logo_agrocampo.png" alt="" />
+    <span class="brand-text">
+      <span class="brand-agro">Agro</span><span class="brand-campo">Campo</span>
+    </span>
   </a>
 
   <button class="nav-toggle" type="button" (click)="toggleMobileMenu()" [attr.aria-expanded]="mobileMenuOpen()"
