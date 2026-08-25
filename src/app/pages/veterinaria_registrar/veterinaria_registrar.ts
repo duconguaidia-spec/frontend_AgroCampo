@@ -1,7 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, ElementRef, ViewChild, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { SiteFooterComponent } from '../../shared/site-footer/site-footer';
 import { SiteHeaderComponent } from '../../shared/site-header/site-header';
 
@@ -19,7 +19,6 @@ export interface ProductoServicio {
   imports: [
     CommonModule,
     FormsModule,
-    RouterLink,
     SiteHeaderComponent,
     SiteFooterComponent,
   ],
@@ -34,8 +33,6 @@ export class AgregarVeterinariaComponent {
   telefono = '';
   descripcion = '';
   especialidad = '';
-  busqueda = '';
-
   // Campos para nuevo producto
   nuevoTitulo = '';
   nuevaDescripcion = '';
@@ -44,6 +41,8 @@ export class AgregarVeterinariaComponent {
   // Estado de feedback
   mensajeExito = '';
   mostrarModal = false;
+
+  @ViewChild('tituloProducto') private tituloProducto?: ElementRef<HTMLInputElement>;
 
   // Productos iniciales según el mockup
   productos = signal<ProductoServicio[]>([
@@ -101,6 +100,10 @@ export class AgregarVeterinariaComponent {
     this.nuevoTitulo = '';
     this.nuevaDescripcion = '';
     this.nuevaImagen = null;
+  }
+
+  prepararNuevoProducto(): void {
+    this.tituloProducto?.nativeElement.focus();
   }
 
   eliminarProducto(id: number): void {

@@ -6,13 +6,6 @@
     <section class="store-hero">
       <div class="hero-overlay"></div>
       <div class="shell hero-container">
-        <!-- Top bar with Back button -->
-        <div class="top-nav-row">
-          <a class="back-link" routerLink="/veterinarias">
-            ← Volver a veterinarias
-          </a>
-        </div>
-
         <!-- Name of Veterinary row -->
         <div class="vet-name-row">
           <label class="vet-name-label" for="nombre-vet">Nombre de veterinaria:</label>
@@ -26,18 +19,6 @@
           />
         </div>
 
-        <!-- Search Bar -->
-        <div class="search-bar-row">
-          <div class="search-bar">
-            <input
-              type="text"
-              class="search-input"
-              [(ngModel)]="busqueda"
-              placeholder="Buscar..."
-            />
-            <button type="button" class="btn-search">Buscar</button>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -177,7 +158,7 @@
             }
 
             <!-- Add New Product Interactive Button Card -->
-            <article class="product-item-card add-product-card" (click)="agregarProducto()">
+            <article class="product-item-card add-product-card" (click)="prepararNuevoProducto()" tabindex="0" role="button" (keydown.enter)="prepararNuevoProducto()" aria-label="Agregar un nuevo producto">
               <div class="add-product-inner">
                 <span class="add-title">Nuevo producto</span>
                 <span class="add-plus-symbol">+</span>
@@ -210,6 +191,8 @@
                     type="text"
                     class="pill-input prod-pill-input"
                     [(ngModel)]="nuevoTitulo"
+                    #tituloProducto
+                    placeholder="Escribe el título"
                   />
                 </div>
 
@@ -220,6 +203,7 @@
                     type="text"
                     class="pill-input prod-pill-input"
                     [(ngModel)]="nuevaDescripcion"
+                    placeholder="Escribe la descripción"
                   />
                 </div>
 

@@ -29,7 +29,7 @@
   background: 
     linear-gradient(110deg, rgba(28, 71, 140, 0.92) 0%, rgba(22, 105, 115, 0.88) 50%, rgba(18, 148, 56, 0.85) 100%),
     url('/assets/images/campo-atardecer.jpg') center / cover no-repeat;
-  padding: 24px 0 28px;
+  padding: 18px 0 28px;
   color: #ffffff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
@@ -37,7 +37,7 @@
 .hero-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .top-nav-row {
@@ -464,6 +464,10 @@
   border-color: #2b7d38;
   background: #f4faf4;
   transform: translateY(-2px);
+}
+.add-product-card:focus-visible {
+  outline: 3px solid #2b7d38;
+  outline-offset: 3px;
 }
 
 .add-product-inner {

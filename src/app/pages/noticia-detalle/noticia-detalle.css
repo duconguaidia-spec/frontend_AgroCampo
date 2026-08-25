@@ -3,72 +3,78 @@
 }
 .detail-page {
   min-height: 100dvh;
+
   color: #202c45;
   background:
     linear-gradient(rgb(246 248 238 / 71%), rgb(246 248 238 / 86%)),
     url('../../../assets/images/campo_verde.jpg') center / cover fixed;
+
 }
 .shell {
-  width: min(1245px, calc(100% - 40px));
-  margin-inline: auto;
-}
-h1,
-h2 {
-  font-family: Georgia, 'Times New Roman', serif;
+  width: min(980px, calc(100% - 44px));
+  margin: auto;
 }
 .detail-heading {
-  padding: 28px 3px 29px;
+  padding: 72px 0 60px;
 }
 .detail-heading h1 {
-  margin: 0;
-  font-size: clamp(2.2rem, 4vw, 3rem);
+  max-width: 850px;
+  margin: 13px 0;
+  font-family: Georgia, serif;
+  font-size: clamp(2.5rem, 5vw, 4.4rem);
+  line-height: 1.04;
+  color: #06244a;
 }
 .detail-heading p {
-  margin: 0;
-  font-family: Georgia, serif;
-  font-size: clamp(1.12rem, 2vw, 1.65rem);
+  color: #128c43;
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 .news-detail {
-  min-height: 690px;
-  padding: 18px 43px 67px;
-  background: rgb(247 248 248 / 87%);
-  box-shadow: 0 12px 30px rgb(30 59 43 / 13%);
+  margin-bottom: 90px;
+  padding: 32px;
+  border: 1px solid #dfe8e3;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 15px 40px rgba(3, 21, 46, 0.07);
 }
 .back-link {
-  display: inline-block;
-  margin-bottom: 15px;
-  color: #397737;
-  font-size: 0.84rem;
-  font-weight: 700;
+  display: inline-flex;
+  margin-bottom: 22px;
+  color: #0757c9;
+  font-size: 0.8rem;
+  font-weight: 800;
   text-decoration: none;
 }
 .news-detail h2 {
-  max-width: 1000px;
-  margin: 0;
-  font-size: clamp(2.1rem, 4.5vw, 3.45rem);
-  line-height: 1.13;
+  margin: 20px 0 12px;
+  font-family: Georgia, serif;
+  font-size: 1.65rem;
 }
 .summary {
-  margin: 9px 0 57px;
-  font-family: Georgia, serif;
-  font-size: clamp(1.14rem, 2vw, 1.65rem);
-  line-height: 1.3;
+  padding: 18px;
+  border-left: 4px solid #21c45b;
+  border-radius: 0 12px 12px 0;
+  color: #526074;
+  background: #f1f7f3;
+  line-height: 1.7;
 }
 .news-detail time {
   display: block;
-  margin: 0 0 15px 30px;
-  font-family: Georgia, serif;
-  font-size: clamp(1.05rem, 1.8vw, 1.52rem);
+  margin: 15px 0;
+  color: #8a97a7;
+  font-size: 0.72rem;
 }
 .feature-image {
-  width: min(700px, 100%);
-  aspect-ratio: 1.82;
-  margin-left: 30px;
-  border-radius: 8px;
-  background: center / cover;
-  box-shadow: 0 8px 18px rgb(25 44 36 / 18%);
+  height: 330px;
+  margin: 22px 0;
+  border-radius: 17px;
+  background: linear-gradient(135deg, #0757c9, #21c45b);
 }
 .feature-image.agroindustria {
+
   background-image:
     linear-gradient(rgb(29 62 29 / 12%), rgb(29 62 29 / 13%)), url('../../../assets/images/campo_verde.jpg');
 }
@@ -82,27 +88,19 @@ h2 {
     url('../../../assets/images/campo_atardecer.jpg');
 }
 .feature-image.tecnologia {
-  background-image: linear-gradient(135deg, #1e5b61, #8aa75a);
+  background: linear-gradient(135deg, #2d7ce5, #06244a);
 }
 .feature-image.economia {
-  background-image: linear-gradient(135deg, #9a6c32, #dbbb6d);
+  background: linear-gradient(135deg, #0757c9, #128c43);
 }
-@media (max-width: 650px) {
+@media (max-width: 600px) {
   .shell {
-    width: min(100% - 28px, 1245px);
-  }
-  .detail-heading {
-    padding: 24px 0;
+    width: min(100% - 28px, 980px);
   }
   .news-detail {
-    min-height: auto;
-    padding: 19px 20px 42px;
+    padding: 20px;
   }
-  .summary {
-    margin-bottom: 35px;
-  }
-  .news-detail time,
   .feature-image {
-    margin-left: 0;
+    height: 220px;
   }
 }
