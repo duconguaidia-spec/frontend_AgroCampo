@@ -167,17 +167,23 @@
   color: #718096;
   font-size: 0.78rem;
 }
-.register,
-.vet-actions a {
-  border: 0;
+.registrar {
+    display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 9px;
-  padding: 10px 13px;
+  padding: 13px 24px;
   color: #fff;
-  background: #06244a;
-  font-size: 0.76rem;
-  font-weight: 800;
+  background: #46863d;
+  font-weight: 700;
   text-decoration: none;
-  cursor: pointer;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 12%);
+}
+.registrar:hover {
+  background: #367330;
+}
+.directory {
+  min-width: 0;
 }
 .vet-card {
   display: grid;
