@@ -26,13 +26,21 @@
   height: 56px;
   object-fit: contain;
 }
-.brand span {
-  font-family: 'Trebuchet MS', sans-serif;
+.brand-text {
+  font-family: Georgia, 'Times New Roman', serif;
   font-size: clamp(1.45rem, 2.2vw, 2.25rem);
   font-weight: 700;
   letter-spacing: -0.06em;
-  color: #a4c8ff;
 }
+
+.brand-agro {
+  color: #e7ebf1;
+}
+
+.brand-campo {
+  color: #21c45b;
+}
+
 .main-navigation {
   display: flex;
   align-items: center;
@@ -42,12 +50,13 @@
 }
 .main-navigation a {
   position: relative;
-  padding: 8px 0;
-  color: #fff;
-  font-family: Georgia, serif;
-  font-size: clamp(0.95rem, 1.35vw, 1.2rem);
+  padding: 9px 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-family:  'Segoe UI',Arial,sans-serif;
+  font-size: 1rem;
   font-weight: 700;
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 .main-navigation a::after {
   position: absolute;
