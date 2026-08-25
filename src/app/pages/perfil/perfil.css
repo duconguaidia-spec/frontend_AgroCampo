@@ -6,7 +6,7 @@
   color: #16233c;
   background:
     linear-gradient(rgb(13 28 51 / 28%), rgb(13 28 51 / 28%)),
-    url('/assets/images/fondo-login.png') center / cover fixed;
+    url('../../../assets/images/fondo_login.png') center / cover fixed;
 }
 .profile-main {
   padding: 54px 22px 65px;
@@ -40,7 +40,7 @@
   color: #fff;
   background:
     linear-gradient(135deg, rgb(18 70 89 / 30%), rgb(54 120 43 / 65%)),
-    url('/assets/images/campo-atardecer.jpg') center / cover;
+    url('../../../assets/images/campo_atardecer.jpg') center / cover;
   box-shadow: 0 7px 18px rgb(10 41 24 / 18%);
   font-family: Georgia, serif;
   font-size: 2.2rem;

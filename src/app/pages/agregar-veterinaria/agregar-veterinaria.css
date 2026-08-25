@@ -19,7 +19,6 @@ h3 {
   padding: 34px 0 22px;
   color: #fff;
   background: linear-gradient(105deg, #294f99, #176e78 55%, #119a37);
-  background-image: url('/assets/veterinaria-bg.png'); /* Mock bg if they have one */
   background-size: cover;
   background-position: center;
   position: relative;

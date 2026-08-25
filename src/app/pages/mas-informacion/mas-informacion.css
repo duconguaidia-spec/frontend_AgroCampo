@@ -10,8 +10,10 @@
   padding: 75px 22px 110px;
   color: #fff;
   background:
-    linear-gradient(105deg, rgba(3, 21, 46, 0.96), rgba(6, 36, 74, 0.86)),
-    url("/assets/images/campo-verde.jpg") center/cover;
+
+    linear-gradient(105deg, rgb(21 55 125 / 93%), rgb(15 126 74 / 76%)),
+    url('../../../assets/images/campo_atardecer.jpg') center / cover;
+
 }
 .mi-header > div {
   width: min(1100px, 100%);
@@ -33,10 +35,11 @@
   line-height: 1.03;
 }
 .mi-fondo-campo {
-  width: min(1100px, calc(100% - 44px));
-  margin: -55px auto 0;
-  position: relative;
-  z-index: 2;
+
+  padding: 52px clamp(24px, 7vw, 110px) 65px;
+  background:
+    linear-gradient(rgb(251 252 246 / 83%), rgb(251 252 246 / 89%)),
+    url('../../../assets/images/campo_verde.jpg') center / cover;
 }
 .mv-card,
 .mi-intro-card {

@@ -17,7 +17,7 @@
   padding: 38px 24px 62px;
   background:
     linear-gradient(90deg, rgba(20, 43, 16, 0.24), transparent 52%, rgba(11, 37, 18, 0.2)),
-    url('/assets/images/fondo-login.png') center / cover;
+    url('../../../assets/images/fondo_login.png') center / cover;
 }
 
 .recovery-container::before {
@@ -100,6 +100,28 @@ input:focus {
   font-size: 1.3rem;
   font-weight: 200;
   letter-spacing: 0.05em;
+}
+
+.back-arrow {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #000000;
+  font-size: 2.6rem;
+  font-family: Georgia, 'Times New Roman', serif;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.back-arrow:hover {
+  background: rgba(45, 163, 69, 0.12);
 }
 
 .error-text {

@@ -3,8 +3,12 @@
 }
 .videos-page {
   min-height: 100dvh;
-  background: #f5f8f6;
-  color: #14213d;
+
+  color: #263827;
+  background:
+    linear-gradient(rgb(245 247 239 / 78%), rgb(241 245 235 / 91%)),
+    url('../../../assets/images/campo_atardecer.jpg') center / cover fixed;
+
 }
 .shell {
   width: min(1240px, calc(100% - 44px));
@@ -135,10 +139,11 @@
   );
 }
 .video-preview.maiz {
-  background: linear-gradient(135deg, #6b8e23, #0757c9);
+
+  background-image: url('../../../assets/images/campo_verde.jpg');
 }
 .video-preview.lechuga {
-  background: linear-gradient(135deg, #21c45b, #0b7650);
+  background-image: url('/assets/images/campo_atardecer.jpg');
 }
 .video-preview.ganado {
   background: linear-gradient(135deg, #7b5b42, #06244a);

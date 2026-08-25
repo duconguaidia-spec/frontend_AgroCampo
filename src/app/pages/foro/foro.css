@@ -3,8 +3,12 @@
 }
 .foro-page {
   min-height: 100dvh;
-  background: #f5f8f6;
-  color: #14213d;
+
+  color: #20352a;
+  background:
+    linear-gradient(rgb(247 252 241 / 69%), rgb(244 248 238 / 91%)),
+    url('../../../assets/images/campo_verde.jpg') center / cover fixed;
+
 }
 .shell {
   width: min(1240px, calc(100% - 44px));
