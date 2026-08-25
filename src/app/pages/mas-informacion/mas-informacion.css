@@ -19,7 +19,7 @@ h3 {
   color: #fff;
   background:
     linear-gradient(105deg, rgb(21 55 125 / 93%), rgb(15 126 74 / 76%)),
-    url('/assets/images/campo_atardecer.jpg') center / cover;
+    url('../../../assets/images/campo_atardecer.jpg') center / cover;
 }
 .mi-header p {
   margin: 0 0 6px;
@@ -37,7 +37,7 @@ h3 {
   padding: 52px clamp(24px, 7vw, 110px) 65px;
   background:
     linear-gradient(rgb(251 252 246 / 83%), rgb(251 252 246 / 89%)),
-    url('/assets/images/campo-verde.jpg') center / cover;
+    url('../../../assets/images/campo_verde.jpg') center / cover;
 }
 .mi-intro-card,
 .mv-card {

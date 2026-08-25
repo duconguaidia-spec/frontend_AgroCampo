@@ -417,7 +417,7 @@
   min-height: 540px;
   padding: 70px clamp(25px, 6vw, 90px);
   color: white;
-  background: url('/assets/images/campo_verde.jpg') center / cover;
+  background: url('../../../assets/images/campo_verde.jpg') center / cover;
 }
 
 .beneficios-overlay {
@@ -625,7 +625,7 @@
         rgba(3, 28, 59, .78) 55%,
         rgba(2, 16, 36, .96)
       ),
-      url('/assets/images/campo-atardecer.jpg') center / cover;
+      url('../../../assets/images/campo-atardecer.jpg') center / cover;
   }
 
   .hero h1 {
