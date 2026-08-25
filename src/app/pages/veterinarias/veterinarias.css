@@ -22,7 +22,7 @@ h3 {
   color: #fff;
   background:
     linear-gradient(100deg, rgb(16 64 91 / 89%), rgb(34 122 76 / 59%)),
-    url('/assets/images/campo-atardecer.jpg') center / cover;
+    url('/assets/images/campo_atardecer.jpg') center / cover;
 }
 .vet-hero p {
   margin: 0 0 7px;

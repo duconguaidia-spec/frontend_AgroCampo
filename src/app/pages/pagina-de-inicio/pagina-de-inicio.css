@@ -21,7 +21,7 @@
   width: 100%;
   min-height: 755px;
   background-color: #3a3226; /* respaldo: tono tierra/atardecer, por si queda una fracción de px visible */
-  background-image: url('/assets/images/campo-atardecer.jpg');
+  background-image: url('/assets/images/campo_atardecer.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;

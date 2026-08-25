@@ -36,7 +36,7 @@
       rgba(5, 40, 78, .60) 62%,
       rgba(5, 40, 78, .12) 100%
     ),
-    url('/assets/images/campo-atardecer.jpg') center / cover;
+    url('/assets/images/campo_atardecer.jpg') center / cover;
   overflow: hidden;
 }
 

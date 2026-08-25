@@ -6,7 +6,7 @@
   color: #263827;
   background:
     linear-gradient(rgb(245 247 239 / 78%), rgb(241 245 235 / 91%)),
-    url('/assets/images/campo-atardecer.jpg') center / cover fixed;
+    url('/assets/images/campo_atardecer.jpg') center / cover fixed;
 }
 .shell {
   width: min(1360px, calc(100% - 42px));
