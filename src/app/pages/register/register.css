@@ -17,7 +17,7 @@
   padding: 38px 24px 62px;
   background:
     linear-gradient(90deg, rgba(20, 43, 16, 0.24), transparent 52%, rgba(11, 37, 18, 0.2)),
-    url('/assets/images/fondo-login.png') center / cover;
+    url('/assets/images/fondo_login.png') center / cover;
 }
 
 .login-page::before {

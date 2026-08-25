@@ -6,7 +6,7 @@
   color: #16233c;
   background:
     linear-gradient(rgb(13 28 51 / 28%), rgb(13 28 51 / 28%)),
-    url('/assets/images/fondo-login.png') center / cover fixed;
+    url('/assets/images/fondo_login.png') center / cover fixed;
 }
 .profile-main {
   padding: 54px 22px 65px;
