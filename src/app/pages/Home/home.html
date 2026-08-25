@@ -4,12 +4,15 @@
 
   <main>
 
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
     <section class="hero">
 
       <div class="hero-contenido">
 
         <div class="hero-kicker">
-          <span class="kicker-icon"></span>
           SISTEMA INTEGRAL AGROCAMPO
         </div>
 
@@ -29,71 +32,54 @@
           <a
             routerLink="/mas-informacion"
             class="button button-primary">
-            
-            Conoce nuestra plataforma
+            Mas información
+            <span>→</span>
           </a>
+
+        
 
         </div>
 
       </div>
 
+      <!-- Indicadores -->
 
-      <div class="hero-estadisticas">
+      <div class="hero-indicadores">
 
-        <div class="estadistica">
-
-          <div class="estadistica-icono verde">
-            🌱
-          </div>
+        <div class="indicador">
+          <span class="indicador-icon">📇</span>
 
           <div>
-            <strong>1.250+</strong>
-            <span>Cultivos registrados</span>
-            <small>Activos en la plataforma</small>
+            <strong>150+</strong>
+            <span>Foros y Noticias</span>
           </div>
-
         </div>
 
-        <div class="estadistica">
-
-          <div class="estadistica-icono verde">
-            🐄
-          </div>
+        <div class="indicador">
+          <span class="indicador-icon azul">🐄</span>
 
           <div>
             <strong>890+</strong>
-            <span>Ganaderos</span>
-            <small>Conectados</small>
+            <span>Productores</span>
           </div>
-
         </div>
 
-        <div class="estadistica">
-
-          <div class="estadistica-icono azul">
-            🩺
-          </div>
+        <div class="indicador">
+          <span class="indicador-icon">🩺</span>
 
           <div>
             <strong>320+</strong>
-            <span>Servicios veterinarios</span>
-            <small>Disponibles</small>
+            <span>Veterinarias</span>
           </div>
-
         </div>
 
-        <div class="estadistica">
-
-          <div class="estadistica-icono verde">
-            📈
-          </div>
+        <div class="indicador">
+          <span class="indicador-icon azul">📊</span>
 
           <div>
             <strong>98%</strong>
             <span>Eficiencia</span>
-            <small>En gestión del sector</small>
           </div>
-
         </div>
 
       </div>
@@ -101,10 +87,57 @@
     </section>
 
 
+    <!-- =====================================================
+         INTRODUCCIÓN
+    ====================================================== -->
 
-    <section class="caracteristicas section-shell">
+    <section class="introduccion">
 
-      <div class="modulos-titulo">
+      <div class="intro-contenido">
+
+        <div class="intro-etiqueta">
+          AGROCAMPO DIGITAL
+        </div>
+
+        <h2>
+          Tecnología que conecta
+          <span>el campo colombiano</span>
+        </h2>
+
+        <p>
+          AgroCampo reúne herramientas digitales para facilitar
+          la gestión de información agropecuaria, conectar
+          productores y profesionales, y mejorar la toma de
+          decisiones.
+        </p>
+
+      </div>
+
+      <div class="intro-destacado">
+
+        <span class="destacado-icon">🌿</span>
+
+        <div>
+          <strong>Una plataforma, múltiples soluciones</strong>
+
+          <p>
+            Información, servicios, contenido y análisis
+            en un mismo espacio.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MÓDULOS
+    ====================================================== -->
+
+    <section class="modulos">
+
+      <div class="section-heading">
 
         <div>
 
@@ -113,110 +146,155 @@
           </p>
 
           <h2>
-            Todo lo que necesitas para el
-            <span>sector agropecuario</span>
+            Todo lo que necesitas
+            para el sector agropecuario
           </h2>
 
         </div>
 
+        <p class="section-description">
+          Explora las principales herramientas de AgroCampo
+          y encuentra la información que necesitas.
+        </p>
+
       </div>
 
 
-      <div class="caracteristicas-grid">
+      <div class="modulos-grid">
 
 
-        <!-- CULTIVOS -->
+        <!-- Estadísticas -->
 
         <a
-          class="caracteristica-card"
-          routerLink="/mas-informacion">
+          routerLink="/estadisticas"
+          class="modulo-card">
 
-          <div class="caracteristica-icono cultivo">
-            🌱
+          <div class="modulo-icon azul-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 19V5" />
+              <path d="M4 19h17" />
+              <path d="M8 16v-5" />
+              <path d="M13 16V8" />
+              <path d="M18 16V4" />
+            </svg>
           </div>
 
-          <h3>Gestión de Cultivos</h3>
+          <span class="modulo-numero">
+            01
+          </span>
+
+          <h3>
+            Estadísticas
+          </h3>
 
           <p>
-            Controla y monitorea tus cultivos
-            en tiempo real.
+            Consulta indicadores y analiza el comportamiento
+            de los precios del sector agropecuario.
           </p>
 
-          <span class="card-link">
-            Ver módulo →
-          </span>
+          <strong>
+            Explorar estadísticas →
+          </strong>
 
         </a>
 
 
-        <!-- GANADO -->
+        <!-- Veterinarias -->
 
         <a
-          class="caracteristica-card"
-          routerLink="/mas-informacion">
+          routerLink="/veterinarias"
+          class="modulo-card">
 
-          <div class="caracteristica-icono ganado">
-            🐄
+          <div class="modulo-icon verde-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 5v14" />
+              <path d="M5 12h14" />
+            </svg>
           </div>
 
-          <h3>Gestión de Ganado</h3>
+          <span class="modulo-numero">
+            02
+          </span>
+
+          <h3>
+            Veterinarias
+          </h3>
 
           <p>
-            Administra tu ganado y controla
-            su estado de salud.
+            Encuentra servicios veterinarios y consulta
+            información de profesionales y establecimientos.
           </p>
 
-          <span class="card-link">
-            Ver módulo →
-          </span>
+          <strong>
+            Ver veterinarias →
+          </strong>
 
         </a>
 
 
-        <!-- VETERINARIA -->
+        <!-- Noticias -->
 
         <a
-          class="caracteristica-card"
-          routerLink="/veterinarias">
+          routerLink="/noticias"
+          class="modulo-card">
 
-          <div class="caracteristica-icono veterinaria">
-            🩺
+          <div class="modulo-icon azul-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 5h16v14H4z" />
+              <path d="M8 9h8" />
+              <path d="M8 13h6" />
+              <path d="M8 16h4" />
+            </svg>
           </div>
 
-          <h3>Servicios Veterinarios</h3>
+          <span class="modulo-numero">
+            03
+          </span>
+
+          <h3>
+            Noticias
+          </h3>
 
           <p>
-            Encuentra y agenda servicios
-            veterinarios confiables.
+            Mantente actualizado con las novedades,
+            tendencias y noticias del sector.
           </p>
 
-          <span class="card-link">
-            Ver servicios →
-          </span>
+          <strong>
+            Ver noticias →
+          </strong>
 
         </a>
 
 
-        <!-- ESTADÍSTICAS -->
+        <!-- Contenido -->
 
         <a
-          class="caracteristica-card"
-          routerLink="/estadisticas">
+          routerLink="/videos-explicativos"
+          class="modulo-card">
 
-          <div class="caracteristica-icono estadisticas">
-            📊
+          <div class="modulo-icon verde-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
           </div>
 
-          <h3>Estadísticas</h3>
+          <span class="modulo-numero">
+            04
+          </span>
+
+          <h3>
+            Contenido educativo
+          </h3>
 
           <p>
-            Visualiza datos clave para
-            tomar mejores decisiones.
+            Aprende mediante videos y contenido práctico
+            desarrollado para el sector agropecuario.
           </p>
 
-          <span class="card-link">
-            Ver estadísticas →
-          </span>
+          <strong>
+            Ver contenido →
+          </strong>
 
         </a>
 
@@ -225,16 +303,131 @@
     </section>
 
 
+    <!-- =====================================================
+         BENEFICIOS
+    ====================================================== -->
 
-    <section class="perfiles section-shell">
+    <section class="beneficios">
 
-      <p class="section-eyebrow">
-        ACCESO POR ROLES
-      </p>
+      <div class="beneficios-imagen">
 
-      <h2>
-        ¿Quién puede usar AgroCampo?
-      </h2>
+        <div class="beneficios-overlay"></div>
+
+        <div class="beneficios-texto">
+
+          <p class="section-eyebrow">
+            ¿POR QUÉ AGROCAMPO?
+          </p>
+
+          <h2>
+            El campo también
+            evoluciona.
+          </h2>
+
+          <p>
+            Aprovecha la tecnología para organizar,
+            consultar y aprovechar mejor la información
+            de tu actividad agropecuaria.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="beneficios-lista">
+
+        <article class="beneficio">
+
+          <span>01</span>
+
+          <div>
+            <h3>Información centralizada</h3>
+
+            <p>
+              Encuentra información relevante del sector
+              en un solo lugar.
+            </p>
+          </div>
+
+        </article>
+
+
+        <article class="beneficio">
+
+          <span>02</span>
+
+          <div>
+            <h3>Decisiones más inteligentes</h3>
+
+            <p>
+              Utiliza estadísticas e información para
+              comprender mejor el comportamiento del sector.
+            </p>
+          </div>
+
+        </article>
+
+
+        <article class="beneficio">
+
+          <span>03</span>
+
+          <div>
+            <h3>Conexión con profesionales</h3>
+
+            <p>
+              Acerca productores, veterinarios y
+              comunidades rurales.
+            </p>
+          </div>
+
+        </article>
+
+
+        <article class="beneficio">
+
+          <span>04</span>
+
+          <div>
+            <h3>Aprendizaje continuo</h3>
+
+            <p>
+              Accede a contenido educativo para fortalecer
+              tus conocimientos.
+            </p>
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PERFILES
+    ====================================================== -->
+
+    <section class="perfiles">
+
+      <div class="section-heading centered">
+
+        <p class="section-eyebrow">
+          ACCESO POR ROLES
+        </p>
+
+        <h2>
+          Una plataforma para todos
+        </h2>
+
+        <p class="section-description">
+          Cada usuario encuentra herramientas adaptadas
+          a sus necesidades dentro de AgroCampo.
+        </p>
+
+      </div>
+
 
       <div class="perfiles-grid">
 
@@ -246,7 +439,7 @@
             {{ perfil.etiqueta }}
           </div>
 
-          <div class="perfil-texto">
+          <div>
 
             <h3>
               {{ perfil.titulo }}
@@ -261,6 +454,41 @@
         </article>
 
       </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CTA FINAL
+    ====================================================== -->
+
+    <section class="cta-final">
+
+      <div>
+
+        <p>
+          AGROCAMPO · SISTEMA INTEGRAL
+        </p>
+
+        <h2>
+          Digitaliza la gestión
+          de tu actividad agropecuaria.
+        </h2>
+
+        <span>
+          Explora todas las herramientas disponibles
+          y descubre una nueva forma de gestionar
+          la información del campo.
+        </span>
+
+      </div>
+
+      <a
+        routerLink="/mas-informacion"
+        class="cta-button">
+        Conocer AgroCampo
+        <span>→</span>
+      </a>
 
     </section>
 
