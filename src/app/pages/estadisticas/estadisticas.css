@@ -22,7 +22,7 @@ h2 {
   color: #fff;
   background:
     linear-gradient(100deg, rgb(12 37 81 / 88%), rgb(22 91 151 / 66%)),
-    url('/assets/images/campo_verde.jpg') center / cover;
+    url('../../../assets/images/campo_verde.jpg') center / cover;
 }
 .page-hero p,
 .eyebrow {

@@ -22,7 +22,7 @@ h3 {
   color: #fff;
   background:
     linear-gradient(90deg, rgb(29 59 117 / 82%), rgb(33 83 135 / 37%)),
-    url('/assets/images/campo_atardecer.jpg') center / cover;
+    url('../../../assets/images/campo_atardecer.jpg') center / cover;
 }
 .support-hero p,
 .roles > p {
