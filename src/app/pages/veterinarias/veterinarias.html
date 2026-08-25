@@ -3,55 +3,110 @@
   <main>
     <section class="vet-hero">
       <div class="shell">
-        <p>Veterinarias</p>
-        <h1>Encuentra servicios veterinarios cerca de ti</h1><span>Explora el directorio, consulta servicios y comunica
-          tus necesidades a profesionales registrados.</span>
+        <p>Veterinarias · RF 10–13</p>
+        <h1>Encuentra servicios veterinarios cerca de ti</h1>
+        <span
+          >Explora el directorio, consulta servicios y comunica tus necesidades
+          a profesionales registrados.</span
+        >
       </div>
     </section>
     <section class="finder shell">
-      <div class="filters"><label>⌕ <input type="search" placeholder="Buscar por nombre, ciudad o servicio…"
-            [value]="busqueda" (input)="buscar($event)" /></label><select [value]="servicio"
-          (change)="filtrar($event)">@for (opcion of servicios; track opcion) { <option>{{ opcion }}</option> }</select>
+      <div class="filters">
+        <label
+          >⌕
+          <input
+            type="search"
+            placeholder="Buscar por nombre, ciudad o servicio…"
+            [value]="busqueda"
+            (input)="buscar($event)" /></label
+        ><select [value]="servicio" (change)="filtrar($event)">
+          @for (opcion of servicios; track opcion) {
+          <option>{{ opcion }}</option>
+          }
+        </select>
       </div>
       <div class="directory-layout">
         <section class="map-panel" aria-label="Mapa de veterinarias">
-          <div class="map-grid"></div><span class="map-title">Mapa interactivo</span>@for (veterinaria of resultados;
-          track veterinaria.nombre; let index = $index) { <button type="button" class="map-pin"
-            [style.--pin-color]="veterinaria.color" [style.left.%]="20 + index * 19"
-            [style.top.%]="31 + (index % 2) * 30" (click)="contactar(veterinaria)"
-            [attr.aria-label]="'Seleccionar ' + veterinaria.nombre">✚</button> }<span class="map-copy">Yopal y
-            municipios cercanos</span>
+          <div class="map-grid"></div>
+          <span class="map-title">Mapa interactivo</span>@for (veterinaria of
+          resultados; track veterinaria.nombre; let index = $index) {
+          <button
+            type="button"
+            class="map-pin"
+            [style.--pin-color]="veterinaria.color"
+            [style.left.%]="20 + index * 19"
+            [style.top.%]="31 + (index % 2) * 30"
+            (click)="contactar(veterinaria)"
+            [attr.aria-label]="'Seleccionar ' + veterinaria.nombre"
+          >
+            ✚
+          </button>
+          }<span class="map-copy">Yopal y municipios cercanos</span>
         </section>
         <section class="directory">
           <div class="directory-heading">
             <div>
-              <h2>Veterinarias registradas</h2><span>{{ resultados.length }} resultados cercanos</span>
-            </div><button type="button" class="register">Registrar veterinaria</button>
-          </div>@for (veterinaria of resultados; track veterinaria.nombre) { <article class="vet-card"><span
-              class="vet-logo" [style.background]="veterinaria.color">✚</span>
+              <h2>Veterinarias registradas</h2>
+              <span>{{ resultados.length }} resultados cercanos</span>
+            </div>
+            <button type="button" class="register">
+              Registrar veterinaria
+            </button>
+          </div>
+          @for (veterinaria of resultados; track veterinaria.nombre) {
+          <article class="vet-card">
+            <span class="vet-logo" [style.background]="veterinaria.color"
+              >✚</span
+            >
             <div class="vet-info">
               <h3>{{ veterinaria.nombre }}</h3>
               <p>⌖ {{ veterinaria.ciudad }} · {{ veterinaria.distancia }}</p>
-              <div>@for (item of veterinaria.servicios; track item) { <span>{{ item }}</span> }</div>
+              <div>
+                @for (item of veterinaria.servicios; track item) {
+                <span>{{ item }}</span> }
+              </div>
             </div>
-            <div class="vet-actions"><a [href]="'tel:' + veterinaria.telefono.replaceAll(' ', '')">Llamar</a><a
-                [routerLink]="['/veterinarias', veterinaria.id]">Consultar</a></div>
-          </article> } @empty { <p class="empty">No hay veterinarias que coincidan con la búsqueda.</p> }
+            <div class="vet-actions">
+              <a [href]="'tel:' + veterinaria.telefono.replaceAll(' ', '')"
+                >Llamar</a
+              ><a [routerLink]="['/veterinarias', veterinaria.id]">Consultar</a>
+            </div>
+          </article>
+          } @empty {
+          <p class="empty">
+            No hay veterinarias que coincidan con la búsqueda.
+          </p>
+          }
         </section>
-      </div>@if (mensajeContacto) { <p class="contact-message" role="status">{{ mensajeContacto }}</p> }
+      </div>
+      @if (mensajeContacto) {
+      <p class="contact-message" role="status">{{ mensajeContacto }}</p>
+      }
     </section>
     <section class="service-info shell">
-      <article><span>01</span>
+      <article>
+        <span>01</span>
         <h2>Mapa interactivo</h2>
-        <p>Ubica veterinarias registradas y consulta sus datos básicos desde una sola vista.</p>
+        <p>
+          Ubica veterinarias registradas y consulta sus datos básicos desde una
+          sola vista.
+        </p>
       </article>
-      <article><span>02</span>
+      <article>
+        <span>02</span>
         <h2>Catálogo de servicios</h2>
-        <p>Compara servicios, productos y disponibilidad antes de comunicarte.</p>
+        <p>
+          Compara servicios, productos y disponibilidad antes de comunicarte.
+        </p>
       </article>
-      <article><span>03</span>
+      <article>
+        <span>03</span>
         <h2>Contacto directo</h2>
-        <p>Envía consultas o llama a la veterinaria seleccionada para resolver tus necesidades.</p>
+        <p>
+          Envía consultas o llama a la veterinaria seleccionada para resolver
+          tus necesidades.
+        </p>
       </article>
     </section>
   </main>

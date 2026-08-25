@@ -3,93 +3,94 @@
 }
 .vet-page {
   min-height: 100dvh;
-  color: #1c3145;
-  background: #f4f8f2;
+  background: #f5f8f6;
+  color: #14213d;
 }
 .shell {
-  width: min(1240px, calc(100% - 40px));
-  margin-inline: auto;
-}
-h1,
-h2,
-h3 {
-  font-family: Georgia, 'Times New Roman', serif;
+  width: min(1240px, calc(100% - 44px));
+  margin: auto;
 }
 .vet-hero {
-  min-height: 285px;
-  display: grid;
-  align-items: center;
+  padding: 75px 22px 120px;
   color: #fff;
   background:
+
     linear-gradient(100deg, rgb(16 64 91 / 89%), rgb(34 122 76 / 59%)),
     url('../../../assets/images/campo_atardecer.jpg') center / cover;
 }
 .vet-hero p {
-  margin: 0 0 7px;
-  color: #daf5bf;
+  color: #7ce79d;
   font-size: 0.74rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
+  font-weight: 900;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
 }
 .vet-hero h1 {
-  max-width: 760px;
-  margin: 0;
-  font-size: clamp(2.2rem, 4.3vw, 4.1rem);
-  line-height: 1.08;
+  max-width: 800px;
+  margin: 15px 0;
+  font-family: Georgia, serif;
+  font-size: clamp(2.5rem, 5vw, 4.3rem);
+  line-height: 1.04;
 }
 .vet-hero span {
   display: block;
-  max-width: 600px;
-  margin-top: 14px;
-  line-height: 1.5;
+  max-width: 760px;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.65;
 }
 .finder {
-  margin-top: -24px;
-  margin-bottom: 54px;
+  position: relative;
+  margin-top: -60px;
   padding: 24px;
-  border-radius: 18px;
+  border: 1px solid #dfe8e3;
+  border-radius: 22px;
   background: #fff;
-  box-shadow: 0 14px 30px rgb(21 56 52 / 13%);
+  box-shadow: 0 18px 45px rgba(3, 21, 46, 0.09);
 }
 .filters {
   display: grid;
-  grid-template-columns: 1fr 225px;
-  gap: 13px;
+  grid-template-columns: 1fr 230px;
+  gap: 12px;
+  margin-bottom: 24px;
 }
-.filters label {
+.filters label,
+.filters select,
+.forum-search,
+.video-search,
+.product-search {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 11px 14px;
-  border: 1px solid #d7e2d4;
-  border-radius: 9px;
-  color: #4b7152;
+  gap: 9px;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 1px solid #dfe8e3;
+  border-radius: 11px;
+  background: #f9fbfa;
 }
 .filters input,
-.filters select {
+.forum-search input,
+.video-search input,
+.product-search input {
   width: 100%;
   border: 0;
   outline: 0;
-  color: #435848;
   background: transparent;
+  color: #14213d;
 }
 .filters select {
-  padding: 11px 14px;
-  border: 1px solid #d7e2d4;
-  border-radius: 9px;
-  background: #f8fbf7;
+  color: #14213d;
+  outline: 0;
 }
 .directory-layout {
   display: grid;
-  grid-template-columns: 43% 1fr;
-  gap: 24px;
-  margin-top: 24px;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 22px;
 }
 .map-panel {
   position: relative;
-  min-height: 510px;
+  min-height: 500px;
   overflow: hidden;
+
   border-radius: 14px;
   background:
     linear-gradient(125deg, rgb(76 153 105 / 54%), rgb(247 237 175 / 46%)),
@@ -98,105 +99,119 @@ h3 {
 .map-grid {
   position: absolute;
   inset: 0;
-  opacity: 0.48;
+  opacity: 0.65;
   background-image:
-    linear-gradient(90deg, rgb(255 255 255 / 48%) 1px, transparent 1px),
-    linear-gradient(rgb(255 255 255 / 48%) 1px, transparent 1px);
-  background-size: 72px 72px;
-  transform: rotate(-8deg) scale(1.15);
+    linear-gradient(#c6ddcc 1px, transparent 1px),
+    linear-gradient(90deg, #c6ddcc 1px, transparent 1px);
+  background-size: 34px 34px;
+  transform: rotate(-5deg) scale(1.1);
+}
+.map-panel::after {
+  content: "";
+  position: absolute;
+  inset: 15% 22%;
+  border-radius: 50%;
+  background: rgba(33, 196, 91, 0.12);
+  box-shadow:
+    0 0 0 35px rgba(7, 87, 201, 0.05),
+    0 0 0 80px rgba(33, 196, 91, 0.04);
 }
 .map-title,
 .map-copy {
   position: absolute;
-  left: 17px;
+  z-index: 2;
+  left: 18px;
   padding: 7px 10px;
-  border-radius: 7px;
-  color: #fff;
-  background: rgb(12 59 51 / 80%);
-  font-size: 0.78rem;
-  font-weight: 800;
+  border-radius: 8px;
+  color: #06244a;
+  background: rgba(255, 255, 255, 0.85);
+  font-size: 0.72rem;
+  font-weight: 900;
 }
 .map-title {
-  top: 16px;
+  top: 18px;
 }
 .map-copy {
-  bottom: 16px;
-  font-weight: 500;
+  bottom: 18px;
 }
 .map-pin {
   position: absolute;
-  z-index: 1;
-  width: 38px;
-  height: 38px;
-  border: 3px solid #fff;
-  border-radius: 50% 50% 50% 0;
+  z-index: 3;
+  width: 35px;
+  height: 35px;
+  border: 0;
+  border-radius: 50%;
   color: #fff;
-  background: var(--pin-color);
-  box-shadow: 0 5px 12px rgb(0 0 0 / 22%);
+  background: var(--pin-color, #21c45b);
+  box-shadow: 0 5px 14px rgba(3, 21, 46, 0.22);
   cursor: pointer;
-  transform: rotate(-45deg);
 }
-.map-pin::first-letter {
-  display: inline-block;
-  transform: rotate(45deg);
+.directory {
+  display: grid;
+  align-content: start;
+  gap: 12px;
 }
 .directory-heading {
   display: flex;
-  align-items: start;
   justify-content: space-between;
+  align-items: center;
   gap: 12px;
-  margin: 4px 0 16px;
+  margin-bottom: 4px;
 }
 .directory-heading h2 {
   margin: 0;
-  font-size: 1.65rem;
+  font-family: Georgia, serif;
+  font-size: 1.7rem;
 }
 .directory-heading span {
-  color: #6a7a70;
+  color: #718096;
   font-size: 0.78rem;
 }
-.register {
-  padding: 9px 12px;
+.register,
+.vet-actions a {
   border: 0;
-  border-radius: 7px;
+  border-radius: 9px;
+  padding: 10px 13px;
   color: #fff;
-  background: #27873a;
-  cursor: pointer;
-  font-size: 0.78rem;
+  background: #06244a;
+  font-size: 0.76rem;
   font-weight: 800;
-}
-.directory {
-  min-width: 0;
+  text-decoration: none;
+  cursor: pointer;
 }
 .vet-card {
   display: grid;
-  grid-template-columns: 48px 1fr auto;
+  grid-template-columns: auto 1fr auto;
+  gap: 13px;
   align-items: center;
-  gap: 14px;
-  margin-bottom: 12px;
-  padding: 16px;
-  border: 1px solid #e1e8df;
-  border-radius: 12px;
-  background: #fbfdfb;
+  padding: 17px;
+  border: 1px solid #dfe8e3;
+  border-radius: 15px;
+  background: #fff;
+  transition: 0.2s ease;
+}
+.vet-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(3, 21, 46, 0.08);
 }
 .vet-logo {
   display: grid;
-  width: 45px;
-  height: 45px;
+  width: 46px;
+  height: 46px;
   place-items: center;
-  border-radius: 12px;
+  border-radius: 13px;
   color: #fff;
-  font-size: 1.25rem;
-  font-weight: 800;
+  font-weight: 900;
 }
 .vet-info h3 {
-  margin: 0;
-  font-size: 1.05rem;
+  margin: 0 0 4px;
+  color: #06244a;
+  font-size: 1rem;
 }
 .vet-info p {
-  margin: 4px 0 7px;
-  color: #687b6b;
-  font-size: 0.77rem;
+  margin: 0 0 8px;
+  color: #718096;
+  font-size: 0.75rem;
 }
 .vet-info div {
   display: flex;
@@ -204,87 +219,62 @@ h3 {
   gap: 5px;
 }
 .vet-info div span {
-  padding: 4px 8px;
+  padding: 4px 7px;
   border-radius: 999px;
-  color: #407c43;
-  background: #e5f2df;
-  font-size: 0.66rem;
+  color: #128c43;
+  background: #e6f7eb;
+  font-size: 0.65rem;
+  font-weight: 700;
 }
 .vet-actions {
-  display: grid;
-  gap: 7px;
+  display: flex;
+  gap: 5px;
 }
-.vet-actions a,
-.vet-actions button {
-  padding: 7px 11px;
-  border: 0;
-  border-radius: 7px;
-  color: #2d7838;
-  background: #e6f3e4;
-  cursor: pointer;
-  font-size: 0.74rem;
-  font-weight: 800;
-  text-align: center;
-  text-decoration: none;
+.vet-actions a:last-child {
+  background: #21c45b;
 }
-.vet-actions button {
-  color: #fff;
-  background: #278d3d;
-}
-.empty {
-  padding: 28px;
-  border: 1px dashed #9ebd9b;
-  border-radius: 10px;
-  color: #5b745c;
-  text-align: center;
+.empty,
+.contact-message {
+  padding: 16px;
+  border-radius: 12px;
+  color: #66758a;
+  background: #f4f7f5;
 }
 .contact-message {
-  margin: 18px 0 0;
-  padding: 12px;
-  border-radius: 8px;
-  color: #1e7336;
-  background: #ebf7e7;
-  font-size: 0.88rem;
+  color: #128c43;
+  background: #e6f7eb;
 }
 .service-info {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
-  margin-bottom: 58px;
+  padding: 70px 0 90px;
 }
 .service-info article {
   padding: 25px;
-  border-radius: 14px;
-  color: #fff;
-  background: linear-gradient(135deg, #245283, #187848);
-}
-.service-info article:nth-child(2) {
-  background: linear-gradient(135deg, #247a58, #3a9a39);
-}
-.service-info article:nth-child(3) {
-  background: linear-gradient(135deg, #47619b, #26918c);
+  border: 1px solid #dfe8e3;
+  border-radius: 18px;
+  background: #fff;
 }
 .service-info span {
-  color: #d9f4ba;
-  font-size: 0.75rem;
-  font-weight: 800;
+  color: #21c45b;
+  font-weight: 900;
 }
 .service-info h2 {
-  margin: 12px 0 7px;
-  font-size: 1.4rem;
+  font-family: Georgia, serif;
+  font-size: 1.25rem;
 }
 .service-info p {
-  margin: 0;
-  color: rgb(255 255 255 / 82%);
-  font-size: 0.9rem;
-  line-height: 1.45;
+  color: #66758a;
+  font-size: 0.86rem;
+  line-height: 1.6;
 }
-@media (max-width: 840px) {
+@media (max-width: 900px) {
   .directory-layout {
     grid-template-columns: 1fr;
   }
   .map-panel {
-    min-height: 330px;
+    min-height: 380px;
   }
   .service-info {
     grid-template-columns: 1fr;
@@ -293,27 +283,18 @@ h3 {
     grid-template-columns: 1fr;
   }
 }
-@media (max-width: 520px) {
+@media (max-width: 600px) {
   .finder {
-    margin-top: 0;
-    padding: 15px;
-    border-radius: 0;
-  }
-  .shell {
-    width: min(100% - 28px, 1240px);
+    width: calc(100% - 28px);
+    padding: 16px;
   }
   .vet-card {
-    grid-template-columns: 42px 1fr;
+    grid-template-columns: auto 1fr;
   }
   .vet-actions {
-    grid-column: 1 / -1;
-    grid-template-columns: 1fr 1fr;
+    grid-column: 2;
   }
-  .directory-heading {
-    align-items: stretch;
-    flex-direction: column;
-  }
-  .register {
-    width: 100%;
+  .vet-hero {
+    padding-bottom: 105px;
   }
 }
