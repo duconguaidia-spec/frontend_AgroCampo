@@ -3,15 +3,22 @@
   <main>
     <section class="detail-heading shell">
       <h1>Noticias</h1>
-      <p>Mantente informado con las últimas noticias y novedades del sector agropecuario</p>
+      <p>
+        Mantente informado con las últimas noticias y novedades del sector
+        agropecuario
+      </p>
     </section>
     <article class="news-detail shell">
       <a class="back-link" routerLink="/noticias">← Volver a noticias</a>
       <h2>{{ noticia().titulo }}</h2>
       <p class="summary">{{ noticia().resumen }}</p>
       <time>{{ noticia().fecha }}</time>
-      <div class="feature-image" [class]="'feature-image ' + noticia().imagen" role="img"
-        [attr.aria-label]="noticia().titulo"></div>
+      <div
+        class="feature-image"
+        [class]="'feature-image ' + noticia().imagen"
+        role="img"
+        [attr.aria-label]="noticia().titulo"
+      ></div>
     </article>
   </main>
   <app-site-footer />

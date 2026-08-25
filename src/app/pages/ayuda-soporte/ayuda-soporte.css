@@ -3,290 +3,236 @@
 }
 .support-page {
   min-height: 100dvh;
-  color: #263340;
-  background: #f8faf6;
+  background: #f5f8f6;
+  color: #14213d;
 }
 .shell {
-  width: min(1200px, calc(100% - 40px));
-  margin-inline: auto;
-}
-h1,
-h2,
-h3 {
-  font-family: Georgia, 'Times New Roman', serif;
+  width: min(1100px, calc(100% - 44px));
+  margin: auto;
 }
 .support-hero {
-  min-height: 285px;
-  display: grid;
-  align-items: center;
+  padding: 72px 0 110px;
   color: #fff;
-  background:
-    linear-gradient(90deg, rgb(29 59 117 / 82%), rgb(33 83 135 / 37%)),
-    url('/assets/images/campo-atardecer.jpg') center / cover;
+  background: linear-gradient(105deg, #03152e, #06244a 70%, #0757c9);
 }
 .support-hero p,
 .roles > p {
-  margin: 0 0 7px;
-  color: #d5f2bd;
+  color: #7ce79d;
   font-size: 0.74rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
+  font-weight: 900;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .support-hero h1 {
-  margin: 0;
-  font-size: clamp(2.3rem, 4.4vw, 4.2rem);
+  margin: 15px 0;
+  font-family: Georgia, serif;
+  font-size: clamp(2.7rem, 5vw, 4.4rem);
 }
 .support-hero span {
-  display: block;
-  max-width: 570px;
-  margin-top: 12px;
-  font-size: 1rem;
-  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.76);
+  line-height: 1.65;
 }
 .help-area {
-  margin-top: -26px;
-  padding: clamp(25px, 4vw, 52px);
-  border-radius: 20px;
-  background: #eff1ed;
-  box-shadow: 0 13px 29px rgb(27 54 51 / 12%);
+  margin-top: -50px;
+  padding: 28px;
+  border: 1px solid #dfe8e3;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 15px 40px rgba(3, 21, 46, 0.08);
 }
 .help-heading {
-  display: grid;
-  grid-template-columns: 1fr minmax(280px, 510px);
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 25px;
+  gap: 18px;
 }
-.help-heading h2 {
-  margin: 0;
-  color: #4c5a51;
-  font-size: clamp(1.7rem, 3vw, 2.6rem);
-  text-align: left;
+.help-heading h2,
+.roles h2 {
+  font-family: Georgia, serif;
+  font-size: 2rem;
 }
 .search {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 11px 16px;
-  border-radius: 9px;
-  background: #fff;
-  box-shadow: 0 4px 12px rgb(31 47 38 / 8%);
-}
-.search span {
-  font-size: 1.45rem;
+  gap: 8px;
+  width: 330px;
+  min-height: 45px;
+  padding: 0 13px;
+  border: 1px solid #dfe8e3;
+  border-radius: 10px;
+  background: #f9fbfa;
 }
 .search input {
   width: 100%;
   border: 0;
   outline: 0;
   background: transparent;
-  font-family: Georgia, serif;
-  font-size: 1rem;
-}
-.faq-titulo {
-  margin: 30px 0 8px;
-  color: #4c5a51;
-  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
-  text-align: left;
 }
 .faq-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-top: 38px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9px;
+  margin: 20px 0 30px;
 }
 .faq-grid button {
-  min-height: 67px;
-  padding: 14px;
-  border: 0;
-  border-radius: 9px;
-  color: #fff;
-  background: #8c9690;
-  cursor: pointer;
-  font-family: Georgia, serif;
-  font-size: clamp(0.9rem, 1.5vw, 1.15rem);
-}
-.faq-grid button:hover,
-.faq-grid button.active {
-  background: #3d7e3e;
-}
-.empty {
-  grid-column: 1 / -1;
-  padding: 20px;
-  color: #647468;
+  padding: 13px;
+  text-align: left;
+  border: 1px solid #dfe8e3;
+  border-radius: 10px;
+  color: #536177;
   background: #fff;
-  text-align: center;
+  cursor: pointer;
+}
+.faq-grid button.active {
+  border-color: #21c45b;
+  color: #128c43;
+  background: #e6f7eb;
+}
+.faq-titulo {
+  color: #06244a;
+  font-family: Georgia, serif;
 }
 .answer {
   display: flex;
   justify-content: space-between;
-  gap: 24px;
-  margin-top: 22px;
-  padding: 22px;
-  border-left: 4px solid #2f8a3a;
-  border-radius: 9px;
-  background: #fff;
+  gap: 15px;
+  padding: 18px;
+  border-radius: 14px;
+  background: #f0f7f2;
 }
-.answer p {
-  margin: 0 0 5px;
-  color: #2c8338;
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+.answer p,
+.incident p {
+  margin: 0;
+  color: #128c43;
+  font-size: 0.7rem;
+  font-weight: 900;
   text-transform: uppercase;
 }
-.answer h3 {
-  margin: 0 0 7px;
-  font-size: 1.25rem;
+.answer h3,
+.incident h3 {
+  margin: 7px 0;
 }
-.answer span {
-  color: #526257;
-  line-height: 1.5;
+.answer span,
+.incident span {
+  color: #66758a;
+  font-size: 0.86rem;
+  line-height: 1.6;
 }
 .answer button {
-  align-self: start;
   border: 0;
-  color: #607264;
   background: transparent;
+  font-size: 1.5rem;
   cursor: pointer;
-  font-size: 1.7rem;
 }
 .incident {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   gap: 18px;
-  margin-top: 34px;
-  padding: 23px;
-  border-radius: 12px;
+  margin-top: 18px;
+  padding: 20px;
+  border-radius: 15px;
   color: #fff;
-  background: linear-gradient(120deg, #254782, #2d8a50);
-}
-.incident p {
-  margin: 0 0 3px;
-  color: #cff0b7;
-  font-size: 0.77rem;
-  font-weight: 800;
-  text-transform: uppercase;
+  background: linear-gradient(110deg, #06244a, #0757c9);
 }
 .incident h3 {
-  margin: 0 0 5px;
-  font-size: 1.35rem;
+  color: #fff;
 }
 .incident span {
-  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.7);
 }
 .incident button,
 .report-form button {
-  flex-shrink: 0;
-  padding: 11px 16px;
   border: 0;
-  border-radius: 8px;
-  color: #22533a;
-  background: #e1f3d2;
-  cursor: pointer;
+  border-radius: 9px;
+  padding: 11px 14px;
+  color: #06244a;
+  background: #fff;
   font-weight: 800;
+  cursor: pointer;
 }
 .report-form {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 15px;
-  margin-top: 15px;
-  padding: 20px;
-  border-radius: 11px;
-  background: #fff;
+  gap: 10px;
+  margin-top: 12px;
 }
 .report-form label {
   display: grid;
-  gap: 8px;
-  color: #354a3d;
-  font-family: Georgia, serif;
+  gap: 7px;
+  color: #526074;
+  font-size: 0.8rem;
   font-weight: 700;
 }
 .report-form textarea {
-  min-height: 88px;
-  padding: 10px;
-  border: 1px solid #cedacf;
-  border-radius: 7px;
+  min-height: 120px;
+  padding: 12px;
+  border: 1px solid #dfe8e3;
+  border-radius: 10px;
   resize: vertical;
 }
 .report-form button {
-  align-self: end;
+  justify-self: start;
   color: #fff;
-  background: #24893c;
+  background: #21c45b;
 }
 .success {
-  margin: 14px 0 0;
-  color: #227438;
-  font-weight: 700;
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  color: #128c43;
+  background: #e6f7eb;
 }
 .roles {
-  padding: 65px 0 60px;
-  text-align: center;
-}
-.roles > p {
-  color: #35813b;
+  padding: 70px 0 90px;
 }
 .roles h2 {
-  margin: 0 0 30px;
-  font-size: clamp(1.9rem, 3.5vw, 3rem);
+  margin: 8px 0 28px;
 }
 .roles > div {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  gap: 15px;
 }
 .roles article {
-  padding: 25px;
-  border-radius: 15px;
+  padding: 23px;
+  border: 1px solid #dfe8e3;
+  border-radius: 17px;
   background: #fff;
-  box-shadow: 0 9px 20px rgb(31 77 47 / 9%);
-  text-align: left;
 }
 .roles article > span {
   display: grid;
-  width: 42px;
-  height: 42px;
+  width: 45px;
+  height: 45px;
   place-items: center;
-  margin-bottom: 15px;
-  border-radius: 50%;
+  border-radius: 13px;
   color: #fff;
-  background: #377d39;
-  font-size: 0.72rem;
-  font-weight: 800;
+  background: linear-gradient(135deg, #0757c9, #21c45b);
+  font-size: 0.7rem;
+  font-weight: 900;
 }
 .roles h3 {
-  margin: 0 0 7px;
-  font-size: 1.2rem;
+  color: #06244a;
+  font-size: 1rem;
 }
 .roles article p {
-  margin: 0;
-  color: #65766a;
-  font-size: 0.87rem;
-  line-height: 1.5;
+  color: #66758a;
+  font-size: 0.83rem;
+  line-height: 1.6;
 }
 @media (max-width: 700px) {
-  .help-heading,
-  .report-form {
-    grid-template-columns: 1fr;
+  .help-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .search {
+    width: 100%;
   }
   .faq-grid,
   .roles > div {
     grid-template-columns: 1fr;
   }
   .incident {
-    align-items: start;
+    align-items: flex-start;
     flex-direction: column;
-  }
-  .incident button,
-  .report-form button {
-    width: 100%;
-  }
-  .help-area {
-    margin-top: 0;
-    border-radius: 0;
-  }
-  .support-hero {
-    min-height: 240px;
   }
 }
