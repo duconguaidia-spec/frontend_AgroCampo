@@ -36,7 +36,7 @@
       rgba(5, 40, 78, .60) 62%,
       rgba(5, 40, 78, .12) 100%
     ),
-    url('/assets/images/campo_atardecer.jpg') center / cover;
+    url('../../../assets/images/campo_atardecer.jpg') center / cover;
   overflow: hidden;
 }
 
@@ -625,7 +625,7 @@
         rgba(3, 28, 59, .78) 55%,
         rgba(2, 16, 36, .96)
       ),
-      url('../../../assets/images/campo-atardecer.jpg') center / cover;
+      url('../../../assets/images/campo_atardecer.jpg') center / cover;
   }
 
   .hero h1 {
