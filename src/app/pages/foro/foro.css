@@ -6,7 +6,7 @@
   color: #20352a;
   background:
     linear-gradient(rgb(247 252 241 / 69%), rgb(244 248 238 / 91%)),
-    url('/assets/images/campo-verde.jpg') center / cover fixed;
+    url('../../../assets/images/campo_verde.jpg') center / cover fixed;
 }
 .shell {
   width: min(1360px, calc(100% - 42px));
