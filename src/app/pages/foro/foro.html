@@ -4,107 +4,75 @@
     <section class="foro-hero">
       <div class="shell">
         <div>
-          <p class="eyebrow">Contenido educativo.</p>
-          <h1>Comparte tu conocimiento del campo</h1>
-          <span
-            >Conecta con agricultores, ganaderos y expertos. Resuelve dudas, comparte experiencias y
-            aprende juntos.</span
-          >
+          <p class="eyebrow">Contenido educativo · RF 17</p>
+          <h1>Comparte tu conocimiento del campo</h1><span>Conecta con agricultores, ganaderos y expertos. Resuelve
+            dudas, comparte experiencias y aprende juntos.</span>
         </div>
         <aside>¿Cuál es la mejor época para sembrar maíz en clima cálido?</aside>
       </div>
     </section>
     <section class="forum shell">
-      <div class="category-tabs">
-        @for (categoria of categorias; track categoria) {
-          <button
-            type="button"
-            [class.active]="categoriaActiva === categoria"
-            (click)="seleccionarCategoria(categoria)"
-          >
-            {{ categoria }}
-          </button>
-        }
-      </div>
+      <div class="category-tabs">@for (categoria of categorias; track categoria) { <button type="button"
+          [class.active]="categoriaActiva === categoria" (click)="seleccionarCategoria(categoria)">{{ categoria
+          }}</button> }</div>
       <div class="forum-layout">
         <section class="forum-main">
           <div class="composer">
             <span class="avatar">RC</span>
             @if (publicarAbierto) {
-              <textarea
-                [value]="borrador"
-                (input)="actualizarBorrador($event)"
-                placeholder="Escribe el título de tu pregunta o experiencia"
-              ></textarea
-              ><button type="button" (click)="crearPublicacion()">Publicar</button
-              ><button type="button" class="quiet" (click)="publicarAbierto = false">
-                Cancelar
-              </button>
+              <div class="composer-form">
+                <div class="composer-fila">
+                  <input
+                    type="text"
+                    class="composer-titulo"
+                    [(ngModel)]="nuevoTitulo"
+                    placeholder="Título de tu pregunta o experiencia"
+                  />
+                  <select class="composer-tipo" [(ngModel)]="nuevaCategoria">
+                    @for (tipo of tiposPublicacion; track tipo) {
+                      <option [value]="tipo">{{ tipo }}</option>
+                    }
+                  </select>
+                </div>
+                <textarea
+                  [(ngModel)]="nuevaDescripcion"
+                  placeholder="Describe tu pregunta o experiencia con más detalle"
+                ></textarea>
+                <div class="composer-actions">
+                  <button type="button" (click)="crearPublicacion()">Publicar</button>
+                  <button type="button" class="quiet" (click)="cerrarFormulario()">Cancelar</button>
+                </div>
+              </div>
             } @else {
-              <button type="button" class="composer-placeholder" (click)="publicarAbierto = true">
-                ¿Tienes una pregunta o experiencia que compartir?</button
-              ><button type="button" class="publish-button" (click)="publicarAbierto = true">
-                Nueva publicación
-              </button>
+              <button type="button" class="composer-placeholder" (click)="publicarAbierto = true">¿Tienes una
+                pregunta o experiencia que compartir?</button>
+              <button type="button" class="publish-button" (click)="publicarAbierto = true">Nueva
+                publicación</button>
             }
           </div>
-          <div class="post-list">
-            @for (post of publicacionesFiltradas; track post.id) {
-              <article class="post">
-                <div class="post-top">
-                  <span class="post-category">{{ post.categoria }}</span>
-                  @if (post.urgente) {
-                    <span class="urgent">▲ Urgente</span>
-                  }
+          <div class="post-list">@for (post of publicacionesFiltradas; track post.id) { <article class="post">
+              <div class="post-top"><span class="post-category">{{ post.categoria }}</span>@if (post.urgente) { <span
+                  class="urgent">▲ Urgente</span> }</div>
+              <h2>{{ post.titulo }}</h2>
+              <p>{{ post.resumen }}</p>
+              <div class="post-bottom">
+                <div class="author"><span class="avatar">{{ post.autor.slice(0, 2).toUpperCase() }}</span>
+                  <div><strong>{{ post.autor }}</strong><small>{{ post.rol }}</small></div>
                 </div>
-                <h2>{{ post.titulo }}</h2>
-                <p>{{ post.resumen }}</p>
-                <div class="post-bottom">
-                  <div class="author">
-                    <span class="avatar">{{ post.autor.slice(0, 2).toUpperCase() }}</span>
-                    <div>
-                      <strong>{{ post.autor }}</strong
-                      ><small>{{ post.rol }}</small>
-                    </div>
-                  </div>
-                  <div class="post-actions">
-                    <span>◌ {{ post.respuestas }} respuestas</span
-                    ><span>◉ {{ post.vistas | number }} vistas</span
-                    ><button type="button" (click)="alternarGuardado(post)">
-                      {{
-                        post.guardado
-                          ? '✓
-                    Guardado'
-                          : '⌑ Guardar'
-                      }}
-                    </button>
-                  </div>
-                </div>
-              </article>
-            } @empty {
-              <div class="no-posts">No hay conversaciones en esta categoría todavía.</div>
-            }
-          </div>
+                <div class="post-actions"><span>◌ {{ post.respuestas }} respuestas</span><span>◉ {{ post.vistas | number
+                    }} vistas</span><button type="button" (click)="alternarGuardado(post)">{{ post.guardado ? '✓
+                    Guardado' : '⌑ Guardar' }}</button></div>
+              </div>
+            </article> } @empty { <div class="no-posts">No hay conversaciones en esta categoría todavía.</div> }</div>
         </section>
-        <aside class="sidebar">
-          <label class="forum-search"
-            ><span>⌕</span
-            ><input
-              type="search"
-              placeholder="Buscar en el foro…"
-              [value]="busqueda"
-              (input)="actualizarBusqueda($event)"
-          /></label>
+        <aside class="sidebar"><label class="forum-search"><span>⌕</span><input type="search"
+              placeholder="Buscar en el foro…" [value]="busqueda" (input)="actualizarBusqueda($event)" /></label>
           <section class="weather">
             <h2>⛅ Pronóstico agrícola</h2>
             <p>Bogotá, Cundinamarca</p>
-            <div>
-              <span><b>HOY</b>⛅<small>18 °C</small></span
-              ><span><b>MAR</b>🌧<small>14 °C</small></span
-              ><span><b>MIÉ</b>🌤<small>16 °C</small></span
-              ><span><b>JUE</b>⛅<small>15 °C</small></span
-              ><span><b>VIE</b>☀<small>20 °C</small></span>
-            </div>
+            <div><span><b>HOY</b>⛅<small>18 °C</small></span><span><b>MAR</b>🌧<small>14
+                  °C</small></span><span><b>MIÉ</b>🌤<small>16 °C</small></span><span><b>JUE</b>⛅<small>15
+                  °C</small></span><span><b>VIE</b>☀<small>20 °C</small></span></div>
           </section>
           <section class="side-card">
             <h2>Expertos del mes</h2>
@@ -113,9 +81,8 @@
             <p><b>RG</b> Ricardo Gómez <small>Fitosanidad · Valle</small></p>
           </section>
           <section class="side-card topics">
-            <h2>Temas populares</h2>
-            <span>arroz</span><span>maíz</span><span>ganado bovino</span><span>fertilizantes</span
-            ><span>plagas</span><span>drones agrícolas</span>
+            <h2>Temas populares</h2><span>arroz</span><span>maíz</span><span>ganado
+              bovino</span><span>fertilizantes</span><span>plagas</span><span>drones agrícolas</span>
           </section>
         </aside>
       </div>
