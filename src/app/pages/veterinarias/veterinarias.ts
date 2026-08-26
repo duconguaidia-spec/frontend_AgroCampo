@@ -12,7 +12,6 @@ interface Veterinaria {
   servicios: string[];
   telefono: string;
   color: string;
-
 }
 
 @Component({

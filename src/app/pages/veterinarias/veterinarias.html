@@ -3,7 +3,6 @@
   <main>
     <section class="vet-hero">
       <div class="shell">
-        <p>Veterinarias · RF 10–13</p>
         <h1>Encuentra servicios veterinarios cerca de ti</h1>
         <span
           >Explora el directorio, consulta servicios y comunica tus necesidades
@@ -47,12 +46,18 @@
         <section class="directory">
           <div class="directory-heading">
             <div>
-              <h2>Veterinarias registradas</h2><span>{{ resultados.length }} resultados cercanos</span>
-            </div><a class="registrar" routerLink="/veterinarias/registrar">
-              Registar veterinaria
-            </a>
-          </div>@for (veterinaria of resultados; track veterinaria.nombre) { <article class="vet-card"><span
-              class="vet-logo" [style.background]="veterinaria.color">✚</span>
+              <h2>Veterinarias registradas</h2>
+              <span>{{ resultados.length }} resultados cercanos</span>
+            </div>
+            <button type="button" class="register">
+              Registrar veterinaria
+            </button>
+          </div>
+          @for (veterinaria of resultados; track veterinaria.nombre) {
+          <article class="vet-card">
+            <span class="vet-logo" [style.background]="veterinaria.color"
+              >✚</span
+            >
             <div class="vet-info">
               <h3>{{ veterinaria.nombre }}</h3>
               <p>⌖ {{ veterinaria.ciudad }} · {{ veterinaria.distancia }}</p>
