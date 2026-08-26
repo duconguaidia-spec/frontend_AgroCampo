@@ -13,9 +13,7 @@
 .support-hero {
   padding: 72px 0 110px;
   color: #fff;
-  background:
-    linear-gradient(90deg, rgb(29 59 117 / 82%), rgb(33 83 135 / 37%)),
-    url('../../../assets/images/campo_atardecer.jpg') center / cover;
+  background: linear-gradient(105deg, #03152e, #06244a 70%, #0757c9);
 }
 .support-hero p,
 .roles > p {
