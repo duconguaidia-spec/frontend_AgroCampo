@@ -1,0 +1,78 @@
+.estadisticas-hero {
+  text-align: center;
+  padding: 40px 0 20px;
+}
+
+.estadisticas-hero .eyebrow {
+  color: #2f7d4f;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.estadisticas-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  padding: 20px 0 40px;
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid #e2e8e4;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card h2 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+
+.stat-fact {
+  font-size: 0.85rem;
+  color: #4a5a4f;
+  margin-bottom: 14px;
+}
+
+.chart-box {
+  position: relative;
+  height: 180px;
+  margin-bottom: 14px;
+}
+
+.chart-box canvas {
+  max-height: 100%;
+}
+
+.stat-curiosidades {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-curiosidades li {
+  font-size: 0.78rem;
+  color: #6b756e;
+  padding-left: 14px;
+  position: relative;
+}
+
+
+
+.disclaimer {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #888;
+  padding-bottom: 30px;
+}
+
+@media (max-width: 800px) {
+  .estadisticas-grid {
+    grid-template-columns: 1fr;
+  }
+}
