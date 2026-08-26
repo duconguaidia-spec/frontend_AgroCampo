@@ -14,9 +14,8 @@
   padding: 75px 22px 120px;
   color: #fff;
   background:
-
-    linear-gradient(100deg, rgb(16 64 91 / 89%), rgb(34 122 76 / 59%)),
-    url('../../../assets/images/campo_atardecer.jpg') center / cover;
+    linear-gradient(105deg, rgba(3, 21, 46, 0.96), rgba(6, 36, 74, 0.82)),
+    url("/assets/images/campo-verde.jpg") center/cover;
 }
 .vet-hero p {
   color: #7ce79d;
@@ -90,11 +89,8 @@
   position: relative;
   min-height: 500px;
   overflow: hidden;
-
-  border-radius: 14px;
-  background:
-    linear-gradient(125deg, rgb(76 153 105 / 54%), rgb(247 237 175 / 46%)),
-    url('../../../assets/images/campo_verde.jpg') center / cover;
+  border-radius: 18px;
+  background: #dfeee3;
 }
 .map-grid {
   position: absolute;
@@ -167,23 +163,17 @@
   color: #718096;
   font-size: 0.78rem;
 }
-.registrar {
-    display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.register,
+.vet-actions a {
+  border: 0;
   border-radius: 9px;
-  padding: 13px 24px;
+  padding: 10px 13px;
   color: #fff;
-  background: #46863d;
-  font-weight: 700;
+  background: #06244a;
+  font-size: 0.76rem;
+  font-weight: 800;
   text-decoration: none;
-  box-shadow: 0 4px 8px rgb(0 0 0 / 12%);
-}
-.registrar:hover {
-  background: #367330;
-}
-.directory {
-  min-width: 0;
+  cursor: pointer;
 }
 .vet-card {
   display: grid;

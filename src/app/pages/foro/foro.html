@@ -21,17 +21,19 @@
             <span class="avatar">RC</span>
             @if (publicarAbierto) {
               <div class="composer-form">
-                <input
-                  type="text"
-                  class="composer-titulo"
-                  [(ngModel)]="nuevoTitulo"
-                  placeholder="Título de tu pregunta o experiencia"
-                />
-                <select class="composer-tipo" [(ngModel)]="nuevaCategoria">
-                  @for (tipo of tiposPublicacion; track tipo) {
-                    <option [value]="tipo">{{ tipo }}</option>
-                  }
-                </select>
+                <div class="composer-fila">
+                  <input
+                    type="text"
+                    class="composer-titulo"
+                    [(ngModel)]="nuevoTitulo"
+                    placeholder="Título de tu pregunta o experiencia"
+                  />
+                  <select class="composer-tipo" [(ngModel)]="nuevaCategoria">
+                    @for (tipo of tiposPublicacion; track tipo) {
+                      <option [value]="tipo">{{ tipo }}</option>
+                    }
+                  </select>
+                </div>
                 <textarea
                   [(ngModel)]="nuevaDescripcion"
                   placeholder="Describe tu pregunta o experiencia con más detalle"

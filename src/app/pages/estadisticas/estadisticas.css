@@ -16,6 +16,7 @@
   background:
     linear-gradient(110deg, rgba(3, 21, 46, 0.97), rgba(6, 36, 74, 0.88)),
     url("/assets/images/campo-amanecer.png") center/cover;
+  
 }
 .page-hero > div {
   width: min(900px, 100%);
