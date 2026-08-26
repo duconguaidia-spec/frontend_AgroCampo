@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { SiteFooterComponent } from '../../shared/site-footer/site-footer';
 import { SiteHeaderComponent } from '../../shared/site-header/site-header';
 
@@ -16,14 +17,16 @@ interface Publicacion {
   urgente?: boolean;
 }
 
+const CLAVE_STORAGE = 'agrocampo_foro_publicaciones';
+
 @Component({
   selector: 'app-foro',
   standalone: true,
-  imports: [CommonModule, SiteHeaderComponent, SiteFooterComponent],
+  imports: [CommonModule, FormsModule, SiteHeaderComponent, SiteFooterComponent],
   templateUrl: './foro.html',
   styleUrl: './foro.css',
 })
-export class ForoComponent {
+export class ForoComponent implements OnInit {
   protected readonly categorias = [
     'Todo',
     'Cultivos',
@@ -33,10 +36,26 @@ export class ForoComponent {
     'Riego',
     'Clima',
   ];
+
+  // Tipos válidos para el formulario de nueva publicación (sin la opción "Todo")
+  protected readonly tiposPublicacion = [
+    'Cultivos',
+    'Ganadería',
+    'Maquinaria',
+    'Plagas',
+    'Riego',
+    'Clima',
+  ];
+
   protected categoriaActiva = 'Todo';
   protected busqueda = '';
   protected publicarAbierto = false;
-  protected borrador = '';
+
+  // Campos del formulario de nueva publicación
+  protected nuevoTitulo = '';
+  protected nuevaCategoria = this.tiposPublicacion[0];
+  protected nuevaDescripcion = '';
+
   protected publicaciones: Publicacion[] = [
     {
       id: 1,
@@ -96,6 +115,10 @@ export class ForoComponent {
     },
   ];
 
+  ngOnInit(): void {
+    this.cargarPublicaciones();
+  }
+
   protected get publicacionesFiltradas(): Publicacion[] {
     const termino = this.busqueda.trim().toLowerCase();
     return this.publicaciones.filter(
@@ -109,25 +132,27 @@ export class ForoComponent {
   protected seleccionarCategoria(categoria: string): void {
     this.categoriaActiva = categoria;
   }
+
   protected actualizarBusqueda(event: Event): void {
     this.busqueda = (event.target as HTMLInputElement).value;
   }
-  protected actualizarBorrador(event: Event): void {
-    this.borrador = (event.target as HTMLTextAreaElement).value;
-  }
+
   protected alternarGuardado(post: Publicacion): void {
     post.guardado = !post.guardado;
+    this.guardarPublicaciones();
   }
 
   protected crearPublicacion(): void {
-    const titulo = this.borrador.trim();
-    if (!titulo) return;
+    const titulo = this.nuevoTitulo.trim();
+    const descripcion = this.nuevaDescripcion.trim();
+    if (!titulo || !descripcion) return;
+
     this.publicaciones = [
       {
         id: Date.now(),
-        categoria: this.categoriaActiva === 'Todo' ? 'Cultivos' : this.categoriaActiva,
+        categoria: this.nuevaCategoria,
         titulo,
-        resumen: 'Nueva publicación de la comunidad AgroCampo.',
+        resumen: descripcion,
         autor: 'Rafael Camilo',
         rol: 'Usuario General · Casanare',
         respuestas: 0,
@@ -135,7 +160,25 @@ export class ForoComponent {
       },
       ...this.publicaciones,
     ];
-    this.borrador = '';
+
+    this.guardarPublicaciones();
+    this.cerrarFormulario();
+  }
+
+  protected cerrarFormulario(): void {
+    this.nuevoTitulo = '';
+    this.nuevaDescripcion = '';
+    this.nuevaCategoria = this.tiposPublicacion[0];
     this.publicarAbierto = false;
+  }
+
+  private cargarPublicaciones(): void {
+    const datosGuardados = localStorage.getItem(CLAVE_STORAGE);
+    if (!datosGuardados) return;
+    this.publicaciones = JSON.parse(datosGuardados);
+  }
+
+  private guardarPublicaciones(): void {
+    localStorage.setItem(CLAVE_STORAGE, JSON.stringify(this.publicaciones));
   }
 }

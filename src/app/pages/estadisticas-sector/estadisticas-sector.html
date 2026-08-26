@@ -1,0 +1,55 @@
+<div class="estadisticas-page">
+  <app-site-header />
+  <main class="estadisticas-main">
+    <section class="estadisticas-hero shell">
+      <p class="eyebrow">Datos y análisis · Sector agropecuario</p>
+      <h1>Estadísticas del agro colombiano</h1>
+      <span>Cifras ilustrativas para conocer mejor la realidad agropecuaria del país.</span>
+    </section>
+
+    <section class="estadisticas-grid shell">
+      <article class="stat-card">
+        <h2>Área sembrada por cultivo</h2>
+        <p class="stat-fact">El café sigue siendo el cultivo con mayor área sembrada del país, por encima del arroz y el maíz.</p>
+        <div class="chart-box"><canvas #cultivosCanvas></canvas></div>
+        <ul class="stat-curiosidades">
+          <li>Colombia es el tercer productor mundial de café, después de Brasil y Vietnam.</li>
+          <li>La palma de aceite ha crecido más rápido que cualquier otro cultivo en los últimos 20 años.</li>
+        </ul>
+      </article>
+
+      <article class="stat-card">
+        <h2>Evolución del hato ganadero</h2>
+        <p class="stat-fact">Colombia ha aumentado su población bovina de forma sostenida en la última década.</p>
+        <div class="chart-box"><canvas #ganadoCanvas></canvas></div>
+        <ul class="stat-curiosidades">
+          <li>El hato ganadero colombiano supera en número a la población humana del país.</li>
+          <li>Los Llanos Orientales concentran una de las mayores densidades de ganado bovino del país.</li>
+        </ul>
+      </article>
+
+      <article class="stat-card">
+        <h2>Huella hídrica por cultivo</h2>
+        <p class="stat-fact">¿Sabías que producir un kilo de frijol puede requerir hasta 5.000 litros de agua, mucho más que la papa?</p>
+        <div class="chart-box"><canvas #aguaCanvas></canvas></div>
+        <ul class="stat-curiosidades">
+          <li>La papa es uno de los cultivos más eficientes en el uso del agua por kilo producido.</li>
+          <li>El algodón es uno de los cultivos con mayor demanda hídrica a nivel mundial.</li>
+        </ul>
+      </article>
+
+      <article class="stat-card">
+        <h2>Exportaciones agropecuarias</h2>
+        <p class="stat-fact">El café representa más de un tercio del valor exportado del sector agropecuario colombiano.</p>
+        <div class="chart-box"><canvas #exportacionesCanvas></canvas></div>
+        <ul class="stat-curiosidades">
+          <li>Las flores colombianas llegan a más de 90 países, siendo Estados Unidos el principal comprador.</li>
+          <li>El aguacate Hass ha tenido uno de los crecimientos en exportación más rápidos de la última década.</li>
+        </ul>
+      </article>
+    </section>
+
+    <p class="disclaimer">* Los datos presentados son ilustrativos y con fines educativos; no corresponden a cifras oficiales verificadas.</p>
+  </main>
+  <app-site-footer />
+</div>

@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AyudaSoporteComponent } from './pages/ayuda-soporte/ayuda-soporte';
 import { EstadisticasComponent } from './pages/estadisticas/estadisticas';
+import { EstadisticasSectorComponent } from './pages/estadisticas-sector/estadisticas-sector';
 import { ForoComponent } from './pages/foro/foro';
 import { LoginComponent } from './pages/login/login';
 import { MasInformacionComponent } from './pages/mas-informacion/mas-informacion';
@@ -22,6 +23,7 @@ export const routes: Routes = [
   { path: 'home', redirectTo: '', pathMatch: 'full' },
   { path: 'pagina-de-inicio', component: PaginaDeInicioComponent, title: 'AgroCampo | Bienvenida' },
   { path: 'estadisticas', component: EstadisticasComponent, title: 'AgroCampo | Estadísticas' },
+  { path: 'estadisticas-sector', component: EstadisticasSectorComponent, title: 'AgroCampo | Estadísticas del sector' },
   { path: 'veterinarias/registrar', component: AgregarVeterinariaComponent, title: 'AgroCampo | Agregar Veterinaria' },
   { path: 'veterinarias/:id', component: VeterinariaDetalleComponent, title: 'AgroCampo | Veterinaria' },
   { path: 'veterinarias', component: VeterinariasComponent, title: 'AgroCampo | Veterinarias' },
