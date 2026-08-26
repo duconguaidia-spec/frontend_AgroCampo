@@ -1,0 +1,727 @@
+:host {
+  display: block;
+}
+
+.vet-register-page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  color: #1a2e22;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: #e5ece3;
+  background-image: 
+    linear-gradient(rgba(240, 245, 238, 0.88), rgba(240, 245, 238, 0.92)),
+    url('/assets/images/campo-verde.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.shell {
+  width: min(1320px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+/* ==========================================================================
+   HERO / STORE HEADER SECTION
+   ========================================================================== */
+.store-hero {
+  position: relative;
+  background: 
+    linear-gradient(110deg, rgba(28, 71, 140, 0.92) 0%, rgba(22, 105, 115, 0.88) 50%, rgba(18, 148, 56, 0.85) 100%),
+    url('/assets/images/campo-atardecer.jpg') center / cover no-repeat;
+  padding: 18px 0 28px;
+  color: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.hero-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.top-nav-row {
+  display: flex;
+  align-items: center;
+}
+
+.back-link {
+  color: #cbebc4;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.vet-name-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.vet-name-label {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.7rem);
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  white-space: nowrap;
+}
+
+.hero-pill-input {
+  flex: 1;
+  min-width: 280px;
+  height: 52px;
+  font-size: 1.15rem;
+}
+
+/* Search bar */
+.search-bar-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.search-bar {
+  display: flex;
+  width: min(780px, 100%);
+  height: 44px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 8px;
+  overflow: hidden;
+  backdrop-filter: blur(4px);
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 0 16px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.btn-search {
+  background: #2b7d38;
+  color: #ffffff;
+  border: none;
+  padding: 0 26px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-search:hover {
+  background: #23692e;
+}
+
+/* ==========================================================================
+   PILL / CAPSULE INPUTS (Signature look from mockup)
+   ========================================================================== */
+.pill-input {
+  border: none;
+  outline: none;
+  border-radius: 9999px;
+  background-color: #b5a59e;
+  color: #ffffff;
+  padding: 10px 22px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.12);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pill-input::placeholder {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+}
+
+.pill-input:focus {
+  background-color: #a3928a;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.18), 0 0 0 3px rgba(43, 125, 56, 0.3);
+}
+
+/* ==========================================================================
+   CONTENT BODY
+   ========================================================================== */
+.content-body {
+  padding: 32px 0 60px;
+}
+
+/* 3 Info Cards Grid */
+.info-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.info-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 22px 24px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(25, 45, 30, 0.08);
+  border: 1px solid #dce8db;
+}
+
+.card-icon-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.pin-icon {
+  background: #fde8e8;
+}
+
+.clock-icon {
+  background: #e6f6ec;
+}
+
+.phone-icon {
+  background: #eaf1f7;
+}
+
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #1a2e22;
+}
+
+.card-input {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 0.88rem;
+  padding: 9px 16px;
+}
+
+.btn-maps {
+  align-self: flex-start;
+  background: transparent;
+  color: #2b7d38;
+  border: 2px solid #2b7d38;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-maps:hover {
+  background: #2b7d38;
+  color: #ffffff;
+}
+
+/* Middle Long Inputs: Descripcion & Especialidad */
+.long-inputs-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.input-line-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.section-label {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  font-weight: 700;
+  color: #1c3325;
+  min-width: 140px;
+}
+
+.wide-pill-input {
+  flex: 1;
+  height: 48px;
+  font-size: 0.95rem;
+}
+
+.specialty-input {
+  max-width: 320px;
+}
+
+/* ==========================================================================
+   PRODUCTS AND SERVICES SECTION
+   ========================================================================== */
+.products-section-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 36px;
+}
+
+.products-heading h2 {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  line-height: 1.2;
+  color: #1a2e22;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.product-item-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #dbe6da;
+  box-shadow: 0 6px 18px rgba(25, 45, 30, 0.07);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 250px;
+}
+
+.btn-delete-prod {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(220, 53, 69, 0.85);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.btn-delete-prod:hover {
+  background: #c82333;
+  transform: scale(1.1);
+}
+
+.product-visual-box {
+  height: 155px;
+  background: #eef5ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.custom-prod-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Mock Bravecto Package */
+.mock-bravecto-box {
+  width: 72px;
+  height: 110px;
+  background: #ffffff;
+  border: 1px solid #e0c2b2;
+  border-top: 6px solid #e65c00;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 2px;
+}
+
+.bravecto-top-tag {
+  font-size: 0.55rem;
+  font-weight: 900;
+  color: #e65c00;
+  letter-spacing: 0.05em;
+}
+
+.bravecto-circle-dog {
+  font-size: 1.8rem;
+  background: #fff4ed;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bravecto-bottom-bar {
+  width: 80%;
+  height: 4px;
+  background: #e65c00;
+  border-radius: 2px;
+}
+
+/* Mock NexGard Package */
+.mock-nexgard-box {
+  width: 90px;
+  height: 105px;
+  background: #194680;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 4px;
+  border: 1px solid #11315c;
+}
+
+.nexgard-header {
+  font-size: 0.65rem;
+  font-weight: 900;
+  text-align: center;
+  line-height: 1.1;
+  color: #ffffff;
+}
+
+.nexgard-header small {
+  color: #d175d9;
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+}
+
+.nexgard-inner {
+  font-size: 1.7rem;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mock-default-box {
+  font-size: 2.5rem;
+}
+
+.product-caption {
+  padding: 14px 12px;
+  background: #ffffff;
+  flex: 1;
+}
+
+.product-caption h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #1a2e22;
+}
+
+/* "Nuevo producto +" card */
+.add-product-card {
+  cursor: pointer;
+  border: 2px dashed #9fbda5;
+  transition: all 0.2s ease;
+  justify-content: center;
+}
+
+.add-product-card:hover {
+  border-color: #2b7d38;
+  background: #f4faf4;
+  transform: translateY(-2px);
+}
+.add-product-card:focus-visible {
+  outline: 3px solid #2b7d38;
+  outline-offset: 3px;
+}
+
+.add-product-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 16px;
+  gap: 8px;
+}
+
+.add-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #233e2b;
+}
+
+.add-plus-symbol {
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: #233e2b;
+  line-height: 1;
+}
+
+/* Product Form Card on Right */
+.product-form-card {
+  padding: 14px;
+  background: #f8faf7;
+  gap: 12px;
+}
+
+.upload-image-box {
+  height: 95px;
+  background: #e2ebe0;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px dashed #8cb393;
+  transition: background 0.2s ease;
+  overflow: hidden;
+}
+
+.upload-image-box:hover {
+  background: #d5e5d3;
+}
+
+.upload-text {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #1c3622;
+}
+
+.upload-hint {
+  font-size: 0.72rem;
+  color: #436d4a;
+  margin-top: 2px;
+}
+
+.preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-fields-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.prod-input-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.prod-label {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #1f3b27;
+}
+
+.prod-pill-input {
+  width: 100%;
+  box-sizing: border-box;
+  height: 32px;
+  padding: 4px 12px;
+  font-size: 0.82rem;
+}
+
+.btn-add-inline {
+  margin-top: 4px;
+  background: #2b7d38;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-add-inline:hover {
+  background: #21612b;
+}
+
+/* ==========================================================================
+   ACTIONS BOTTOM ROW
+   ========================================================================== */
+.actions-bottom-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.btn-siguiente {
+  background-color: #3b7e2d;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 44px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(43, 100, 36, 0.3);
+  transition: all 0.2s ease;
+}
+
+.btn-siguiente:hover {
+  background-color: #316c25;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(43, 100, 36, 0.4);
+}
+
+.btn-siguiente:active {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   SUCCESS MODAL
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.modal-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 36px 32px;
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalPop {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.modal-icon {
+  font-size: 3rem;
+}
+
+.modal-card h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #1b3d22;
+}
+
+.modal-card p {
+  margin: 0;
+  color: #4b6652;
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.btn-modal-ok {
+  margin-top: 8px;
+  background: #2b7d38;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-modal-ok:hover {
+  background: #20612a;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+@media (max-width: 1080px) {
+  .info-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .products-section-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .shell {
+    width: min(100% - 24px, 1320px);
+  }
+
+  .vet-name-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .input-line-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .specialty-input {
+    max-width: 100%;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-siguiente {
+    width: 100%;
+  }
+}
