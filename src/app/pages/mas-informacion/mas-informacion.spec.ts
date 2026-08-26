@@ -1,72 +1,121 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { provideRouter } from '@angular/router';
-import { MasInformacionComponent } from './mas-informacion';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
-describe('MasInformacionComponent', () => {
-  let component: MasInformacionComponent;
-  let fixture: ComponentFixture<MasInformacionComponent>;
+import { SiteFooterComponent } from '../../shared/site-footer/site-footer';
+import { SiteHeaderComponent } from '../../shared/site-header/site-header';
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [MasInformacionComponent],
-      providers: [provideRouter([])]
-    }).compileComponents();
 
-    fixture = TestBed.createComponent(MasInformacionComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+interface Modulo {
+  titulo: string;
+  requisitos: string;
+  descripcion: string;
+  ruta: string;
+}
 
-  it('debería crearse el componente', () => {
-    expect(component).toBeTruthy();
-  });
 
-  it('debería mostrar la marca "AgroCampo" en el navbar', () => {
-    const marca = fixture.debugElement.query(By.css('.navbar-nombre'));
-    expect(marca.nativeElement.textContent).toContain('AgroCampo');
-  });
+@Component({
+  selector: 'app-mas-informacion',
 
-  it('debería mostrar los 6 enlaces del menú de navegación', () => {
-    const links = fixture.debugElement.queryAll(By.css('.navbar-links a'));
-    expect(links.length).toBe(6);
-  });
+  standalone: true,
 
-  it('debería mostrar el ícono de usuario en el navbar', () => {
-    const icono = fixture.debugElement.query(By.css('.navbar-usuario svg'));
-    expect(icono).toBeTruthy();
-  });
+  imports: [
+    CommonModule,
+    RouterLink,
+    SiteHeaderComponent,
+    SiteFooterComponent
+  ],
 
-  it('debería mostrar el título "Mas Información"', () => {
-    const titulo = fixture.debugElement.query(By.css('.mi-header-titulo'));
-    expect(titulo.nativeElement.textContent).toContain('Mas Información');
-  });
+  templateUrl: './mas-informacion.html',
 
-  it('debería mostrar la tarjeta de introducción', () => {
-    const intro = fixture.debugElement.query(By.css('.mi-intro-card h2'));
-    expect(intro.nativeElement.textContent).toContain('El campo colombiano en la era digital');
-  });
+  styleUrl: './mas-informacion.css',
+})
 
-  it('debería mostrar las tarjetas de misión y visión', () => {
-    const cards = fixture.debugElement.queryAll(By.css('.mv-card'));
-    expect(cards.length).toBe(2);
-  });
 
-  it('debería renderizar los 6 módulos de la plataforma', () => {
-    const cards = fixture.debugElement.queryAll(By.css('.modulo-card'));
-    expect(cards.length).toBe(component.modulos.length);
-    expect(component.modulos.length).toBe(6);
-  });
+export class MasInformacionComponent {
 
-  it('cada módulo debería tener título, descripción y etiqueta', () => {
-    const primerModulo = fixture.debugElement.query(By.css('.modulo-card'));
-    expect(primerModulo.query(By.css('h4')).nativeElement.textContent).toContain('Gestion Agropecuaria');
-    expect(primerModulo.query(By.css('.modulo-etiqueta')).nativeElement.textContent).toContain('Modulo 1');
-  });
 
-  it('debería mostrar el pie de página con el año actual', () => {
-    const footer = fixture.debugElement.query(By.css('.mi-footer p'));
-    expect(footer.nativeElement.textContent).toContain(String(component.anioActual));
-    expect(footer.nativeElement.textContent).toContain('AgroCampo');
-  });
-});
+  protected readonly modulos: Modulo[] = [
+
+    
+
+    {
+      titulo: 'Roles y usuarios',
+
+      requisitos: 'RF 4–5',
+
+      descripcion:
+        'Auditoría de actividades y edición de datos personales, intereses y ubicación.',
+
+      ruta: '/perfil'
+    },
+
+
+    
+
+    {
+      titulo: 'Gestión Agropecuaria',
+
+      requisitos: 'RF 6–9',
+
+      descripcion:
+        'Registro de cultivos, ganado, producción local, inventario y noticias del sector.',
+
+      ruta: '/estadisticas'
+    },
+
+
+    
+    {
+      titulo: 'Veterinarias',
+
+      requisitos: 'RF 10–13',
+
+      descripcion:
+        'Mapa interactivo, registro, catálogo de servicios y contactos de veterinarias.',
+
+      ruta: '/veterinarias'
+    },
+
+
+
+    {
+      titulo: 'Contenido Educativo',
+
+      requisitos: 'RF 14–17',
+
+      descripcion:
+        'Videos, artículos, guías y foro de discusión para compartir experiencias.',
+
+      ruta: '/foro'
+    },
+
+
+
+    {
+      titulo: 'Reportes y Análisis',
+
+      requisitos: 'RF 18–20',
+
+      descripcion:
+        'Reportes de actividad, paneles de visualización y exportación de datos.',
+
+      ruta: '/estadisticas'
+    },
+
+
+    
+    {
+      titulo: 'Soporte y Mantenimiento',
+
+      requisitos: 'RF 21–22',
+
+      descripcion:
+        'Preguntas frecuentes y canal para reportar incidencias técnicas.',
+
+      ruta: '/ayuda-soporte'
+    }
+
+  ];
+
+}

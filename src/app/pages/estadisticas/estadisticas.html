@@ -3,17 +3,22 @@
   <main>
     <section class="page-hero">
       <div>
-        <p>Gestión Agropecuaria · RF 6–9</p>
-        <h1>Precios de ganado bovino</h1><span>Consulta indicadores del sector y el comportamiento de las últimas
-          subastas.</span>
+        <h1>Precios de ganado bovino</h1>
+        <span>Consulta indicadores del sector y el comportamiento de las últimas subastas.</span>
       </div>
     </section>
 
     <section class="metrics shell" aria-label="Indicadores resumidos">
-      <article><span>Promedio de mercado</span><strong>$8.592</strong><small>↑ 3,8 % frente a la semana anterior</small>
+      <article>
+        <span>Promedio de mercado</span><strong>$8.592</strong
+        ><small>↑ 3,8 % frente a la semana anterior</small>
       </article>
-      <article><span>Mayor cotización</span><strong>$11.000</strong><small>ML · Subasta del 19 feb</small></article>
-      <article><span>Registros analizados</span><strong>28</strong><small>7 categorías · 4 subastas</small></article>
+      <article>
+        <span>Mayor cotización</span><strong>$11.000</strong><small>ML · Subasta del 19 feb</small>
+      </article>
+      <article>
+        <span>Registros analizados</span><strong>28</strong><small>7 categorías · 4 subastas</small>
+      </article>
     </section>
 
     <section class="chart-card shell">
@@ -22,27 +27,36 @@
           <p class="eyebrow">Estadística de precios</p>
           <h2>Analiza el comportamiento de las últimas 4 subastas</h2>
         </div>
-        <div class="chart-actions"><button type="button" (click)="exportar('PDF')">Exportar PDF</button><button
-            type="button" (click)="exportar('Excel')">Exportar Excel</button></div>
+        <div class="chart-actions">
+          <button type="button" (click)="exportar('PDF')">Exportar PDF</button
+          ><button type="button" (click)="exportar('Excel')">Exportar Excel</button>
+        </div>
       </div>
-      @if (exportMessage) { <p class="export-message" role="status">{{ exportMessage }}</p> }
+      @if (exportMessage) {
+        <p class="export-message" role="status">{{ exportMessage }}</p>
+      }
 
       <div class="legend" aria-label="Categorías de precio">
-        <span *ngFor="let categoria of categorias"><i [style.background]="categoria.color"></i>{{ categoria.sigla
-          }}</span>
+        <span *ngFor="let categoria of categorias"
+          ><i [style.background]="categoria.color"></i>{{ categoria.sigla }}</span
+        >
       </div>
 
       <div class="chart-scroll">
         <div class="price-chart">
           <div class="axis" aria-hidden="true">
-            <span>12.000</span><span>9.000</span><span>6.000</span><span>3.000</span><span>0</span></div>
+            <span>12.000</span><span>9.000</span><span>6.000</span><span>3.000</span><span>0</span>
+          </div>
           <div class="groups">
             <article class="price-group" *ngFor="let subasta of subastas">
               <div class="bars">
                 <div class="bar-wrap" *ngFor="let valor of subasta.valores; let index = index">
-                  <div class="bar" [style.height.%]="(valor / maximo) * 100"
+                  <div
+                    class="bar"
+                    [style.height.%]="(valor / maximo) * 100"
                     [style.background]="categorias[index].color"
-                    [attr.aria-label]="categorias[index].sigla + ': ' + valor">
+                    [attr.aria-label]="categorias[index].sigla + ': ' + valor"
+                  >
                     <span>${{ valor }}</span>
                   </div>
                   <small>{{ categorias[index].sigla }}</small>
@@ -59,8 +73,12 @@
       <div>
         <p class="eyebrow">Reportes y análisis · RF 18–20</p>
         <h2>Datos listos para tomar decisiones</h2>
-        <p>El panel concentra precios, actividad, registros y reportes exportables en una misma vista.</p>
-      </div><a href="#chart" class="report-link">Ver panel completo <span>→</span></a>
+        <p>
+          El panel concentra precios, actividad, registros y reportes exportables en una misma
+          vista.
+        </p>
+      </div>
+      <a href="#chart" class="report-link">Ver panel completo <span>→</span></a>
     </section>
   </main>
   <app-site-footer />
