@@ -3,7 +3,7 @@
   <main>
     <section class="vet-hero">
       <div class="shell">
-        <p>Veterinarias · RF 10–13</p>
+        <p>Directorio veterinario</p>
         <h1>Encuentra servicios veterinarios cerca de ti</h1>
         <span
           >Explora el directorio, consulta servicios y comunica tus necesidades
@@ -28,29 +28,19 @@
       </div>
       <div class="directory-layout">
         <section class="map-panel" aria-label="Mapa de veterinarias">
-          <div class="map-grid"></div>
-          <span class="map-title">Mapa interactivo</span>@for (veterinaria of
-          resultados; track veterinaria.nombre; let index = $index) {
-          <button
-            type="button"
-            class="map-pin"
-            [style.--pin-color]="veterinaria.color"
-            [style.left.%]="20 + index * 19"
-            [style.top.%]="31 + (index % 2) * 30"
-            (click)="contactar(veterinaria)"
-            [attr.aria-label]="'Seleccionar ' + veterinaria.nombre"
-          >
-            ✚
-          </button>
-          }<span class="map-copy">Yopal y municipios cercanos</span>
+          <div #mapaGoogle class="google-map"></div>
+          @if (!mapaActivo) {
+          <div class="map-fallback"><strong>Mapa de Google Maps</strong><span>Configura la clave de Google Maps para cargar el mapa interactivo.</span><button type="button" (click)="abrirEnGoogleMaps()">Abrir en Google Maps</button></div>
+          }
+          <span class="map-title">Mapa interactivo</span><span class="map-copy">Yopal y municipios cercanos</span>
         </section>
         <section class="directory">
           <div class="directory-heading">
             <div>
               <h2>Veterinarias registradas</h2><span>{{ resultados.length }} resultados cercanos</span>
-            </div><a class="registrar" routerLink="/veterinarias/registrar">
+            </div>@if (autenticacion.puedeGestionarVeterinarias()) { <a class="registrar" routerLink="/veterinarias/registrar">
               Registar veterinaria
-            </a>
+            </a> }
           </div>@for (veterinaria of resultados; track veterinaria.nombre) { <article class="vet-card"><span
               class="vet-logo" [style.background]="veterinaria.color">✚</span>
             <div class="vet-info">

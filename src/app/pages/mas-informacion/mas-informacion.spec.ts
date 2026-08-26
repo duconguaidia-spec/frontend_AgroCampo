@@ -42,7 +42,7 @@ export class MasInformacionComponent {
     {
       titulo: 'Roles y usuarios',
 
-      requisitos: 'RF 4–5',
+      requisitos: 'Usuarios',
 
       descripcion:
         'Auditoría de actividades y edición de datos personales, intereses y ubicación.',
@@ -56,7 +56,7 @@ export class MasInformacionComponent {
     {
       titulo: 'Gestión Agropecuaria',
 
-      requisitos: 'RF 6–9',
+      requisitos: 'Gestión',
 
       descripcion:
         'Registro de cultivos, ganado, producción local, inventario y noticias del sector.',
@@ -69,7 +69,7 @@ export class MasInformacionComponent {
     {
       titulo: 'Veterinarias',
 
-      requisitos: 'RF 10–13',
+      requisitos: 'Servicios',
 
       descripcion:
         'Mapa interactivo, registro, catálogo de servicios y contactos de veterinarias.',
@@ -82,7 +82,7 @@ export class MasInformacionComponent {
     {
       titulo: 'Contenido Educativo',
 
-      requisitos: 'RF 14–17',
+      requisitos: 'Contenido',
 
       descripcion:
         'Videos, artículos, guías y foro de discusión para compartir experiencias.',
@@ -95,7 +95,7 @@ export class MasInformacionComponent {
     {
       titulo: 'Reportes y Análisis',
 
-      requisitos: 'RF 18–20',
+      requisitos: 'Análisis',
 
       descripcion:
         'Reportes de actividad, paneles de visualización y exportación de datos.',
@@ -108,7 +108,7 @@ export class MasInformacionComponent {
     {
       titulo: 'Soporte y Mantenimiento',
 
-      requisitos: 'RF 21–22',
+      requisitos: 'Soporte',
 
       descripcion:
         'Preguntas frecuentes y canal para reportar incidencias técnicas.',

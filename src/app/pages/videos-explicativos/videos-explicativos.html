@@ -7,10 +7,27 @@
           <p class="eyebrow">Aprende · comparte · cultiva</p>
           <h1>Conoce más del campo<br />con expertos en el área</h1>
           <p class="hero-copy">Cada video está elaborado con información práctica, clara y actualizada, pensada para productores experimentados y para estudiantes y emprendedores del sector agropecuario.</p>
+          @if (autenticacion.puedeGestionarContenido()) {
+          <button class="add-video-button" type="button" (click)="abrirFormulario()">Agregar video</button>
+          }
         </div>
         <aside>¿Qué fertilizantes se pueden utilizar en el maíz?</aside>
       </div>
     </section>
+
+    @if (formularioVisible && autenticacion.puedeGestionarContenido()) {
+    <section class="shell video-form-shell" aria-labelledby="nuevo-video">
+      <div class="form-heading"><div><p class="eyebrow">Contenido educativo</p><h2 id="nuevo-video">Nuevo video</h2></div><button type="button" class="close-form" (click)="cancelarFormulario()" aria-label="Cerrar formulario">×</button></div>
+      <form class="video-form" (ngSubmit)="revisarVideo()">
+        <label>Título<input [(ngModel)]="nuevoVideo.titulo" name="titulo" required /></label>
+        <label>Categoría<select [(ngModel)]="nuevoVideo.categoria" name="categoria"><option value="Cultivos">Cultivos</option><option value="Ganadería">Ganadería</option><option value="Maquinaria">Maquinaria</option><option value="Plagas">Plagas</option></select></label>
+        <label class="form-full">Descripción<textarea [(ngModel)]="nuevoVideo.descripcion" name="descripcion" rows="4" required></textarea></label>
+        <label class="form-full">Enlace del video<input [(ngModel)]="nuevoVideo.enlace" name="enlace" type="url" placeholder="https://www.youtube.com/..." required /></label>
+        @if (mensajeFormulario) { <p class="form-error" role="alert">{{ mensajeFormulario }}</p> }
+        <div class="form-actions"><button type="button" class="secondary-button" (click)="cancelarFormulario()">Cancelar</button><button type="submit" class="submit-video">Siguiente</button></div>
+      </form>
+    </section>
+    }
 
     <section class="shell content-area">
       <div class="category-tabs" aria-label="Filtrar videos por categoría">
@@ -54,5 +71,11 @@
       </div>
     </section>
   </main>
+
+  @if (confirmacionVisible) {
+  <div class="confirmation-backdrop" role="dialog" aria-modal="true" aria-labelledby="confirmar-video">
+    <section class="confirmation-card"><h2 id="confirmar-video">Confirmar publicación</h2><p>¿Deseas publicar el video “{{ nuevoVideo.titulo }}”?</p><div><button type="button" class="secondary-button" (click)="confirmacionVisible = false">Volver</button><button type="button" class="submit-video" (click)="publicarVideo()">Publicar video</button></div></section>
+  </div>
+  }
   <app-site-footer />
 </div>
