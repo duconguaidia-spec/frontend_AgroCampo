@@ -19,7 +19,7 @@
   flex: 1 0 auto; /* crece para empujar el footer al fondo cuando el contenido es corto */
   position: relative;
   width: 100%;
-  min-height: 755px;
+  min-height: calc(100dvh - 44px);
   background-color: #3a3226; /* respaldo: tono tierra/atardecer, por si queda una fracción de px visible */
   background-image: url('../../../assets/images/campo_atardecer.jpg');
   background-size: cover;
@@ -56,21 +56,21 @@
 .hero-contenido {
   position: relative;
   z-index: 2;
-  max-width: 620px;
-  padding: 120px 48px 80px;
+  max-width: 710px;
+  padding: clamp(90px, 16vh, 190px) clamp(28px, 9vw, 150px) 80px;
   color: var(--texto-claro);
 }
 
 .hero-titulo {
-  font-size: 40px;
+  font-size: clamp(2.5rem, 4.7vw, 5rem);
   font-weight: 500;
-  line-height: 1.25;
+  line-height: 1.12;
   margin: 0 0 20px;
   font-family: Georgia, 'Times New Roman', serif;
 }
 
 .hero-subtitulo {
-  font-size: 15px;
+  font-size: clamp(1rem, 1.4vw, 1.35rem);
   line-height: 1.6;
   max-width: 460px;
   margin: 0 0 32px;
@@ -87,7 +87,7 @@
   background: var(--verde-boton);
   color: var(--texto-claro);
   border: none;
-  padding: 12px 26px;
+  padding: 15px 28px;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
@@ -103,7 +103,7 @@
   background: var(--boton-claro-bg);
   color: var(--boton-claro-texto);
   border: none;
-  padding: 12px 26px;
+  padding: 15px 28px;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;

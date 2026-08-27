@@ -114,13 +114,20 @@
   background: #fff;
   box-shadow: 0 14px 32px rgb(11 36 74 / 24%);
 }
-.account-panel a {
+.account-panel a,
+.account-panel button {
+  border: 0;
+  width: 100%;
   padding: 12px 15px;
   color: #18345e;
+  background: #fff;
+  cursor: pointer;
   text-decoration: none;
+  text-align: left;
   font-size: 0.9rem;
 }
-.account-panel a:hover {
+.account-panel a:hover,
+.account-panel button:hover {
   color: #fff;
   background: #3268b5;
 }

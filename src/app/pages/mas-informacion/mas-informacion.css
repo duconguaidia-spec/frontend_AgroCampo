@@ -88,7 +88,7 @@ h3 {
   opacity: .17;
 
   background:
-    url('/assets/images/campo-verde.jpg')
+    url('../../../assets/images/campo_verde.jpg')
     center / cover;
 }
 

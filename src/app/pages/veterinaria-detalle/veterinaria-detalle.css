@@ -38,6 +38,28 @@ h3 {
   font-family: Georgia, serif;
   font-size: 1.05rem;
 }
+.hero-title-row { display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+.edit-button, .save-button, .secondary-button, .product-actions button { border: 0; border-radius: 8px; padding: 10px 14px; font-weight: 800; cursor: pointer; }
+.edit-button, .save-button { color: #fff; background: #277b45; }
+.secondary-button { color: #36516f; background: #eaf0ed; }
+.status-message { margin: 0 0 20px; padding: 12px 14px; border-radius: 10px; color: #176e3a; background: #e6f7eb; }
+.vet-edit-form, .product-form { margin-bottom: 28px; padding: 26px; border: 1px solid #d6ecdc; border-radius: 16px; background: #fff; box-shadow: 0 8px 22px rgb(36 88 53 / 9%); }
+.form-heading { display: flex; justify-content: space-between; gap: 16px; }
+.form-heading p, .product-form > div > p { margin: 0; color: #277b45; font-size: .72rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+.form-heading h2, .product-form h2 { margin: 5px 0 20px; color: #1d3928; font-size: 1.45rem; }
+.close-form { border: 0; color: #526174; background: transparent; font-size: 1.8rem; cursor: pointer; }
+.vet-edit-form, .vet-edit-form form { display: grid; gap: 15px; }
+.vet-edit-form form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.vet-edit-form label, .product-form label { display: grid; gap: 6px; color: #526174; font-size: .8rem; font-weight: 800; }
+.vet-edit-form input, .vet-edit-form textarea, .product-form input { border: 1px solid #cfe0d4; border-radius: 8px; padding: 11px; color: #1d3928; font: inherit; }
+.vet-edit-form textarea { resize: vertical; }
+.form-full, .form-actions { grid-column: 1 / -1; }
+.form-actions { display: flex; justify-content: end; gap: 10px; }
+.product-actions { display: flex; gap: 7px; margin-top: 13px; }
+.product-actions button { padding: 7px 9px; color: #277b45; background: #eaf7ed; font-size: .72rem; }
+.product-actions .delete-button { color: #a9293d; background: #feecef; }
+.product-form { display: grid; grid-template-columns: 220px 1fr; gap: 22px; align-items: start; }
+.product-form form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
 .product-search {
   display: flex;
   width: min(750px, 100%);
@@ -217,6 +239,7 @@ h3 {
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  .hero-title-row, .product-form { align-items: start; flex-direction: column; grid-template-columns: 1fr; }
 }
 @media (max-width: 560px) {
   .shell {
@@ -235,4 +258,5 @@ h3 {
   .products-grid {
     grid-template-columns: 1fr;
   }
+  .vet-edit-form form, .product-form form { grid-template-columns: 1fr; }
 }

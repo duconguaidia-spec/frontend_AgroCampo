@@ -2,47 +2,61 @@
   <app-site-header />
   <main>
     <section class="detail-hero">
-      <div class="shell"><a class="back-link" routerLink="/veterinarias">← Veterinarias cercanas</a>
-        <h1>{{ veterinaria().nombre }}</h1>
-        <p>{{ veterinaria().descripcion }}</p><label class="product-search"><input type="search"
-            placeholder="Buscar productos..." [value]="termino" (input)="buscar($event)" /><span>Buscar</span></label>
+      <div class="shell">
+        <a class="back-link" routerLink="/veterinarias">← Veterinarias cercanas</a>
+        <div class="hero-title-row">
+          <div><h1>{{ veterinaria().nombre }}</h1><p>{{ veterinaria().descripcion }}</p></div>
+          @if (autenticacion.puedeGestionarVeterinarias()) { <button type="button" class="edit-button" (click)="abrirEdicion()">Editar información</button> }
+        </div>
+        <label class="product-search"><input type="search" placeholder="Buscar productos..." [value]="termino" (input)="buscar($event)" /><span>Buscar</span></label>
       </div>
     </section>
+
     <section class="shell detail-content">
+      @if (mensaje) { <p class="status-message" role="status">{{ mensaje }}</p> }
+
+      @if (editando && autenticacion.puedeGestionarVeterinarias()) {
+      <form class="vet-edit-form" (ngSubmit)="guardarInformacion()">
+        <div class="form-heading"><div><p>Administración</p><h2>Editar información de la veterinaria</h2></div><button type="button" class="close-form" (click)="cancelarEdicion()" aria-label="Cerrar formulario">×</button></div>
+        <label>Nombre<input [(ngModel)]="borrador.nombre" name="nombre" required /></label>
+        <label>Teléfono<input [(ngModel)]="borrador.telefono" name="telefono" required /></label>
+        <label class="form-full">Dirección<input [(ngModel)]="borrador.direccion" name="direccion" required /></label>
+        <label class="form-full">Horarios<input [(ngModel)]="borrador.horarios" name="horarios" required /></label>
+        <label class="form-full">Descripción<textarea [(ngModel)]="borrador.descripcion" name="descripcion" rows="4" required></textarea></label>
+        <div class="form-actions"><button type="button" class="secondary-button" (click)="cancelarEdicion()">Cancelar</button><button type="submit" class="save-button">Guardar cambios</button></div>
+      </form>
+      }
+
       <div class="info-grid">
-        <article><i>📍</i>
-          <div>
-            <h2>Ubicación</h2>
-            <p>{{ veterinaria().direccion }}</p><a href="https://www.google.com/maps" target="_blank"
-              rel="noopener noreferrer">Abrir en Google Maps</a>
-          </div>
-        </article>
-        <article><i>🕘</i>
-          <div>
-            <h2>Horarios</h2>
-            <p>Lunes a Sábado:<br />7am – 7pm<br />Emergencias: 24/7</p>
-          </div>
-        </article>
-        <article><i>☎</i>
-          <div>
-            <h2>Teléfono</h2>
-            <p>{{ veterinaria().telefono }}<br />WhatsApp: 318 567 8901</p>
-          </div>
-        </article>
+        <article><i>📍</i><div><h2>Ubicación</h2><p>{{ veterinaria().direccion }}</p><a [href]="'https://www.google.com/maps/search/?api=1&query=' + veterinaria().direccion" target="_blank" rel="noopener noreferrer">Abrir en Google Maps</a></div></article>
+        <article><i>🕘</i><div><h2>Horarios</h2><p>{{ veterinaria().horarios }}</p></div></article>
+        <article><i>☎</i><div><h2>Teléfono</h2><p>{{ veterinaria().telefono }}</p></div></article>
       </div>
       <h2 class="section-description">{{ veterinaria().descripcion }}</h2>
       <section class="products">
         <h2>Nuestros<br />Productos</h2>
-        <div class="products-grid">@for (producto of productosFiltrados; track producto.nombre) { <article
-            class="product-card">
-            <div class="product-image" [class]="'product-image ' + producto.estilo"><span>{{ producto.nombre }}</span>
+        <div class="products-grid">
+          @for (producto of productosFiltrados; track producto.id) {
+          <article class="product-card">
+            <div class="product-image" [class]="'product-image ' + producto.estilo"><span>{{ producto.nombre }}</span></div>
+            <div><h3>{{ producto.nombre }}</h3><p>{{ producto.descripcion }}</p>
+              @if (autenticacion.puedeGestionarVeterinarias()) { <div class="product-actions"><button type="button" (click)="editarProducto(producto)">Editar</button><button type="button" class="delete-button" (click)="eliminarProducto(producto.id)">Eliminar</button></div> }
             </div>
-            <div>
-              <h3>{{ producto.nombre }}</h3>
-              <p>{{ producto.descripcion }}</p>
-            </div>
-          </article> } @empty { <p class="empty">No encontramos productos con esa búsqueda.</p> }</div>
+          </article>
+          } @empty { <p class="empty">No encontramos productos con esa búsqueda.</p> }
+        </div>
       </section>
+
+      @if (autenticacion.puedeGestionarVeterinarias()) {
+      <section class="product-form" aria-labelledby="producto-form-title">
+        <div><p>Administración</p><h2 id="producto-form-title">{{ productoEnEdicion ? 'Editar producto' : 'Agregar producto' }}</h2></div>
+        <form (ngSubmit)="guardarProducto()">
+          <label>Nombre<input [(ngModel)]="formularioProducto.nombre" name="productoNombre" required /></label>
+          <label>Descripción<input [(ngModel)]="formularioProducto.descripcion" name="productoDescripcion" required /></label>
+          <div class="form-actions"><button type="button" class="secondary-button" (click)="cancelarProducto()">Limpiar</button><button type="submit" class="save-button">Guardar producto</button></div>
+        </form>
+      </section>
+      }
     </section>
   </main>
   <app-site-footer />

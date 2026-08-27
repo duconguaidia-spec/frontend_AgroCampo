@@ -9,6 +9,7 @@ import {
   AbstractControl,
   ValidationErrors
 } from '@angular/forms';
+import { AutenticacionService, RolUsuario } from '../../services/autenticacion';
 
 @Component({
   selector: 'app-register',
@@ -23,11 +24,12 @@ export class RegisterComponent {
   errorServidor: string | null = null;
   mostrarPassword = false;
   mostrarConfirmarPassword = false;
-  tiposUsuario = ['Veterinario', 'Usuario', 'Administrador'];
+  tiposUsuario = ['Veterinario Registrado', 'Usuario General'];
 
   constructor(
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private autenticacion: AutenticacionService,
   ) {
     this.registerForm = this.fb.group({
       nombre: ['', [Validators.required,  Validators.minLength(3)]],
@@ -92,9 +94,21 @@ export class RegisterComponent {
       return;
     }
 
-    console.log(this.registerForm.value);
+    const datos = this.registerForm.getRawValue();
+    const rol: RolUsuario = datos.tipoUsuario === 'Veterinario Registrado' ? 'veterinario' : 'usuario';
+    const registrado = this.autenticacion.registrarUsuario({
+      nombre: `${datos.nombre?.trim()} ${datos.apellido?.trim()}`,
+      correo: datos.correo?.trim() ?? '',
+      contrasena: datos.password ?? '',
+      rol,
+    });
 
-    alert('Usuario registrado');
+    if (!registrado) {
+      this.errorServidor = 'Ya existe una cuenta registrada con este correo.';
+      return;
+    }
+
+    alert('Usuario registrado. Ahora puedes iniciar sesión.');
     this.router.navigate(['/login']);
   }
   inicioSesion(): void{
