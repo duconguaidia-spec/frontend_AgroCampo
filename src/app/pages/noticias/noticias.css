@@ -3,7 +3,7 @@
   display: block;
 
   --azul-oscuro: #03152e;
-  --azul-profundo: #06244a;
+  --azul-profundo: hsl(214, 85%, 16%);
   --azul: #0757c9;
   --azul-claro: #2d7ce5;
 

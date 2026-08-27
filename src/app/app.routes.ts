@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AyudaSoporteComponent } from './pages/ayuda-soporte/ayuda-soporte';
 import { EstadisticasComponent } from './pages/estadisticas/estadisticas';
+import { EstadisticasSectorComponent } from './pages/estadisticas-sector/estadisticas-sector';
 import { ForoComponent } from './pages/foro/foro';
 import { LoginComponent } from './pages/login/login';
 import { MasInformacionComponent } from './pages/mas-informacion/mas-informacion';
@@ -24,6 +25,7 @@ export const routes: Routes = [
   { path: 'pagina-de-inicio', component: PaginaDeInicioComponent, title: 'AgroCampo | Bienvenida' },
   { path: 'inicio', component: HomeComponent, canActivate: [accesoGuard], title: 'AgroCampo | Inicio' },
   { path: 'estadisticas', component: EstadisticasComponent, canActivate: [accesoGuard], title: 'AgroCampo | Estadísticas' },
+  { path: 'estadisticas-sector', component: EstadisticasSectorComponent, title: 'AgroCampo | Estadísticas del sector' },
   { path: 'veterinarias/registrar', component: AgregarVeterinariaComponent, canActivate: [rolGuard], data: { roles: ['administrador', 'veterinario'] }, title: 'AgroCampo | Agregar Veterinaria' },
   { path: 'veterinarias/:id', component: VeterinariaDetalleComponent, canActivate: [accesoGuard], title: 'AgroCampo | Veterinaria' },
   { path: 'veterinarias', component: VeterinariasComponent, canActivate: [accesoGuard], title: 'AgroCampo | Veterinarias' },

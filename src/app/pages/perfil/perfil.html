@@ -3,7 +3,17 @@
   <main class="profile-main">
     <section class="profile-shell">
       <aside class="profile-summary">
-        <div class="portrait">RC</div>
+        <div class="portrait" (click)="abrirModalFoto()" [class.clickable]="perfil.foto">
+          @if (perfil.foto) {
+            <img [src]="perfil.foto" alt="Foto de perfil" class="portrait-img" />
+          } @else {
+            {{ iniciales }}
+          }
+        </div>
+        <label class="foto-upload">
+          Cambiar foto
+          <input type="file" accept="image/*" (change)="onFotoSeleccionada($event)" hidden />
+        </label>
         <p class="role-pill">{{ perfil.rol }}</p>
         <h1>{{ perfil.nombre }}<br />{{ perfil.apellido }}</h1>
         <p class="location">⌖ {{ perfil.ubicacion }}</p>
@@ -35,4 +45,11 @@
     </section>
   </main>
   <app-site-footer />
+
+  @if (mostrarModalFoto) {
+    <div class="foto-modal-overlay" (click)="cerrarModalFoto()">
+      <button class="foto-modal-cerrar" (click)="cerrarModalFoto()">✕</button>
+      <img [src]="perfil.foto" alt="Foto de perfil ampliada" class="foto-modal-img" (click)="$event.stopPropagation()" />
+    </div>
+  }
 </div>

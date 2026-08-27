@@ -17,14 +17,39 @@
           }}</button> }</div>
       <div class="forum-layout">
         <section class="forum-main">
-          <div class="composer"><span class="avatar">RC</span>@if (publicarAbierto) { <textarea [value]="borrador"
-              (input)="actualizarBorrador($event)"
-              placeholder="Escribe el título de tu pregunta o experiencia"></textarea><button type="button"
-              (click)="crearPublicacion()">Publicar</button><button type="button" class="quiet"
-              (click)="publicarAbierto = false">Cancelar</button> } @else { <button type="button"
-              class="composer-placeholder" (click)="publicarAbierto = true">¿Tienes una pregunta o experiencia que
-              compartir?</button><button type="button" class="publish-button" (click)="publicarAbierto = true">Nueva
-              publicación</button> }</div>
+          <div class="composer">
+            <span class="avatar">RC</span>
+            @if (publicarAbierto) {
+              <div class="composer-form">
+                <div class="composer-fila">
+                  <input
+                    type="text"
+                    class="composer-titulo"
+                    [(ngModel)]="nuevoTitulo"
+                    placeholder="Título de tu pregunta o experiencia"
+                  />
+                  <select class="composer-tipo" [(ngModel)]="nuevaCategoria">
+                    @for (tipo of tiposPublicacion; track tipo) {
+                      <option [value]="tipo">{{ tipo }}</option>
+                    }
+                  </select>
+                </div>
+                <textarea
+                  [(ngModel)]="nuevaDescripcion"
+                  placeholder="Describe tu pregunta o experiencia con más detalle"
+                ></textarea>
+                <div class="composer-actions">
+                  <button type="button" (click)="crearPublicacion()">Publicar</button>
+                  <button type="button" class="quiet" (click)="cerrarFormulario()">Cancelar</button>
+                </div>
+              </div>
+            } @else {
+              <button type="button" class="composer-placeholder" (click)="publicarAbierto = true">¿Tienes una
+                pregunta o experiencia que compartir?</button>
+              <button type="button" class="publish-button" (click)="publicarAbierto = true">Nueva
+                publicación</button>
+            }
+          </div>
           <div class="post-list">@for (post of publicacionesFiltradas; track post.id) { <article class="post">
               <div class="post-top"><span class="post-category">{{ post.categoria }}</span>@if (post.urgente) { <span
                   class="urgent">▲ Urgente</span> }</div>

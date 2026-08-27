@@ -20,6 +20,7 @@ interface Noticia {
   selector: 'app-noticias',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink, SiteHeaderComponent, SiteFooterComponent],
+  
   templateUrl: './noticias.html',
   styleUrl: './noticias.css',
 })
