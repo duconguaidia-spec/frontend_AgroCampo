@@ -1,6 +1,28 @@
 :host {
   display: block;
 }
+
+.add-video-button { margin-top: 18px; border: 0; border-radius: 9px; padding: 12px 17px; color: #fff; background: #2f7d32; font-weight: 800; cursor: pointer; }
+.video-form-shell { position: relative; z-index: 3; margin-top: -24px; padding: 26px; border-radius: 18px; background: #fff; box-shadow: 0 16px 36px rgba(3, 21, 46, .16); }
+.form-heading { display: flex; align-items: start; justify-content: space-between; gap: 16px; }
+.form-heading h2 { margin: 4px 0 20px; color: #14213d; font-family: Georgia, serif; }
+.close-form { border: 0; background: transparent; color: #526174; font-size: 1.8rem; cursor: pointer; }
+.video-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.video-form label { display: grid; gap: 7px; color: #526174; font-size: .82rem; font-weight: 800; }
+.video-form input, .video-form select, .video-form textarea { width: 100%; border: 1px solid #dce5df; border-radius: 9px; padding: 11px; color: #14213d; background: #fbfdfb; font: inherit; }
+.video-form textarea { resize: vertical; }
+.form-full, .form-actions, .form-error { grid-column: 1 / -1; }
+.form-error { margin: 0; color: #ad2034; font-size: .82rem; }
+.form-actions { display: flex; justify-content: end; gap: 10px; }
+.secondary-button, .submit-video { border: 0; border-radius: 9px; padding: 12px 16px; font-weight: 800; cursor: pointer; }
+.secondary-button { color: #36516f; background: #eaf0ed; }
+.submit-video { color: #fff; background: #2f7d32; }
+.confirmation-backdrop { position: fixed; z-index: 50; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(3, 21, 46, .62); }
+.confirmation-card { width: min(470px, 100%); padding: 30px; border-radius: 18px; background: #fff; box-shadow: 0 20px 50px rgba(0,0,0,.28); }
+.confirmation-card h2 { margin-top: 0; color: #14213d; font-family: Georgia, serif; }
+.confirmation-card p { color: #526174; line-height: 1.6; }
+.confirmation-card div { display: flex; justify-content: end; gap: 10px; margin-top: 24px; }
+@media (max-width: 600px) { .video-form { grid-template-columns: 1fr; } }
 .videos-page {
   min-height: 100dvh;
 
@@ -143,7 +165,7 @@
   background-image: url('../../../assets/images/campo_verde.jpg');
 }
 .video-preview.lechuga {
-  background-image: url('/assets/images/campo_atardecer.jpg');
+  background-image: url('../../../assets/images/campo_atardecer.jpg');
 }
 .video-preview.ganado {
   background: linear-gradient(135deg, #7b5b42, #06244a);

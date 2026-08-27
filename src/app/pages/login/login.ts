@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { AutenticacionService, UsuarioRegistrado } from '../../services/autenticacion';
+
+const CUENTAS_DEMOSTRACION: UsuarioRegistrado[] = [
+  { nombre: 'Administración AgroCampo', correo: 'admin@agrocampo.co', contrasena: 'Admin2026!', rol: 'administrador' },
+  { nombre: 'Veterinaria AgroCampo', correo: 'veterinaria@agrocampo.co', contrasena: 'Veterinaria2026!', rol: 'veterinario' },
+  { nombre: 'Usuario AgroCampo', correo: 'usuario@agrocampo.co', contrasena: 'Usuario2026!', rol: 'usuario' },
+];
 
 
 @Component({
@@ -12,12 +19,15 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class LoginComponent {
   mostrarContrasena = false;
+  mensajeError = '';
 
   loginForm;
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private autenticacion: AutenticacionService,
   ) {
     this.loginForm = this.formBuilder.group({
       correo: ['', [Validators.required, Validators.email]],
@@ -32,9 +42,14 @@ export class LoginComponent {
       return;
     }
 
-    // La autenticación remota se conectará posteriormente; por ahora se navega
-    // al inicio para que el prototipo permita recorrer los módulos.
-    this.router.navigate(['/inicio']);
+    const { correo, contrasena } = this.loginForm.getRawValue();
+    if (!this.autenticacion.iniciarSesion(correo ?? '', contrasena ?? '', CUENTAS_DEMOSTRACION)) {
+      this.mensajeError = 'El correo o la contraseña no coinciden con una cuenta registrada.';
+      return;
+    }
+
+    const retorno = this.route.snapshot.queryParamMap.get('retorno');
+    this.router.navigateByUrl(retorno || '/inicio');
   }
 
   campoInvalido(campo: 'correo' | 'contrasena'): boolean {

@@ -1,9 +1,11 @@
-import { Component, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { AutenticacionService, RolUsuario } from '../../services/autenticacion';
 
 interface NavigationItem {
   label: string;
   path: string;
+  roles?: RolUsuario[];
 }
 
 @Component({
@@ -14,8 +16,10 @@ interface NavigationItem {
   styleUrl: './site-header.css',
 })
 export class SiteHeaderComponent {
+  protected readonly autenticacion = inject(AutenticacionService);
+  private readonly router = inject(Router);
   protected readonly navigation: NavigationItem[] = [
-    { label: 'Inicio', path: '/home' },
+    { label: 'Inicio', path: '/inicio' },
     { label: 'Estadísticas', path: '/estadisticas' },
     { label: 'Veterinarias', path: '/veterinarias' },
     { label: 'Noticias', path: '/noticias' },
@@ -25,6 +29,10 @@ export class SiteHeaderComponent {
 
   protected readonly mobileMenuOpen = signal(false);
   protected readonly accountMenuOpen = signal(false);
+
+  protected get navigationVisible(): NavigationItem[] {
+    return this.navigation.filter((item) => !item.roles || this.autenticacion.tieneRol(item.roles));
+  }
 
   protected closeMenus(): void {
     this.mobileMenuOpen.set(false);
@@ -38,5 +46,11 @@ export class SiteHeaderComponent {
 
   protected toggleAccountMenu(): void {
     this.accountMenuOpen.update((open) => !open);
+  }
+
+  protected cerrarSesion(): void {
+    this.autenticacion.cerrarSesion();
+    this.closeMenus();
+    this.router.navigate(['/pagina-de-inicio']);
   }
 }

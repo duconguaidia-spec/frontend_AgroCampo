@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SiteFooterComponent } from '../../shared/site-footer/site-footer';
 import { SiteHeaderComponent } from '../../shared/site-header/site-header';
+import { FormsModule } from '@angular/forms';
+import { AutenticacionService } from '../../services/autenticacion';
 
 interface Video {
   id: number;
@@ -15,7 +17,7 @@ interface Video {
 @Component({
   selector: 'app-videos-explicativos',
   standalone: true,
-  imports: [CommonModule, SiteHeaderComponent, SiteFooterComponent],
+  imports: [CommonModule, FormsModule, SiteHeaderComponent, SiteFooterComponent],
   templateUrl: './videos-explicativos.html',
   styleUrl: './videos-explicativos.css',
 })
@@ -29,8 +31,12 @@ export class VideosExplicativosComponent {
   ] as const;
   protected categoriaActiva: (typeof this.categorias)[number] = 'Todo';
   protected termino = '';
+  protected formularioVisible = false;
+  protected confirmacionVisible = false;
+  protected mensajeFormulario = '';
+  protected nuevoVideo: Omit<Video, 'id' | 'imagen'> = { categoria: 'Cultivos', titulo: '', descripcion: '', enlace: '' };
 
-  protected readonly videos: Video[] = [
+  protected videos: Video[] = [
     {
       id: 1,
       categoria: 'Cultivos',
@@ -66,6 +72,8 @@ export class VideosExplicativosComponent {
     },
   ];
 
+  constructor(protected readonly autenticacion: AutenticacionService) {}
+
   protected get videosFiltrados(): Video[] {
     const termino = this.termino.trim().toLocaleLowerCase();
     return this.videos.filter(
@@ -84,5 +92,31 @@ export class VideosExplicativosComponent {
 
   protected actualizarBusqueda(event: Event): void {
     this.termino = (event.target as HTMLInputElement).value;
+  }
+
+  protected abrirFormulario(): void {
+    this.formularioVisible = true;
+    this.mensajeFormulario = '';
+  }
+
+  protected revisarVideo(): void {
+    if (!this.nuevoVideo.titulo.trim() || !this.nuevoVideo.descripcion.trim() || !this.nuevoVideo.enlace.trim()) {
+      this.mensajeFormulario = 'Completa el título, la descripción y el enlace del video.';
+      return;
+    }
+    this.confirmacionVisible = true;
+  }
+
+  protected publicarVideo(): void {
+    this.videos = [{ ...this.nuevoVideo, id: Date.now(), imagen: 'custom' }, ...this.videos];
+    this.nuevoVideo = { categoria: 'Cultivos', titulo: '', descripcion: '', enlace: '' };
+    this.confirmacionVisible = false;
+    this.formularioVisible = false;
+  }
+
+  protected cancelarFormulario(): void {
+    this.formularioVisible = false;
+    this.confirmacionVisible = false;
+    this.mensajeFormulario = '';
   }
 }

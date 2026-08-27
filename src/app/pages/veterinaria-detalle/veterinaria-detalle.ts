@@ -1,88 +1,86 @@
 import { Component, computed, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SiteFooterComponent } from '../../shared/site-footer/site-footer';
 import { SiteHeaderComponent } from '../../shared/site-header/site-header';
-
-interface Producto {
-  nombre: string;
-  descripcion: string;
-  estilo: string;
-}
-interface VeterinariaDetalle {
-  nombre: string;
-  descripcion: string;
-  direccion: string;
-  telefono: string;
-  productos: Producto[];
-}
-
-const PRODUCTOS: Producto[] = [
-  { nombre: 'Oxitetraciclina', descripcion: 'Antibiótico inyectable', estilo: 'oxitetraciclina' },
-  { nombre: 'Pomada alfa', descripcion: 'Antiflogística', estilo: 'pomada' },
-  {
-    nombre: 'Dipirona',
-    descripcion: 'Analgésico, antipirético y antiespasmódico.',
-    estilo: 'dipirona',
-  },
-  { nombre: 'Enervit Sachet 30 ml', descripcion: 'Suplemento', estilo: 'enervit' },
-];
-
-const VETERINARIAS: Record<string, VeterinariaDetalle> = {
-  'los-mejores-amigos': {
-    nombre: 'Veterinaria los mejores amigos',
-    descripcion: 'Productos y servicios veterinarios de calidad para el ganado bovino en Yopal.',
-    direccion: 'Cra. 27 #11-40, Yopal, Casanare',
-    telefono: 'Tel: 310 256 7890 / 310 254 1234',
-    productos: PRODUCTOS,
-  },
-  'los-llanos': {
-    nombre: 'Clínica Animal Los Llanos',
-    descripcion:
-      'Atención veterinaria integral y productos especializados para animales de la región.',
-    direccion: 'Yopal, Casanare',
-    telefono: 'Tel: 310 212 4598',
-    productos: PRODUCTOS,
-  },
-  'el-corral': {
-    nombre: 'Veterinaria El Corral',
-    descripcion: 'Servicios y productos veterinarios para el cuidado de tus animales.',
-    direccion: 'Aguazul, Casanare',
-    telefono: 'Tel: 311 835 8701',
-    productos: PRODUCTOS,
-  },
-  oriente: {
-    nombre: 'AgroVet Oriente',
-    descripcion: 'Soluciones veterinarias profesionales para productores del oriente colombiano.',
-    direccion: 'Tauramena, Casanare',
-    telefono: 'Tel: 316 778 5112',
-    productos: PRODUCTOS,
-  },
-};
+import { AutenticacionService } from '../../services/autenticacion';
+import { ProductoVeterinaria, VeterinariasService } from '../../services/veterinarias';
 
 @Component({
   selector: 'app-veterinaria-detalle',
   standalone: true,
-  imports: [RouterLink, SiteHeaderComponent, SiteFooterComponent],
+  imports: [FormsModule, RouterLink, SiteHeaderComponent, SiteFooterComponent],
   templateUrl: './veterinaria-detalle.html',
   styleUrl: './veterinaria-detalle.css',
 })
 export class VeterinariaDetalleComponent {
   private readonly route = inject(ActivatedRoute);
+  private readonly veterinariasService = inject(VeterinariasService);
+  protected readonly autenticacion = inject(AutenticacionService);
   protected termino = '';
-  protected readonly veterinaria = computed(
-    () =>
-      VETERINARIAS[this.route.snapshot.paramMap.get('id') ?? 'los-mejores-amigos'] ??
-      VETERINARIAS['los-mejores-amigos'],
-  );
-  protected get productosFiltrados(): Producto[] {
+  protected editando = false;
+  protected mensaje = '';
+  protected productoEnEdicion: number | null = null;
+  protected formularioProducto = this.productoVacio();
+  private readonly id = this.route.snapshot.paramMap.get('id') ?? 'los-mejores-amigos';
+  protected readonly veterinaria = computed(() => this.veterinariasService.obtener(this.id));
+  protected borrador = this.datosBorrador();
+
+  protected get productosFiltrados(): ProductoVeterinaria[] {
     const termino = this.termino.trim().toLocaleLowerCase();
-    return this.veterinaria().productos.filter(
-      (producto) =>
-        !termino ||
-        `${producto.nombre} ${producto.descripcion}`.toLocaleLowerCase().includes(termino),
-    );
+    return this.veterinaria().productos.filter((producto) => !termino || `${producto.nombre} ${producto.descripcion}`.toLocaleLowerCase().includes(termino));
   }
+
   protected buscar(event: Event): void {
     this.termino = (event.target as HTMLInputElement).value;
+  }
+
+  protected abrirEdicion(): void {
+    this.borrador = this.datosBorrador();
+    this.editando = true;
+    this.mensaje = '';
+  }
+
+  protected guardarInformacion(): void {
+    this.veterinariasService.actualizar(this.id, { ...this.borrador });
+    this.mensaje = 'La información de la veterinaria se actualizó correctamente.';
+    this.editando = false;
+  }
+
+  protected cancelarEdicion(): void {
+    this.editando = false;
+    this.borrador = this.datosBorrador();
+  }
+
+  protected editarProducto(producto: ProductoVeterinaria): void {
+    this.productoEnEdicion = producto.id;
+    this.formularioProducto = { ...producto };
+  }
+
+  protected guardarProducto(): void {
+    if (!this.formularioProducto.nombre.trim() || !this.formularioProducto.descripcion.trim()) return;
+    this.veterinariasService.guardarProducto(this.id, this.formularioProducto);
+    this.formularioProducto = this.productoVacio();
+    this.productoEnEdicion = null;
+    this.mensaje = 'El producto se guardó correctamente.';
+  }
+
+  protected eliminarProducto(idProducto: number): void {
+    this.veterinariasService.eliminarProducto(this.id, idProducto);
+    this.mensaje = 'El producto se eliminó correctamente.';
+  }
+
+  protected cancelarProducto(): void {
+    this.productoEnEdicion = null;
+    this.formularioProducto = this.productoVacio();
+  }
+
+  private datosBorrador() {
+    const veterinaria = this.veterinaria();
+    return { nombre: veterinaria.nombre, descripcion: veterinaria.descripcion, direccion: veterinaria.direccion, telefono: veterinaria.telefono, horarios: veterinaria.horarios };
+  }
+
+  private productoVacio(): ProductoVeterinaria {
+    return { id: 0, nombre: '', descripcion: '', estilo: 'custom' };
   }
 }

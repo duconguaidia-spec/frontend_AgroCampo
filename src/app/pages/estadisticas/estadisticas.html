@@ -3,10 +3,45 @@
   <main>
     <section class="page-hero">
       <div>
-        <h1>Precios de ganado bovino</h1>
-        <span>Consulta indicadores del sector y el comportamiento de las últimas subastas.</span>
+        <p>Gestión Pecuaria</p>
+        <h1>Precios de ganado bovino</h1><span>Consulta indicadores del sector y el comportamiento de las últimas
+          subastas.</span>
       </div>
     </section>
+
+    @if (autenticacion.esAdministrador()) {
+    <section class="update-card shell" aria-labelledby="actualizar-estadistica">
+      <div>
+        <p class="eyebrow">Administración</p>
+        <h2 id="actualizar-estadistica">Actualizar estadística de ganado</h2>
+        <p>Modifica una cotización y el gráfico se actualizará de inmediato.</p>
+      </div>
+      <form (ngSubmit)="actualizarEstadistica()">
+        <label>Subasta
+          <select [(ngModel)]="subastaSeleccionada" name="subasta">
+            @for (subasta of subastas; track subasta.fecha; let indice = $index) {
+            <option [ngValue]="indice">{{ subasta.fecha }}</option>
+            }
+          </select>
+        </label>
+        <label>Categoría
+          <select [(ngModel)]="categoriaSeleccionada" name="categoria">
+            @for (categoria of categorias; track categoria.sigla; let indice = $index) {
+            <option [ngValue]="indice">{{ categoria.sigla }}</option>
+            }
+          </select>
+        </label>
+        <label>Fecha
+          <input [(ngModel)]="nuevaFecha" name="fecha" type="text" required />
+        </label>
+        <label>Valor
+          <input [(ngModel)]="nuevoValor" name="valor" type="number" min="1" required />
+        </label>
+        <button type="submit">Actualizar</button>
+      </form>
+      @if (mensajeActualizacion) { <p class="update-message" role="status">{{ mensajeActualizacion }}</p> }
+    </section>
+    }
 
     <section class="metrics shell" aria-label="Indicadores resumidos">
       <article>
@@ -71,7 +106,7 @@
 
     <section class="reporting shell">
       <div>
-        <p class="eyebrow">Reportes y análisis · RF 18–20</p>
+        <p class="eyebrow">Reportes y análisis</p>
         <h2>Datos listos para tomar decisiones</h2>
         <p>
           El panel concentra precios, actividad, registros y reportes exportables en una misma

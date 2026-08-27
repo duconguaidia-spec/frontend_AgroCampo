@@ -1,4 +1,12 @@
-# FrontendAgroCampo
+# AgroCampo
+
+## Publicación en GitHub Pages
+
+El flujo de GitHub Actions en `.github/workflows/deploy.yml` genera y publica el sitio al hacer `push` a `main`, `master` o `release`. También se puede iniciar manualmente desde la pestaña **Actions**.
+
+Antes del primer despliegue, en GitHub abre **Settings → Pages** y selecciona **GitHub Actions** como origen de publicación. La URL resultante usa automáticamente el nombre del repositorio; por ello no debes modificar manualmente el `base href`.
+
+Para publicar los cambios de una rama de trabajo, intégralos primero en una de las ramas configuradas o ejecuta el flujo manualmente desde GitHub.
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.7.
 

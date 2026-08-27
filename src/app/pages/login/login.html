@@ -22,6 +22,9 @@
       </nav>
 
       <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()" novalidate>
+        @if (mensajeError) {
+        <p class="error-message" role="alert">{{ mensajeError }}</p>
+        }
         <div class="form-group">
           <label for="correo">Correo personal</label>
 

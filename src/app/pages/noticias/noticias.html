@@ -12,7 +12,8 @@
 
       <div class="shell hero-content">
 
-       
+        <div class="hero-kicker">ACTUALIDAD AGROPECUARIA</div>
+
         <h1>
           Noticias
         </h1>
@@ -22,9 +23,33 @@
           del sector agropecuario.
         </p>
 
+        @if (autenticacion.esAdministrador()) {
+        <button class="add-news-button" type="button" (click)="abrirFormulario()">Agregar noticia</button>
+        }
+
       </div>
 
     </section>
+
+    @if (formularioVisible && autenticacion.esAdministrador()) {
+    <section class="news-form-shell shell" aria-labelledby="agregar-noticia">
+      <div class="form-heading">
+        <div><p class="section-eyebrow">Administración</p><h2 id="agregar-noticia">Agregar noticia</h2></div>
+        <button type="button" class="close-form" (click)="cancelarFormulario()" aria-label="Cerrar formulario">×</button>
+      </div>
+      <form class="news-form" (ngSubmit)="agregarNoticia()">
+        <label>Título<input [(ngModel)]="nuevaNoticia.titulo" name="titulo" required /></label>
+        <label>Categoría<select [(ngModel)]="nuevaNoticia.categoria" name="categoria">@for (categoria of categorias; track categoria) { <option [value]="categoria">{{ categoria }}</option> }</select></label>
+        <label>Fecha<input [(ngModel)]="nuevaNoticia.fecha" name="fecha" type="date" required /></label>
+        <label>Fuente<input [(ngModel)]="nuevaNoticia.fuente" name="fuente" required /></label>
+        <label class="form-full">Descripción<textarea [(ngModel)]="nuevaNoticia.resumen" name="resumen" rows="4" required></textarea></label>
+        <label class="form-full">Imagen<input type="file" accept="image/*" (change)="cargarImagen($event)" /></label>
+        @if (nuevaNoticia.imagen) { <img class="form-preview" [src]="nuevaNoticia.imagen" alt="Vista previa de la noticia" /> }
+        @if (mensajeFormulario) { <p class="form-error" role="alert">{{ mensajeFormulario }}</p> }
+        <div class="form-actions"><button type="button" class="secondary-button" (click)="cancelarFormulario()">Cancelar</button><button type="submit" class="submit-news">Publicar noticia</button></div>
+      </form>
+    </section>
+    }
 
 
     <!-- =====================================================
@@ -146,8 +171,9 @@
 
                 <div
                   class="news-image"
-                  [class]="'news-image ' + noticia.tono"
                 >
+
+                  <img [src]="noticia.imagen" [alt]="'Imagen de ' + noticia.titulo" />
 
                   <span class="category-badge">
                     {{ noticia.categoria }}
@@ -163,6 +189,8 @@
                   <time>
                     {{ noticia.fecha }}
                   </time>
+
+                  <small class="news-source">Fuente: {{ noticia.fuente }}</small>
 
                   <h3>
                     {{ noticia.titulo }}
