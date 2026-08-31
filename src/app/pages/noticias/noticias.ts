@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -16,21 +16,23 @@ interface Noticia {
   imagen: string;
 }
 
+const CLAVE_ALMACENAMIENTO = 'agrocampo_noticias';
+
 @Component({
   selector: 'app-noticias',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink, SiteHeaderComponent, SiteFooterComponent],
-  
   templateUrl: './noticias.html',
   styleUrl: './noticias.css',
 })
-export class NoticiasComponent {
+export class NoticiasComponent implements OnInit {
   protected readonly categorias = ['Agroindustria', 'Agricultura sostenible', 'Tecnología Agrícola', 'Ganadería', 'Economía Rural'];
   protected readonly seleccionadas = new Set(this.categorias);
   protected termino = '';
   protected formularioVisible = false;
   protected mensajeFormulario = '';
   protected nuevaNoticia = this.crearFormularioVacio();
+
   protected noticias: Noticia[] = [
     { id: 1, categoria: 'Agroindustria', fecha: '24 feb 2026', titulo: 'Nuevas tendencias en la agroindustria para el 2026', resumen: 'Conoce tecnologías y prácticas que impulsan la productividad y la trazabilidad de los alimentos.', fuente: 'AgroCampo', imagen: 'assets/images/campo_verde.jpg' },
     { id: 2, categoria: 'Agricultura sostenible', fecha: '24 feb 2026', titulo: 'La importancia de la agricultura sostenible en tiempos de cambio climático', resumen: 'Estrategias para producir más, conservar el suelo y usar mejor los recursos disponibles.', fuente: 'AgroCampo', imagen: 'assets/images/fondo_login.png' },
@@ -40,6 +42,10 @@ export class NoticiasComponent {
   ];
 
   constructor(protected readonly autenticacion: AutenticacionService) {}
+
+  ngOnInit(): void {
+    this.cargarNoticias();
+  }
 
   protected get noticiasFiltradas(): Noticia[] {
     const termino = this.normalizar(this.termino);
@@ -80,6 +86,7 @@ export class NoticiasComponent {
     }
 
     this.noticias = [{ ...noticia, id: Date.now(), imagen: noticia.imagen || 'assets/images/campo_verde.jpg' }, ...this.noticias];
+    this.guardarNoticias();
     this.cancelarFormulario();
   }
 
@@ -89,5 +96,23 @@ export class NoticiasComponent {
 
   private normalizar(valor: string): string {
     return valor.trim().toLocaleLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
+  private cargarNoticias(): void {
+    const datosGuardados = localStorage.getItem(CLAVE_ALMACENAMIENTO);
+    if (datosGuardados) {
+      try {
+        this.noticias = JSON.parse(datosGuardados);
+      } catch {
+        // Si el JSON almacenado está corrupto, se conservan las noticias por defecto.
+      }
+    } else {
+      // Primera vez: se guardan las noticias por defecto para que persistan desde el inicio.
+      this.guardarNoticias();
+    }
+  }
+
+  private guardarNoticias(): void {
+    localStorage.setItem(CLAVE_ALMACENAMIENTO, JSON.stringify(this.noticias));
   }
 }

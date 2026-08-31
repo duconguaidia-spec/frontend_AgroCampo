@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SiteFooterComponent } from '../../shared/site-footer/site-footer';
 import { SiteHeaderComponent } from '../../shared/site-header/site-header';
@@ -14,6 +14,8 @@ interface Video {
   enlace: string;
 }
 
+const CLAVE_ALMACENAMIENTO = 'agrocampo_videos';
+
 @Component({
   selector: 'app-videos-explicativos',
   standalone: true,
@@ -21,7 +23,7 @@ interface Video {
   templateUrl: './videos-explicativos.html',
   styleUrl: './videos-explicativos.css',
 })
-export class VideosExplicativosComponent {
+export class VideosExplicativosComponent implements OnInit {
   protected readonly categorias = [
     'Todo',
     'Cultivos',
@@ -74,6 +76,10 @@ export class VideosExplicativosComponent {
 
   constructor(protected readonly autenticacion: AutenticacionService) {}
 
+  ngOnInit(): void {
+    this.cargarVideos();
+  }
+
   protected get videosFiltrados(): Video[] {
     const termino = this.termino.trim().toLocaleLowerCase();
     return this.videos.filter(
@@ -109,6 +115,7 @@ export class VideosExplicativosComponent {
 
   protected publicarVideo(): void {
     this.videos = [{ ...this.nuevoVideo, id: Date.now(), imagen: 'custom' }, ...this.videos];
+    this.guardarVideos();
     this.nuevoVideo = { categoria: 'Cultivos', titulo: '', descripcion: '', enlace: '' };
     this.confirmacionVisible = false;
     this.formularioVisible = false;
@@ -118,5 +125,23 @@ export class VideosExplicativosComponent {
     this.formularioVisible = false;
     this.confirmacionVisible = false;
     this.mensajeFormulario = '';
+  }
+
+  private cargarVideos(): void {
+    const datosGuardados = localStorage.getItem(CLAVE_ALMACENAMIENTO);
+    if (datosGuardados) {
+      try {
+        this.videos = JSON.parse(datosGuardados);
+      } catch {
+        // Si el JSON almacenado está corrupto, se conservan los videos por defecto.
+      }
+    } else {
+      // Primera vez: se guardan los videos por defecto para que persistan desde el inicio.
+      this.guardarVideos();
+    }
+  }
+
+  private guardarVideos(): void {
+    localStorage.setItem(CLAVE_ALMACENAMIENTO, JSON.stringify(this.videos));
   }
 }
