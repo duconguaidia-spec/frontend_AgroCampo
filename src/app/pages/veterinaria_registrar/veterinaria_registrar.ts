@@ -13,6 +13,19 @@ export interface ProductoServicio {
   tipo: 'bravecto' | 'nexgard' | 'custom';
 }
 
+export interface Veterinaria {
+  id: number;
+  nombre: string;
+  ubicacion: string;
+  horarios: string;
+  telefono: string;
+  descripcion: string;
+  especialidad: string;
+  productos: ProductoServicio[];
+}
+
+const CLAVE_ALMACENAMIENTO = 'agrocampo_veterinarias';
+
 @Component({
   selector: 'app-agregar-veterinaria',
   standalone: true,
@@ -116,7 +129,8 @@ export class AgregarVeterinariaComponent {
       return;
     }
 
-    const datos = {
+    const datos: Veterinaria = {
+      id: Date.now(),
       nombre: this.nombre,
       ubicacion: this.ubicacion,
       horarios: this.horarios,
@@ -126,7 +140,7 @@ export class AgregarVeterinariaComponent {
       productos: this.productos(),
     };
 
-    console.log('Veterinaria guardada:', datos);
+    this.guardarEnAlmacenamiento(datos);
 
     this.mensajeExito = `¡La veterinaria "${this.nombre}" se ha registrado con éxito!`;
     this.mostrarModal = true;
@@ -135,5 +149,22 @@ export class AgregarVeterinariaComponent {
   cerrarModalYVolver(): void {
     this.mostrarModal = false;
     this.router.navigate(['/veterinarias']);
+  }
+
+  private guardarEnAlmacenamiento(veterinaria: Veterinaria): void {
+    const veterinarias = this.cargarVeterinarias();
+    veterinarias.push(veterinaria);
+    localStorage.setItem(CLAVE_ALMACENAMIENTO, JSON.stringify(veterinarias));
+  }
+
+  private cargarVeterinarias(): Veterinaria[] {
+    const datosGuardados = localStorage.getItem(CLAVE_ALMACENAMIENTO);
+    if (!datosGuardados) return [];
+    try {
+      return JSON.parse(datosGuardados);
+    } catch {
+      // Si el JSON almacenado está corrupto, se parte de una lista vacía.
+      return [];
+    }
   }
 }
