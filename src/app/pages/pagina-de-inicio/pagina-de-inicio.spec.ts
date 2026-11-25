@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter, Router } from '@angular/router';
 import { PaginaDeInicioComponent } from './pagina-de-inicio';
+import { vi } from 'vitest';
 
 describe('PaginaDeInicioComponent', () => {
   let component: PaginaDeInicioComponent;
@@ -35,14 +36,14 @@ describe('PaginaDeInicioComponent', () => {
   });
  
   it('debería navegar a /register al hacer clic en "Crear cuenta gratis"', () => {
-    const navigateSpy = spyOn(router, 'navigate');
+    const navigateSpy = vi.spyOn(router, 'navigate');
     const btn = fixture.debugElement.query(By.css('.btn-crear-cuenta'));
     btn.nativeElement.click();
     expect(navigateSpy).toHaveBeenCalledWith(['/register']);
   });
  
   it('debería navegar a /mas-informacion al hacer clic en "Mas información"', () => {
-    const navigateSpy = spyOn(router, 'navigate');
+    const navigateSpy = vi.spyOn(router, 'navigate');
     const btn = fixture.debugElement.query(By.css('.btn-mas-info'));
     btn.nativeElement.click();
     expect(navigateSpy).toHaveBeenCalledWith(['/mas-informacion']);

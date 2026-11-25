@@ -12,7 +12,7 @@
         </div>
         <label class="foto-upload">
           Cambiar foto
-          <input type="file" accept="image/*" (change)="onFotoSeleccionada($event)" hidden />
+          <input type="file" accept="image/png,image/jpeg,image/gif" [disabled]="!disponible() || subiendo() || guardando()" (change)="onFotoSeleccionada($event)" hidden />
         </label>
         <p class="role-pill">{{ perfil.rol }}</p>
         <h1>{{ perfil.nombre }}<br />{{ perfil.apellido }}</h1>
@@ -39,8 +39,9 @@
               [class.selected]="interesesActivos.has(interes)" (click)="alternarInteres(interes)">{{
               interesesActivos.has(interes) ? '✓ ' : '' }}{{ interes }}</button> }</div>
         </section>
-        <div class="save-row"><span role="status">@if (guardado) { Cambios guardados correctamente. }</span><button
-            type="button" (click)="guardar()">Guardar cambios</button></div>
+        @if (error()) { <p role="alert">{{ error() }}</p> }
+        <div class="save-row"><span role="status">@if (cargando()) { Cargando perfil… } @else if (subiendo()) { Subiendo foto… } @else if (guardando()) { Guardando… } @else if (guardado) { Cambios guardados correctamente. }</span><button
+            type="button" [disabled]="!disponible() || guardando() || subiendo()" (click)="guardar()">Guardar cambios</button></div>
       </section>
     </section>
   </main>

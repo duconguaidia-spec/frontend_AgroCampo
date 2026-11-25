@@ -1,1 +1,18 @@
-<p>reportes-de-actividad works!</p>
+<app-site-header />
+<main class="reportes">
+  <a routerLink="/estadisticas">← Volver a estadísticas</a>
+  <h1>Mis reportes</h1>
+  @if (error()) { <p role="alert">{{ error() }}</p> }
+  @else if (cargando()) { <p role="status">Cargando reportes…</p> }
+  @else {
+    <ul>
+      @for (reporte of reportes(); track reporte.id) {
+        <li>
+          <strong>Reporte #{{ reporte.id }}</strong> · {{ reporte.formato.toUpperCase() }} · {{ reporte.estado }}
+          @if (reporte.archivo_url) { <a [href]="reporte.archivo_url">Descargar</a> }
+        </li>
+      } @empty { <li>Todavía no tienes reportes.</li> }
+    </ul>
+  }
+</main>
+<app-site-footer />

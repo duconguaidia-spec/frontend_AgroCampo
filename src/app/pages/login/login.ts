@@ -1,13 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { AutenticacionService, UsuarioRegistrado } from '../../services/autenticacion';
-
-const CUENTAS_DEMOSTRACION: UsuarioRegistrado[] = [
-  { nombre: 'Administración AgroCampo', correo: 'admin@agrocampo.co', contrasena: 'Admin2026!', rol: 'administrador' },
-  { nombre: 'Veterinaria AgroCampo', correo: 'veterinaria@agrocampo.co', contrasena: 'Veterinaria2026!', rol: 'veterinario' },
-  { nombre: 'Usuario AgroCampo', correo: 'usuario@agrocampo.co', contrasena: 'Usuario2026!', rol: 'usuario' },
-];
+import { AutenticacionService } from '../../services/autenticacion';
 
 
 @Component({
@@ -19,7 +13,9 @@ const CUENTAS_DEMOSTRACION: UsuarioRegistrado[] = [
 })
 export class LoginComponent {
   mostrarContrasena = false;
-  mensajeError = '';
+  readonly errorSesion = signal('');
+  get mensajeError(): string { return this.errorSesion(); }
+  readonly ingresando = signal(false);
 
   loginForm;
 
@@ -37,19 +33,26 @@ export class LoginComponent {
   }
 
   iniciarSesion(): void {
+    if (this.ingresando()) return;
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
     }
 
     const { correo, contrasena } = this.loginForm.getRawValue();
-    if (!this.autenticacion.iniciarSesion(correo ?? '', contrasena ?? '', CUENTAS_DEMOSTRACION)) {
-      this.mensajeError = 'El correo o la contraseña no coinciden con una cuenta registrada.';
-      return;
-    }
-
-    const retorno = this.route.snapshot.queryParamMap.get('retorno');
-    this.router.navigateByUrl(retorno || '/inicio');
+    this.ingresando.set(true);
+    this.errorSesion.set('');
+    this.autenticacion.iniciarSesion(correo ?? '', contrasena ?? '').subscribe({
+      next: () => {
+        this.ingresando.set(false);
+        const retorno = this.route.snapshot.queryParamMap.get('retorno');
+        void this.router.navigateByUrl(retorno?.startsWith('/') && !retorno.startsWith('//') ? retorno : '/inicio');
+      },
+      error: (error) => {
+        this.ingresando.set(false);
+        this.errorSesion.set(error.error?.message || 'No se pudo iniciar sesión. Comprueba que la MID y Usuarios estén activos.');
+      },
+    });
   }
 
   campoInvalido(campo: 'correo' | 'contrasena'): boolean {

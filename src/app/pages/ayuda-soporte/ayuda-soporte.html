@@ -67,15 +67,15 @@
       @if (reporteAbierto) {
         <form class="report-form" (submit)="$event.preventDefault(); enviarReporte()">
           <label
-            >Describe el problema<textarea
+             >Describe el problema<textarea [(ngModel)]="descripcion" name="descripcion" required maxlength="10000"
               placeholder="Ej.: No puedo completar la verificación en dos pasos."
             ></textarea></label
-          ><button type="submit">Enviar reporte</button>
+           ><button type="submit" [disabled]="enviando() || !descripcion.trim()">Enviar reporte</button>
         </form>
       }
       @if (reporteEnviado) {
         <p class="success" role="status">
-          Tu reporte fue recibido. El equipo de soporte revisará la información.
+            Tu reporte #{{ numeroReporte() }} fue recibido. El equipo de soporte revisará la información.
         </p>
       }
     </section>
@@ -100,6 +100,7 @@
         </article>
       </div>
     </section>
+    @if (errorApi()) { <p class="shell" role="alert">{{ errorApi() }}</p> }
   </main>
 
   <app-site-footer />

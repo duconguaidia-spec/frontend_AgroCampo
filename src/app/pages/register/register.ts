@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import {
@@ -19,6 +19,7 @@ import { AutenticacionService, RolUsuario } from '../../services/autenticacion';
 })
 
 export class RegisterComponent {
+  private readonly cambios = inject(ChangeDetectorRef);
   registerForm: FormGroup;
   cargando = false;
   errorServidor: string | null = null;
@@ -87,6 +88,7 @@ export class RegisterComponent {
   }
 
   registroUsuario(): void {
+    if (this.cargando) return;
 
     // Validación: si el formulario es inválido, no se envía nada
     if (this.registerForm.invalid) {
@@ -96,20 +98,23 @@ export class RegisterComponent {
 
     const datos = this.registerForm.getRawValue();
     const rol: RolUsuario = datos.tipoUsuario === 'Veterinario Registrado' ? 'veterinario' : 'usuario';
-    const registrado = this.autenticacion.registrarUsuario({
-      nombre: `${datos.nombre?.trim()} ${datos.apellido?.trim()}`,
+    this.cargando = true;
+    this.errorServidor = null;
+    this.autenticacion.registrarUsuario({
+      nombre: datos.nombre?.trim() ?? '',
+      apellido: datos.apellido?.trim() ?? '',
+      telefono: datos.telefono ?? '',
       correo: datos.correo?.trim() ?? '',
       contrasena: datos.password ?? '',
       rol,
+    }).subscribe({
+      next: () => { this.cargando = false; void this.router.navigate(['/login']); },
+      error: (error) => {
+        this.cargando = false;
+        this.errorServidor = error.error?.message || 'No se pudo registrar la cuenta.';
+        this.cambios.markForCheck();
+      },
     });
-
-    if (!registrado) {
-      this.errorServidor = 'Ya existe una cuenta registrada con este correo.';
-      return;
-    }
-
-    alert('Usuario registrado. Ahora puedes iniciar sesión.');
-    this.router.navigate(['/login']);
   }
   inicioSesion(): void{
     this.router.navigate(['/login']);

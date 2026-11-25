@@ -20,16 +20,17 @@
       <div class="form-heading"><div><p class="eyebrow">Contenido educativo</p><h2 id="nuevo-video">Nuevo video</h2></div><button type="button" class="close-form" (click)="cancelarFormulario()" aria-label="Cerrar formulario">×</button></div>
       <form class="video-form" (ngSubmit)="revisarVideo()">
         <label>Título<input [(ngModel)]="nuevoVideo.titulo" name="titulo" required /></label>
-        <label>Categoría<select [(ngModel)]="nuevoVideo.categoria" name="categoria"><option value="Cultivos">Cultivos</option><option value="Ganadería">Ganadería</option><option value="Maquinaria">Maquinaria</option><option value="Plagas">Plagas</option></select></label>
+        <label>Categoría<select [(ngModel)]="nuevoVideo.categoria" name="categoria" required>@for (categoria of catalogo(); track categoria.id) { <option [value]="categoria.nombre">{{ categoria.nombre }}</option> }</select></label>
         <label class="form-full">Descripción<textarea [(ngModel)]="nuevoVideo.descripcion" name="descripcion" rows="4" required></textarea></label>
         <label class="form-full">Enlace del video<input [(ngModel)]="nuevoVideo.enlace" name="enlace" type="url" placeholder="https://www.youtube.com/..." required /></label>
-        @if (mensajeFormulario) { <p class="form-error" role="alert">{{ mensajeFormulario }}</p> }
+        @if (errorApi()) { <p class="form-error" role="alert">{{ errorApi() }}</p> }
         <div class="form-actions"><button type="button" class="secondary-button" (click)="cancelarFormulario()">Cancelar</button><button type="submit" class="submit-video">Siguiente</button></div>
       </form>
     </section>
     }
 
     <section class="shell content-area">
+      @if (!formularioVisible && errorApi()) { <p role="alert">{{ errorApi() }}</p> }
       <div class="category-tabs" aria-label="Filtrar videos por categoría">
         @for (categoria of categorias; track categoria) {
           <button type="button" [class.active]="categoriaActiva === categoria" (click)="seleccionarCategoria(categoria)">{{ categoria }}</button>
@@ -51,7 +52,8 @@
                   <h2>{{ video.titulo }}</h2>
                   <p>{{ video.descripcion }}</p>
                 </div>
-                <a class="video-preview" [class]="'video-preview ' + video.imagen" [href]="video.enlace" target="_blank" rel="noopener noreferrer" [attr.aria-label]="'Buscar el video ' + video.titulo + ' en YouTube'">
+                <a class="video-preview" [href]="video.enlace" target="_blank" rel="noopener noreferrer" [attr.aria-label]="'Ver ' + video.titulo">
+                  @if (video.imagen) { <img [src]="video.imagen" alt="" class="video-thumbnail" /> }
                   <span class="play" aria-hidden="true">▶</span>
                   <span class="watch-label">Ver video</span>
                 </a>
@@ -74,7 +76,7 @@
 
   @if (confirmacionVisible) {
   <div class="confirmation-backdrop" role="dialog" aria-modal="true" aria-labelledby="confirmar-video">
-    <section class="confirmation-card"><h2 id="confirmar-video">Confirmar publicación</h2><p>¿Deseas publicar el video “{{ nuevoVideo.titulo }}”?</p><div><button type="button" class="secondary-button" (click)="confirmacionVisible = false">Volver</button><button type="button" class="submit-video" (click)="publicarVideo()">Publicar video</button></div></section>
+    <section class="confirmation-card"><h2 id="confirmar-video">Confirmar publicación</h2><p>¿Deseas publicar el video “{{ nuevoVideo.titulo }}”?</p><div><button type="button" class="secondary-button" [disabled]="guardando()" (click)="confirmacionVisible = false">Volver</button><button type="button" class="submit-video" [disabled]="guardando()" (click)="publicarVideo()">Publicar video</button></div></section>
   </div>
   }
   <app-site-footer />

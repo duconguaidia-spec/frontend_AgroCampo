@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { timeout } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -31,7 +33,16 @@ interface PerfilUsuario {
 })
 
 
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  private readonly http = inject(HttpClient);
+  protected readonly resumen = signal<{ Contadores: { ForosNoticias: number | null; Productores: number | null; Veterinarias: number | null; Eficiencia: number | null }; Noticias: { Id: number; Titulo: string }[] } | null>(null);
+
+  ngOnInit(): void {
+    this.http.get<NonNullable<ReturnType<typeof this.resumen>>>('/api/v1/home').pipe(timeout(12000)).subscribe({
+      next: (resumen) => this.resumen.set(resumen),
+      error: () => this.resumen.set(null),
+    });
+  }
 
   protected readonly perfiles: PerfilUsuario[] = [
 

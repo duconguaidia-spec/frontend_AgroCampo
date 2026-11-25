@@ -1,184 +1,107 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { finalize, forkJoin } from 'rxjs';
 import { SiteFooterComponent } from '../../shared/site-footer/site-footer';
 import { SiteHeaderComponent } from '../../shared/site-header/site-header';
+import { CategoriaApi, ModulosService, mensajeApi } from '../../services/modulos';
+import { AutenticacionService } from '../../services/autenticacion';
 
-interface Publicacion {
-  id: number;
-  categoria: string;
-  titulo: string;
-  resumen: string;
-  autor: string;
-  rol: string;
-  respuestas: number;
-  vistas: number;
-  guardado?: boolean;
-  urgente?: boolean;
-}
-
-const CLAVE_STORAGE = 'agrocampo_foro_publicaciones';
+interface TemaApi { id: number; titulo: string; descripcion: string; categoria_id: number; activo: boolean; vistas: number; urgente: boolean; autor_id: number; autor?: string; }
+interface RespuestaApi { tema_id: number; activo: boolean; }
 
 @Component({
   selector: 'app-foro',
-  standalone: true,
   imports: [CommonModule, FormsModule, SiteHeaderComponent, SiteFooterComponent],
   templateUrl: './foro.html',
   styleUrl: './foro.css',
 })
 export class ForoComponent implements OnInit {
-  protected readonly categorias = [
-    'Todo',
-    'Cultivos',
-    'Ganadería',
-    'Maquinaria',
-    'Plagas',
-    'Riego',
-    'Clima',
-  ];
-
-  // Tipos válidos para el formulario de nueva publicación (sin la opción "Todo")
-  protected readonly tiposPublicacion = [
-    'Cultivos',
-    'Ganadería',
-    'Maquinaria',
-    'Plagas',
-    'Riego',
-    'Clima',
-  ];
-
+  private readonly api = inject(ModulosService);
+  private readonly auth = inject(AutenticacionService);
+  private readonly catalogo = signal<CategoriaApi[]>([]);
+  private readonly temas = signal<TemaApi[]>([]);
+  private readonly respuestas = signal<RespuestaApi[]>([]);
+  private readonly guardados = signal<number[]>([]);
+  protected readonly errorApi = signal('');
+  protected readonly guardando = signal(false);
+  protected readonly tiposPublicacion = computed(() => this.catalogo().map((item) => item.nombre));
+  protected readonly categoriasApi = computed(() => ['Todo', ...this.tiposPublicacion()]);
+  protected readonly publicaciones = computed(() => this.temas().map((tema) => ({
+    id: tema.id, titulo: tema.titulo, resumen: tema.descripcion, autor: tema.autor ?? 'Comunidad AgroCampo',
+    rol: '', respuestas: this.respuestas().filter((r) => r.activo && r.tema_id === tema.id).length,
+    vistas: tema.vistas, urgente: tema.urgente, guardado: this.guardados().includes(tema.id),
+    categoria: this.catalogo().find((item) => item.id === tema.categoria_id)?.nombre ?? 'Sin categoría',
+  })));
   protected categoriaActiva = 'Todo';
   protected busqueda = '';
   protected publicarAbierto = false;
-
-  // Campos del formulario de nueva publicación
   protected nuevoTitulo = '';
-  protected nuevaCategoria = this.tiposPublicacion[0];
+  protected nuevaCategoria = '';
   protected nuevaDescripcion = '';
 
-  protected publicaciones: Publicacion[] = [
-    {
-      id: 1,
-      categoria: 'Cultivos',
-      titulo: 'Guía completa: Rotación de cultivos para suelos colombianos',
-      resumen:
-        'Después de 20 años de experiencia en el Tolima, comparto lo que aprendí sobre rotación de cultivos para suelos arcillosos y francos.',
-      autor: 'Carlos Rodríguez',
-      rol: 'Agrónomo · Tolima',
-      respuestas: 89,
-      vistas: 4230,
-    },
-    {
-      id: 2,
-      categoria: 'Plagas',
-      titulo: 'Mancha foliar en arroz: ¿Pyricularia oryzae o Helminthosporium?',
-      resumen:
-        'Mis plantas de arroz de 45 días están mostrando lesiones elípticas de color gris con halo amarillo. ¿Alguien puede ayudarme a identificarla?',
-      autor: 'Luis Martínez',
-      rol: 'Arrocero · Casanare',
-      respuestas: 34,
-      vistas: 891,
-      urgente: true,
-    },
-    {
-      id: 3,
-      categoria: 'Ganadería',
-      titulo: 'Experiencia con pasto Brachiaria híbrido Cayman en Córdoba',
-      resumen:
-        'Comparto mi experiencia estableciendo 40 hectáreas en suelo ácido de Montería y los resultados del primer ciclo de pastoreo.',
-      autor: 'Andrés Palomino',
-      rol: 'Ganadero · Córdoba',
-      respuestas: 21,
-      vistas: 567,
-    },
-    {
-      id: 4,
-      categoria: 'Riego',
-      titulo: '¿Vale la pena el riego por goteo subterráneo para aguacate Hass?',
-      resumen:
-        'Tengo 8 hectáreas en pendiente y evalúo cambiar de aspersión a goteo subterráneo. Me interesa conocer costos y rendimientos.',
-      autor: 'María Vélez',
-      rol: 'Fruticultora · Antioquia',
-      respuestas: 17,
-      vistas: 412,
-    },
-    {
-      id: 5,
-      categoria: 'Maquinaria',
-      titulo: 'Comparativa de tractores 80–100 HP: John Deere 5090E vs Massey Ferguson 4710',
-      resumen:
-        'Estoy por comprar mi primer tractor para una finca de 120 hectáreas. ¿Cuál recomiendan considerando el servicio técnico regional?',
-      autor: 'Eduardo Ríos',
-      rol: 'Agricultor · Meta',
-      respuestas: 48,
-      vistas: 1203,
-    },
-  ];
+  get categorias(): string[] { return this.categoriasApi(); }
 
   ngOnInit(): void {
-    this.cargarPublicaciones();
+    forkJoin({
+      categorias: this.api.listar<CategoriaApi>('categorias-contenido'),
+      temas: this.api.listar<TemaApi>('temas'),
+      respuestas: this.api.listar<RespuestaApi>('respuestas'),
+      guardados: this.api.listar<number>('temas-guardados'),
+    }).subscribe({
+      next: ({ categorias, temas, respuestas, guardados }) => {
+        this.catalogo.set(categorias.filter((item) => item.activo && item.tipo === 'foro'));
+        this.nuevaCategoria = this.tiposPublicacion()[0] ?? '';
+        this.temas.set(temas.filter((tema) => tema.activo));
+        this.respuestas.set(respuestas);
+        this.guardados.set(guardados);
+      },
+      error: (error) => this.errorApi.set(mensajeApi(error, 'No fue posible cargar el foro.')),
+    });
   }
 
-  protected get publicacionesFiltradas(): Publicacion[] {
+  get publicacionesFiltradas() {
     const termino = this.busqueda.trim().toLowerCase();
-    return this.publicaciones.filter(
-      (post) =>
-        (this.categoriaActiva === 'Todo' || post.categoria === this.categoriaActiva) &&
-        (!termino ||
-          `${post.titulo} ${post.resumen} ${post.categoria}`.toLowerCase().includes(termino)),
-    );
+    return this.publicaciones().filter((post) => (this.categoriaActiva === 'Todo' || post.categoria === this.categoriaActiva)
+      && `${post.titulo} ${post.resumen} ${post.categoria}`.toLowerCase().includes(termino));
   }
 
-  protected seleccionarCategoria(categoria: string): void {
-    this.categoriaActiva = categoria;
+  seleccionarCategoria(categoria: string): void { this.categoriaActiva = categoria; }
+  actualizarBusqueda(event: Event): void { this.busqueda = (event.target as HTMLInputElement).value; }
+
+  alternarGuardado(post: { id: number; guardado: boolean }): void {
+    if (this.guardando()) return;
+    this.guardando.set(true);
+    this.errorApi.set('');
+    this.api.crear<number[]>('temas-guardados', { tema_id: post.id, guardado: !post.guardado })
+      .pipe(finalize(() => this.guardando.set(false))).subscribe({
+        next: (ids) => this.guardados.set(ids),
+        error: (error) => this.errorApi.set(mensajeApi(error, 'No fue posible actualizar tus temas guardados.')),
+      });
   }
 
-  protected actualizarBusqueda(event: Event): void {
-    this.busqueda = (event.target as HTMLInputElement).value;
-  }
-
-  protected alternarGuardado(post: Publicacion): void {
-    post.guardado = !post.guardado;
-    this.guardarPublicaciones();
-  }
-
-  protected crearPublicacion(): void {
+  crearPublicacion(): void {
+    if (this.guardando()) return;
     const titulo = this.nuevoTitulo.trim();
     const descripcion = this.nuevaDescripcion.trim();
-    if (!titulo || !descripcion) return;
-
-    this.publicaciones = [
-      {
-        id: Date.now(),
-        categoria: this.nuevaCategoria,
-        titulo,
-        resumen: descripcion,
-        autor: 'Rafael Camilo',
-        rol: 'Usuario General · Casanare',
-        respuestas: 0,
-        vistas: 1,
-      },
-      ...this.publicaciones,
-    ];
-
-    this.guardarPublicaciones();
-    this.cerrarFormulario();
+    const categoria = this.catalogo().find((item) => item.nombre === this.nuevaCategoria);
+    if (!titulo || !descripcion || !categoria) { this.errorApi.set('Completa el título, la categoría y la descripción.'); return; }
+    this.guardando.set(true);
+    this.errorApi.set('');
+    this.api.crear<TemaApi>('temas', { titulo, descripcion, categoria_id: categoria.id })
+      .pipe(finalize(() => this.guardando.set(false))).subscribe({
+        next: (tema) => {
+          this.temas.update((items) => [{ ...tema, autor: this.auth.usuario()?.nombre }, ...items]);
+          this.cerrarFormulario();
+        },
+        error: (error) => this.errorApi.set(mensajeApi(error, 'No fue posible publicar el tema.')),
+      });
   }
 
-  protected cerrarFormulario(): void {
+  cerrarFormulario(): void {
     this.nuevoTitulo = '';
     this.nuevaDescripcion = '';
-    this.nuevaCategoria = this.tiposPublicacion[0];
+    this.nuevaCategoria = this.tiposPublicacion()[0] ?? '';
     this.publicarAbierto = false;
-  }
-
-  private cargarPublicaciones(): void {
-    const datosGuardados = localStorage.getItem(CLAVE_STORAGE);
-    if (!datosGuardados) return;
-    this.publicaciones = JSON.parse(datosGuardados);
-  }
-
-  private guardarPublicaciones(): void {
-    localStorage.setItem(CLAVE_STORAGE, JSON.stringify(this.publicaciones));
   }
 }

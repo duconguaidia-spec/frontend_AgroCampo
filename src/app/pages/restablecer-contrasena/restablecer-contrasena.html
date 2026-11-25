@@ -1,83 +1,18 @@
 <div class="recovery-container">
   <div class="recovery-card">
-    <button
-      type="button"
-      class="back-arrow"
-      (click)="paso === 'password' ? volverALogin() : volverAPassword()"
-      aria-label="Volver">
-      ‹
-    </button>
-
-    <header class="login-header">
-      <div class="logo-frame">
-        <img class="login-logo" src="assets/images/logo_agrocampo.png" alt="Logo de AgroCampo" />
-      </div>
-    </header>
-
-    @if (token) {
-      @if (paso === 'password') {
-        <h2>Restablecer contraseña</h2>
-
-        <form [formGroup]="formularioReset" (ngSubmit)="onSubmitPassword()">
-          <div class="form-group">
-            <label for="nuevaContrasena">Nueva contraseña</label>
-            <input id="nuevaContrasena" type="password" formControlName="nuevaContrasena" />
-            @if (nuevaContrasena?.invalid && nuevaContrasena?.touched) {
-              <small class="error-text">
-                @if (nuevaContrasena?.errors?.['required']) {
-                  La contraseña es obligatoria.
-                }
-                @if (nuevaContrasena?.errors?.['minlength']) {
-                  Mínimo 6 caracteres.
-                }
-              </small>
-            }
-          </div>
-
-          <div class="form-group">
-            <label for="confirmarContrasena">Confirmar contraseña</label>
-            <input id="confirmarContrasena" type="password" formControlName="confirmarContrasena" />
-            @if (formularioReset.errors?.['contrasenasNoCoinciden'] && confirmarContrasena?.touched) {
-              <small class="error-text">Las contraseñas no coinciden.</small>
-            }
-          </div>
-
-          <button type="submit">Continuar</button>
-        </form>
-      }
-
-      @if (paso === 'codigo') {
-        <h2>Verificar código</h2>
-        <p class="subtitle">Ingresa el código de verificación para confirmar el cambio.</p>
-
-        <form [formGroup]="formularioCodigo" (ngSubmit)="onSubmitCodigo()">
-          <div class="form-group">
-            <label for="codigo">Código de verificación</label>
-            <input id="codigo" type="text" formControlName="codigo" placeholder="Ingresa el código" />
-            @if (codigo?.invalid && codigo?.touched) {
-              <small class="error-text">El código es obligatorio.</small>
-            }
-            @if (errorCodigo) {
-              <small class="error-text">{{ errorCodigo }}</small>
-            }
-          </div>
-
-          @if (mensajeExito) {
-            <div class="success-text">{{ mensajeExito }}</div>
-          }
-          @if (mensajeError) {
-            <div class="error-text">{{ mensajeError }}</div>
-          }
-
-          <button type="submit" [disabled]="cargando">
-            {{ cargando ? 'Guardando...' : 'Verificar y restablecer' }}
-          </button>
-        </form>
-      }
-    }
-
-    @if (!token && mensajeError) {
-      <div class="error-text">{{ mensajeError }}</div>
-    }
+    <a class="back-arrow" routerLink="/login" aria-label="Volver al inicio de sesión">‹</a>
+    <header class="login-header"><div class="logo-frame"><img class="login-logo" src="assets/images/logo_agrocampo.png" alt="AgroCampo" /></div></header>
+    <h2>Restablecer contraseña</h2>
+    @if (mensajeExito()) {
+      <p class="success-text" role="status">{{ mensajeExito() }}</p>
+      <a routerLink="/login">Iniciar sesión</a>
+    } @else if (token) {
+      <form [formGroup]="formularioReset" (ngSubmit)="onSubmitPassword()">
+        <div class="form-group"><label for="nuevaContrasena">Nueva contraseña</label><input id="nuevaContrasena" type="password" autocomplete="new-password" formControlName="nuevaContrasena" /></div>
+        <div class="form-group"><label for="confirmarContrasena">Confirmar contraseña</label><input id="confirmarContrasena" type="password" autocomplete="new-password" formControlName="confirmarContrasena" /></div>
+        @if (mensajeError()) { <p class="error-text" role="alert">{{ mensajeError() }}</p> }
+        <button type="submit" [disabled]="cargando()">{{ cargando() ? 'Guardando…' : 'Guardar contraseña' }}</button>
+      </form>
+    } @else { <p role="alert">Enlace inválido.</p> }
   </div>
 </div>

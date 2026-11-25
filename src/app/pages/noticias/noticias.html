@@ -43,7 +43,8 @@
         <label>Fecha<input [(ngModel)]="nuevaNoticia.fecha" name="fecha" type="date" required /></label>
         <label>Fuente<input [(ngModel)]="nuevaNoticia.fuente" name="fuente" required /></label>
         <label class="form-full">Descripción<textarea [(ngModel)]="nuevaNoticia.resumen" name="resumen" rows="4" required></textarea></label>
-        <label class="form-full">Imagen<input type="file" accept="image/*" (change)="cargarImagen($event)" /></label>
+        <label class="form-full">Imagen<input type="file" accept="image/png,image/jpeg,image/gif" [disabled]="subiendo() || publicando()" (change)="cargarImagen($event)" /></label>
+        @if (subiendo()) { <p role="status">Subiendo imagen…</p> }
         @if (nuevaNoticia.imagen) { <img class="form-preview" [src]="nuevaNoticia.imagen" alt="Vista previa de la noticia" /> }
         @if (mensajeFormulario) { <p class="form-error" role="alert">{{ mensajeFormulario }}</p> }
         <div class="form-actions"><button type="button" class="secondary-button" (click)="cancelarFormulario()">Cancelar</button><button type="submit" class="submit-news">Publicar noticia</button></div>
@@ -325,6 +326,7 @@
 
     </section>
 
+    @if (errorCarga()) { <p class="shell" role="alert">{{ errorCarga() }}</p> }
   </main>
 
   <app-site-footer />

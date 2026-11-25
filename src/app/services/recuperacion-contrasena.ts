@@ -1,44 +1,18 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { Observable, timeout } from 'rxjs';
 
-export interface RespuestaRecuperacion {
-  success: boolean;
-  message: string;
-  token?: string;
-}
+export interface RespuestaRecuperacion { success: boolean; message: string; }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class RecuperacionContrasenaService {
+  private readonly http = inject(HttpClient);
 
-  constructor() { }
-
-  solicitarRecuperacion(email: string): Observable<RespuestaRecuperacion> {
-    // TODO: reemplazar por llamada real al backend
-    // return this.http.post<RespuestaRecuperacion>('/api/auth/forgot-password', { email });
-
-    console.log(`Simulando envío de correo a: ${email}`);
-    const tokenFalso = btoa(email + '-' + Date.now());
-    console.log(`Enlace simulado: /restablecer-contrasena/${tokenFalso}`);
-
-    return of({
-      success: true,
-      message: 'Si el correo existe, se ha enviado un enlace de recuperación.',
-      token: tokenFalso
-    }).pipe(delay(1200));
+  solicitarRecuperacion(correo: string): Observable<RespuestaRecuperacion> {
+    return this.http.post<RespuestaRecuperacion>('/api/v1/cuenta/recuperar', { correo }).pipe(timeout(25000));
   }
 
-  restablecerContrasena(token: string, nuevaContrasena: string): Observable<RespuestaRecuperacion> {
-    // TODO: reemplazar por llamada real al backend
-    // return this.http.post<RespuestaRecuperacion>('/api/auth/reset-password', { token, newPassword: nuevaContrasena });
-
-    console.log(`Simulando reseteo de contraseña con token: ${token}`);
-
-    return of({
-      success: true,
-      message: 'Contraseña actualizada correctamente.'
-    }).pipe(delay(1200));
+  restablecerContrasena(token: string, contrasena: string): Observable<RespuestaRecuperacion> {
+    return this.http.post<RespuestaRecuperacion>('/api/v1/cuenta/restablecer', { token, contrasena }).pipe(timeout(12000));
   }
 }

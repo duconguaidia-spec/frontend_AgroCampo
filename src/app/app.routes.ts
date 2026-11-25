@@ -18,6 +18,7 @@ import { VideosExplicativosComponent } from './pages/videos-explicativos/videos-
 import { RecuperacionContrasenaComponent } from './pages/recuperacion-contrasena/recuperacion-contrasena';
 import { RestablecerContrasenaComponent } from './pages/restablecer-contrasena/restablecer-contrasena';
 import { accesoGuard, rolGuard } from './guards/acceso.guard';
+import { ReportesDeActividad } from './pages/reportes-de-actividad/reportes-de-actividad';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'pagina-de-inicio', pathMatch: 'full' },
@@ -25,6 +26,12 @@ export const routes: Routes = [
   { path: 'pagina-de-inicio', component: PaginaDeInicioComponent, title: 'AgroCampo | Bienvenida' },
   { path: 'inicio', component: HomeComponent, canActivate: [accesoGuard], title: 'AgroCampo | Inicio' },
   { path: 'estadisticas', component: EstadisticasComponent, canActivate: [accesoGuard], title: 'AgroCampo | Estadísticas' },
+  { path: 'reportes', component: ReportesDeActividad, canActivate: [accesoGuard], title: 'AgroCampo | Reportes' },
+  { path: 'reportes-de-actividad', redirectTo: 'reportes', pathMatch: 'full' },
+  { path: 'exportacion-de-datos', redirectTo: 'estadisticas', pathMatch: 'full' },
+  { path: 'panel-de-visualizacion', redirectTo: 'estadisticas', pathMatch: 'full' },
+  { path: 'preguntas-frecuentes', redirectTo: 'ayuda-soporte', pathMatch: 'full' },
+  { path: 'reporte-de-incidencias', redirectTo: 'ayuda-soporte', pathMatch: 'full' },
   { path: 'estadisticas-sector', component: EstadisticasSectorComponent, title: 'AgroCampo | Estadísticas del sector' },
   { path: 'veterinarias/registrar', component: AgregarVeterinariaComponent, canActivate: [rolGuard], data: { roles: ['administrador', 'veterinario'] }, title: 'AgroCampo | Agregar Veterinaria' },
   { path: 'veterinarias/:id', component: VeterinariaDetalleComponent, canActivate: [accesoGuard], title: 'AgroCampo | Veterinaria' },

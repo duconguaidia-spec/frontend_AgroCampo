@@ -1,5 +1,20 @@
 # AgroCampo
 
+## Conexión local de veterinarias
+
+Usa esta carpeta como cliente principal. Con PostgreSQL, el CRUD de veterinarias (`:8087`) y la MID (`:8080`) iniciados, ejecuta `npm start` y abre `http://localhost:4200/#/veterinarias`.
+
+`proxy.conf.json` reenvía `/api/**` a la MID. Listado, detalle, registro, edición de información y alta/edición/eliminación de productos usan HTTP. Reinicia `npm start` si cambias el proxy.
+
+La guía de arranque, rutas, configuración y pruebas está en `../API_MID_AGROCAMPO/README.md`.
+
+```powershell
+npm run build
+npm test -- --watch=false --include=src/app/services/veterinarias.spec.ts --include=src/app/pages/veterinarias/veterinarias.spec.ts
+```
+
+El proxy local no se publica con GitHub Pages; para desplegar este flujo se necesita un servidor que enrute `/api` hacia una MID accesible.
+
 ## Publicación en GitHub Pages
 
 El flujo de GitHub Actions en `.github/workflows/deploy.yml` genera y publica el sitio al hacer `push` a `main`, `master` o `release`. También se puede iniciar manualmente desde la pestaña **Actions**.
