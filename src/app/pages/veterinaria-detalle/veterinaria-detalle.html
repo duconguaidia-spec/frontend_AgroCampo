@@ -6,13 +6,18 @@
         <a class="back-link" routerLink="/veterinarias">← Veterinarias cercanas</a>
         <div class="hero-title-row">
           <div><h1>{{ veterinaria().nombre }}</h1><p>{{ veterinaria().descripcion }}</p></div>
-          @if (autenticacion.puedeGestionarVeterinarias()) { <button type="button" class="edit-button" (click)="abrirEdicion()">Editar información</button> }
+          @if (autenticacion.puedeGestionarVeterinarias()) { <button type="button" class="edit-button" [disabled]="cargando || !!errorCarga || guardando" (click)="abrirEdicion()">Editar información</button> }
+          @if (autenticacion.puedeGestionarVeterinarias()) { <button type="button" class="delete-button" [disabled]="cargando || !!errorCarga || guardando || subiendoImagen" (click)="eliminarVeterinaria()">Eliminar veterinaria</button> }
         </div>
         <label class="product-search"><input type="search" placeholder="Buscar productos..." [value]="termino" (input)="buscar($event)" /><span>Buscar</span></label>
       </div>
     </section>
 
     <section class="shell detail-content">
+      @if (cargando) { <p role="status">Cargando detalle de veterinaria…</p> }
+      @if (errorCarga) { <p class="status-message" role="alert">{{ errorCarga }}</p> }
+      @if (errorGuardado) { <p class="status-message" role="alert">{{ errorGuardado }}</p> }
+      @if (guardando) { <p role="status">Guardando cambios…</p> }
       @if (mensaje) { <p class="status-message" role="status">{{ mensaje }}</p> }
 
       @if (editando && autenticacion.puedeGestionarVeterinarias()) {
@@ -23,7 +28,7 @@
         <label class="form-full">Dirección<input [(ngModel)]="borrador.direccion" name="direccion" required /></label>
         <label class="form-full">Horarios<input [(ngModel)]="borrador.horarios" name="horarios" required /></label>
         <label class="form-full">Descripción<textarea [(ngModel)]="borrador.descripcion" name="descripcion" rows="4" required></textarea></label>
-        <div class="form-actions"><button type="button" class="secondary-button" (click)="cancelarEdicion()">Cancelar</button><button type="submit" class="save-button">Guardar cambios</button></div>
+        <div class="form-actions"><button type="button" class="secondary-button" [disabled]="guardando" (click)="cancelarEdicion()">Cancelar</button><button type="submit" class="save-button" [disabled]="guardando">Guardar cambios</button></div>
       </form>
       }
 
@@ -38,22 +43,28 @@
         <div class="products-grid">
           @for (producto of productosFiltrados; track producto.id) {
           <article class="product-card">
-            <div class="product-image" [class]="'product-image ' + producto.estilo"><span>{{ producto.nombre }}</span></div>
+            <div class="product-image" [class]="'product-image ' + producto.estilo">@if (producto.imagenUrl) { <img [src]="producto.imagenUrl" [alt]="producto.nombre" style="max-width: 100%; max-height: 100%; object-fit: contain" /> } @else { <span>{{ producto.nombre }}</span> }</div>
             <div><h3>{{ producto.nombre }}</h3><p>{{ producto.descripcion }}</p>
-              @if (autenticacion.puedeGestionarVeterinarias()) { <div class="product-actions"><button type="button" (click)="editarProducto(producto)">Editar</button><button type="button" class="delete-button" (click)="eliminarProducto(producto.id)">Eliminar</button></div> }
+              @if (autenticacion.puedeGestionarVeterinarias()) { <div class="product-actions"><button type="button" [disabled]="guardando" (click)="editarProducto(producto)">Editar</button><button type="button" class="delete-button" [disabled]="guardando" (click)="eliminarProducto(producto.id)">Eliminar</button></div> }
             </div>
           </article>
           } @empty { <p class="empty">No encontramos productos con esa búsqueda.</p> }
         </div>
       </section>
 
-      @if (autenticacion.puedeGestionarVeterinarias()) {
+      @if (autenticacion.puedeGestionarVeterinarias() && !cargando && !errorCarga) {
       <section class="product-form" aria-labelledby="producto-form-title">
         <div><p>Administración</p><h2 id="producto-form-title">{{ productoEnEdicion ? 'Editar producto' : 'Agregar producto' }}</h2></div>
         <form (ngSubmit)="guardarProducto()">
+          <fieldset [disabled]="guardando || subiendoImagen" style="border: 0; padding: 0; margin: 0; display: contents">
           <label>Nombre<input [(ngModel)]="formularioProducto.nombre" name="productoNombre" required /></label>
           <label>Descripción<input [(ngModel)]="formularioProducto.descripcion" name="productoDescripcion" required /></label>
-          <div class="form-actions"><button type="button" class="secondary-button" (click)="cancelarProducto()">Limpiar</button><button type="submit" class="save-button">Guardar producto</button></div>
+          <label>Precio<input type="number" min="0" step="0.01" [(ngModel)]="formularioProducto.precio" name="productoPrecio" /></label>
+          <label>Imagen del producto<input type="file" accept="image/png,image/jpeg,image/gif" (change)="subirImagenProducto($event)" /><small>PNG, JPG o GIF. Máximo 2 MB.</small></label>
+          @if (formularioProducto.imagenUrl) { <img [src]="formularioProducto.imagenUrl" alt="Vista previa del producto" style="max-width: 180px; max-height: 180px; object-fit: contain" /><button type="button" (click)="formularioProducto.imagenUrl = undefined">Quitar imagen</button> }
+          @if (subiendoImagen) { <p role="status">Subiendo imagen…</p> }
+          <div class="form-actions"><button type="button" class="secondary-button" [disabled]="guardando" (click)="cancelarProducto()">Limpiar</button><button type="submit" class="save-button" [disabled]="guardando">Guardar producto</button></div>
+          </fieldset>
         </form>
       </section>
       }

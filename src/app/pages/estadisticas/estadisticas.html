@@ -8,6 +8,7 @@
           subastas.</span>
       </div>
     </section>
+    @if (error()) { <p class="shell" role="alert">{{ error() }}</p> }
 
     @if (autenticacion.esAdministrador()) {
     <section class="update-card shell" aria-labelledby="actualizar-estadistica">
@@ -19,40 +20,36 @@
       <form (ngSubmit)="actualizarEstadistica()">
         <label>Subasta
           <select [(ngModel)]="subastaSeleccionada" name="subasta">
-            @for (subasta of subastas; track subasta.fecha; let indice = $index) {
-            <option [ngValue]="indice">{{ subasta.fecha }}</option>
+            @for (subasta of subastas(); track subasta.id) {
+            <option [ngValue]="subasta.id">{{ subasta.nombre || subasta.fecha }}</option>
             }
           </select>
         </label>
         <label>Categoría
           <select [(ngModel)]="categoriaSeleccionada" name="categoria">
-            @for (categoria of categorias; track categoria.sigla; let indice = $index) {
-            <option [ngValue]="indice">{{ categoria.sigla }}</option>
+            @for (categoria of categorias(); track categoria.id) {
+            <option [ngValue]="categoria.id">{{ categoria.sigla }}</option>
             }
           </select>
-        </label>
-        <label>Fecha
-          <input [(ngModel)]="nuevaFecha" name="fecha" type="text" required />
         </label>
         <label>Valor
           <input [(ngModel)]="nuevoValor" name="valor" type="number" min="1" required />
         </label>
-        <button type="submit">Actualizar</button>
+        <button type="submit" [disabled]="guardando() || !subastas().length || !categorias().length">Actualizar</button>
       </form>
-      @if (mensajeActualizacion) { <p class="update-message" role="status">{{ mensajeActualizacion }}</p> }
+      @if (mensajeActualizacion()) { <p class="update-message" role="status">{{ mensajeActualizacion() }}</p> }
     </section>
     }
 
     <section class="metrics shell" aria-label="Indicadores resumidos">
       <article>
-        <span>Promedio de mercado</span><strong>$8.592</strong
-        ><small>↑ 3,8 % frente a la semana anterior</small>
+        <span>Promedio de mercado</span><strong>{{ promedio() === null ? '—' : ('$' + (promedio() | number:'1.0-2')) }}</strong>
       </article>
       <article>
-        <span>Mayor cotización</span><strong>$11.000</strong><small>ML · Subasta del 19 feb</small>
+        <span>Mayor cotización</span><strong>{{ mayor() === null ? '—' : ('$' + (mayor() | number:'1.0-2')) }}</strong>
       </article>
       <article>
-        <span>Registros analizados</span><strong>28</strong><small>7 categorías · 4 subastas</small>
+        <span>Registros analizados</span><strong>{{ valores().length }}</strong><small>{{ categorias().length }} categorías · {{ subastas().length }} subastas</small>
       </article>
     </section>
 
@@ -63,16 +60,16 @@
           <h2>Analiza el comportamiento de las últimas 4 subastas</h2>
         </div>
         <div class="chart-actions">
-          <button type="button" (click)="exportar('PDF')">Exportar PDF</button
-          ><button type="button" (click)="exportar('Excel')">Exportar Excel</button>
+          <button type="button" [disabled]="exportando()" (click)="exportar('pdf')">Solicitar PDF</button
+          ><button type="button" [disabled]="exportando()" (click)="exportar('xlsx')">Solicitar Excel</button>
         </div>
       </div>
-      @if (exportMessage) {
-        <p class="export-message" role="status">{{ exportMessage }}</p>
+      @if (exportMessage()) {
+        <p class="export-message" role="status">{{ exportMessage() }}</p>
       }
 
       <div class="legend" aria-label="Categorías de precio">
-        <span *ngFor="let categoria of categorias"
+        <span *ngFor="let categoria of categorias()"
           ><i [style.background]="categoria.color"></i>{{ categoria.sigla }}</span
         >
       </div>
@@ -80,21 +77,21 @@
       <div class="chart-scroll">
         <div class="price-chart">
           <div class="axis" aria-hidden="true">
-            <span>12.000</span><span>9.000</span><span>6.000</span><span>3.000</span><span>0</span>
+            <span>{{ maximo() | number }}</span><span>{{ maximo() * .75 | number }}</span><span>{{ maximo() * .5 | number }}</span><span>{{ maximo() * .25 | number }}</span><span>0</span>
           </div>
           <div class="groups">
-            <article class="price-group" *ngFor="let subasta of subastas">
+            <article class="price-group" *ngFor="let subasta of subastas()">
               <div class="bars">
                 <div class="bar-wrap" *ngFor="let valor of subasta.valores; let index = index">
                   <div
                     class="bar"
-                    [style.height.%]="(valor / maximo) * 100"
-                    [style.background]="categorias[index].color"
-                    [attr.aria-label]="categorias[index].sigla + ': ' + valor"
+                    [style.height.%]="((valor ?? 0) / maximo()) * 100"
+                    [style.background]="categorias()[index].color"
+                    [attr.aria-label]="categorias()[index].sigla + ': ' + (valor ?? 'sin cotización')"
                   >
-                    <span>${{ valor }}</span>
+                    @if (valor !== null) { <span>${{ valor }}</span> }
                   </div>
-                  <small>{{ categorias[index].sigla }}</small>
+                  <small>{{ categorias()[index].sigla }}</small>
                 </div>
               </div>
               <time>{{ subasta.fecha }}</time>
@@ -113,7 +110,7 @@
           vista.
         </p>
       </div>
-      <a href="#chart" class="report-link">Ver panel completo <span>→</span></a>
+      <a routerLink="/reportes" class="report-link">Ver mis reportes <span>→</span></a>
     </section>
   </main>
   <app-site-footer />

@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject, signal } from '@angular/core';
+import { finalize, forkJoin } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { SiteFooterComponent } from '../../shared/site-footer/site-footer';
 import { SiteHeaderComponent } from '../../shared/site-header/site-header';
 import { AutenticacionService } from '../../services/autenticacion';
+import { CategoriaApi, ModulosService, NoticiaApi, mensajeApi } from '../../services/modulos';
+import { ImagenesService } from '../../services/imagenes';
 
 interface Noticia {
   id: number;
@@ -16,7 +19,6 @@ interface Noticia {
   imagen: string;
 }
 
-const CLAVE_ALMACENAMIENTO = 'agrocampo_noticias';
 
 @Component({
   selector: 'app-noticias',
@@ -26,20 +28,21 @@ const CLAVE_ALMACENAMIENTO = 'agrocampo_noticias';
   styleUrl: './noticias.css',
 })
 export class NoticiasComponent implements OnInit {
-  protected readonly categorias = ['Agroindustria', 'Agricultura sostenible', 'Tecnología Agrícola', 'Ganadería', 'Economía Rural'];
+  private readonly api = inject(ModulosService);
+  private readonly imagenes = inject(ImagenesService);
+  private readonly cambios = inject(ChangeDetectorRef);
+  private catalogo: CategoriaApi[] = [];
+  protected categorias: string[] = [];
   protected readonly seleccionadas = new Set(this.categorias);
   protected termino = '';
   protected formularioVisible = false;
   protected mensajeFormulario = '';
+  protected readonly subiendo = signal(false);
+  protected readonly publicando = signal(false);
+  protected readonly errorCarga = signal('');
   protected nuevaNoticia = this.crearFormularioVacio();
 
-  protected noticias: Noticia[] = [
-    { id: 1, categoria: 'Agroindustria', fecha: '24 feb 2026', titulo: 'Nuevas tendencias en la agroindustria para el 2026', resumen: 'Conoce tecnologías y prácticas que impulsan la productividad y la trazabilidad de los alimentos.', fuente: 'AgroCampo', imagen: 'assets/images/campo_verde.jpg' },
-    { id: 2, categoria: 'Agricultura sostenible', fecha: '24 feb 2026', titulo: 'La importancia de la agricultura sostenible en tiempos de cambio climático', resumen: 'Estrategias para producir más, conservar el suelo y usar mejor los recursos disponibles.', fuente: 'AgroCampo', imagen: 'assets/images/fondo_login.png' },
-    { id: 3, categoria: 'Ganadería', fecha: '24 ene 2026', titulo: 'Estrategias para mejorar la salud del ganado', resumen: 'Buenas prácticas y controles preventivos para el bienestar de los animales.', fuente: 'Red veterinaria', imagen: 'assets/images/campo_atardecer.jpg' },
-    { id: 4, categoria: 'Tecnología Agrícola', fecha: '20 ene 2026', titulo: 'Nuevas aplicaciones para el control y monitoreo de cultivos', resumen: 'Herramientas digitales para tomar decisiones en tiempo real desde la finca.', fuente: 'AgroCampo', imagen: 'assets/images/campo_amanecer.png' },
-    { id: 5, categoria: 'Economía Rural', fecha: '18 ene 2026', titulo: 'Perspectivas económicas para el sector agrícola en 2026', resumen: 'Análisis de oportunidades, costos y tendencias para productores rurales.', fuente: 'AgroCampo', imagen: 'assets/images/campo_atardecer.jpg' },
-  ];
+  protected noticias: Noticia[] = [];
 
   constructor(protected readonly autenticacion: AutenticacionService) {}
 
@@ -66,32 +69,46 @@ export class NoticiasComponent implements OnInit {
   }
 
   protected cancelarFormulario(): void {
+    if (this.subiendo()) return;
     this.formularioVisible = false;
     this.nuevaNoticia = this.crearFormularioVacio();
   }
 
   protected cargarImagen(event: Event): void {
-    const archivo = (event.target as HTMLInputElement).files?.[0];
-    if (!archivo) return;
-    const lector = new FileReader();
-    lector.onload = () => this.nuevaNoticia.imagen = String(lector.result);
-    lector.readAsDataURL(archivo);
+    const input = event.target as HTMLInputElement;
+    const archivo = input.files?.[0];
+    input.value = '';
+    if (!archivo || this.subiendo()) return;
+    this.subiendo.set(true);
+    this.mensajeFormulario = '';
+    this.imagenes.subir(archivo).pipe(finalize(() => this.subiendo.set(false))).subscribe({
+      next: (url) => this.nuevaNoticia.imagen = url,
+      error: (error) => this.mensajeFormulario = error.message,
+    });
   }
 
   protected agregarNoticia(): void {
     const noticia = this.nuevaNoticia;
-    if (!noticia.titulo.trim() || !noticia.resumen.trim() || !noticia.fecha || !noticia.fuente.trim()) {
+    if (this.publicando() || this.subiendo()) return;
+    const fecha = new Date(noticia.fecha);
+    if (!noticia.titulo.trim() || !noticia.resumen.trim() || !Number.isFinite(fecha.getTime()) || !noticia.fuente.trim()) {
       this.mensajeFormulario = 'Completa el título, la descripción, la fecha y la fuente.';
       return;
     }
 
-    this.noticias = [{ ...noticia, id: Date.now(), imagen: noticia.imagen || 'assets/images/campo_verde.jpg' }, ...this.noticias];
-    this.guardarNoticias();
-    this.cancelarFormulario();
+    const categoria = this.catalogo.find((item) => item.nombre === noticia.categoria);
+    if (!categoria) { this.mensajeFormulario = 'Selecciona una categoría disponible.'; return; }
+    this.publicando.set(true);
+    this.api.crear<NoticiaApi>('noticias', { categoria_id: categoria.id, titulo: noticia.titulo.trim(), resumen: noticia.resumen.trim(), fuente: noticia.fuente.trim(), imagen_url: noticia.imagen, publicada_en: fecha.toISOString() }).pipe(
+      finalize(() => this.publicando.set(false)),
+    ).subscribe({
+      next: (guardada) => { this.noticias = [this.convertir(guardada), ...this.noticias]; this.seleccionadas.add(categoria.nombre); this.cancelarFormulario(); },
+      error: (error) => this.mensajeFormulario = mensajeApi(error, 'No fue posible publicar la noticia.'),
+    });
   }
 
   private crearFormularioVacio(): Omit<Noticia, 'id'> {
-    return { categoria: this.categorias[0], fecha: '', titulo: '', resumen: '', fuente: '', imagen: '' };
+    return { categoria: this.categorias[0] ?? '', fecha: '', titulo: '', resumen: '', fuente: '', imagen: '' };
   }
 
   private normalizar(valor: string): string {
@@ -99,20 +116,23 @@ export class NoticiasComponent implements OnInit {
   }
 
   private cargarNoticias(): void {
-    const datosGuardados = localStorage.getItem(CLAVE_ALMACENAMIENTO);
-    if (datosGuardados) {
-      try {
-        this.noticias = JSON.parse(datosGuardados);
-      } catch {
-        // Si el JSON almacenado está corrupto, se conservan las noticias por defecto.
-      }
-    } else {
-      // Primera vez: se guardan las noticias por defecto para que persistan desde el inicio.
-      this.guardarNoticias();
-    }
+    forkJoin({ catalogo: this.api.listar<CategoriaApi>('categorias-noticias'), noticias: this.api.listar<NoticiaApi>('noticias') }).subscribe({
+      next: ({ catalogo, noticias }) => {
+        this.catalogo = catalogo;
+        this.categorias = [...new Set([...catalogo.map((item) => item.nombre), 'Sin categoría'])];
+        this.categorias.forEach((nombre) => this.seleccionadas.add(nombre));
+        this.nuevaNoticia = this.crearFormularioVacio();
+        this.noticias = noticias.sort((a, b) => (b.publicada_en ?? '').localeCompare(a.publicada_en ?? '') || b.id - a.id).map((item) => this.convertir(item));
+        this.cambios.markForCheck();
+      },
+      error: (error) => this.errorCarga.set(mensajeApi(error, 'No fue posible cargar las noticias.')),
+    });
   }
 
-  private guardarNoticias(): void {
-    localStorage.setItem(CLAVE_ALMACENAMIENTO, JSON.stringify(this.noticias));
+  private convertir(item: NoticiaApi): Noticia {
+    const fecha = item.publicada_en || item.fecha_creacion;
+    return { id: item.id, categoria: this.catalogo.find((c) => c.id === item.categoria_id)?.nombre ?? 'Sin categoría',
+      fecha: fecha ? new Date(fecha).toLocaleDateString('es-CO', { timeZone: 'UTC' }) : '', titulo: item.titulo,
+      resumen: item.resumen, fuente: item.fuente ?? '', imagen: item.imagen_url || 'assets/images/campo_verde.jpg' };
   }
 }

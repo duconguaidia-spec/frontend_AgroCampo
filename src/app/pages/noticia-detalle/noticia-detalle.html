@@ -10,15 +10,14 @@
     </section>
     <article class="news-detail shell">
       <a class="back-link" routerLink="/noticias">← Volver a noticias</a>
-      <h2>{{ noticia().titulo }}</h2>
-      <p class="summary">{{ noticia().resumen }}</p>
-      <time>{{ noticia().fecha }}</time>
-      <div
-        class="feature-image"
-        [class]="'feature-image ' + noticia().imagen"
-        role="img"
-        [attr.aria-label]="noticia().titulo"
-      ></div>
+      @if (noticia(); as articulo) {
+        <h2>{{ articulo.titulo }}</h2>
+        <p class="summary">{{ articulo.resumen }}</p>
+        <time>{{ (articulo.publicada_en || articulo.fecha_creacion)?.slice(0, 10) }}</time>
+        @if (articulo.imagen_url) { <img class="feature-image" [src]="articulo.imagen_url" [alt]="articulo.titulo" /> }
+        @if (articulo.cuerpo) { <p>{{ articulo.cuerpo }}</p> }
+      } @else if (error()) { <p role="alert">{{ error() }}</p> }
+      @else { <p role="status">Cargando noticia…</p> }
     </article>
   </main>
   <app-site-footer />

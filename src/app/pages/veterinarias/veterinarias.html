@@ -39,13 +39,16 @@
             <div>
               <h2>Veterinarias registradas</h2><span>{{ resultados.length }} resultados cercanos</span>
             </div>@if (autenticacion.puedeGestionarVeterinarias()) { <a class="registrar" routerLink="/veterinarias/registrar">
-              Registar veterinaria
+              Registrar veterinaria
             </a> }
-          </div>@for (veterinaria of resultados; track veterinaria.nombre) { <article class="vet-card"><span
+          </div>
+          @if (cargando) { <p role="status">Cargando veterinarias…</p> }
+          @if (errorCarga) { <p class="empty" role="alert">{{ errorCarga }}</p> }
+          @for (veterinaria of resultados; track veterinaria.id) { <article class="vet-card"><span
               class="vet-logo" [style.background]="veterinaria.color">✚</span>
             <div class="vet-info">
               <h3>{{ veterinaria.nombre }}</h3>
-              <p>⌖ {{ veterinaria.ciudad }} · {{ veterinaria.distancia }}</p>
+              <p>⌖ {{ veterinaria.ciudad }}</p>
               <div>
                 @for (item of veterinaria.servicios; track item) {
                 <span>{{ item }}</span> }

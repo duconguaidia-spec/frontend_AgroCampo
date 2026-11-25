@@ -50,7 +50,7 @@
           <span class="indicador-icon">📇</span>
 
           <div>
-            <strong>150+</strong>
+            <strong>{{ resumen()?.Contadores?.ForosNoticias ?? '—' }}</strong>
             <span>Foros y Noticias</span>
           </div>
         </div>
@@ -59,7 +59,7 @@
           <span class="indicador-icon azul">🐄</span>
 
           <div>
-            <strong>890+</strong>
+            <strong>{{ resumen()?.Contadores?.Productores ?? '—' }}</strong>
             <span>Productores</span>
           </div>
         </div>
@@ -68,7 +68,7 @@
           <span class="indicador-icon">🩺</span>
 
           <div>
-            <strong>320+</strong>
+            <strong>{{ resumen()?.Contadores?.Veterinarias ?? '—' }}</strong>
             <span>Veterinarias</span>
           </div>
         </div>
@@ -77,7 +77,7 @@
           <span class="indicador-icon azul">📊</span>
 
           <div>
-            <strong>98%</strong>
+            <strong>{{ resumen()?.Contadores?.Eficiencia == null ? '—' : resumen()?.Contadores?.Eficiencia + '%' }}</strong>
             <span>Eficiencia</span>
           </div>
         </div>

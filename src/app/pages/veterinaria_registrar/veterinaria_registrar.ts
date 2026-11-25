@@ -1,30 +1,19 @@
-import { Component, ElementRef, ViewChild, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, ViewChild, inject, signal } from '@angular/core';
+import { finalize } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SiteFooterComponent } from '../../shared/site-footer/site-footer';
 import { SiteHeaderComponent } from '../../shared/site-header/site-header';
+import { VeterinariasService } from '../../services/veterinarias';
 
-export interface ProductoServicio {
+interface ProductoServicio {
   id: number;
   nombre: string;
   descripcion?: string;
   imagen?: string;
   tipo: 'bravecto' | 'nexgard' | 'custom';
 }
-
-export interface Veterinaria {
-  id: number;
-  nombre: string;
-  ubicacion: string;
-  horarios: string;
-  telefono: string;
-  descripcion: string;
-  especialidad: string;
-  productos: ProductoServicio[];
-}
-
-const CLAVE_ALMACENAMIENTO = 'agrocampo_veterinarias';
 
 @Component({
   selector: 'app-agregar-veterinaria',
@@ -46,6 +35,7 @@ export class AgregarVeterinariaComponent {
   telefono = '';
   descripcion = '';
   especialidad = '';
+  ciudad = '';
   // Campos para nuevo producto
   nuevoTitulo = '';
   nuevaDescripcion = '';
@@ -54,26 +44,17 @@ export class AgregarVeterinariaComponent {
   // Estado de feedback
   mensajeExito = '';
   mostrarModal = false;
+  guardando = false;
+  subiendoImagen = false;
+  mensajeError = '';
 
   @ViewChild('tituloProducto') private tituloProducto?: ElementRef<HTMLInputElement>;
 
-  // Productos iniciales según el mockup
-  productos = signal<ProductoServicio[]>([
-    {
-      id: 1,
-      nombre: 'Bravecto',
-      descripcion: 'Tratamiento antipulgas y garrapatas',
-      tipo: 'bravecto',
-    },
-    {
-      id: 2,
-      nombre: 'NexGard y NexGard Spectra',
-      descripcion: 'Antiparasitario masticable',
-      tipo: 'nexgard',
-    },
-  ]);
+  productos = signal<ProductoServicio[]>([]);
 
-  constructor(private router: Router) {}
+  private readonly router = inject(Router);
+  private readonly changeDetector = inject(ChangeDetectorRef);
+  private readonly veterinariasService = inject(VeterinariasService);
 
   abrirGoogleMaps(): void {
     const query = this.ubicacion.trim() || 'Veterinarias Casanare';
@@ -83,16 +64,26 @@ export class AgregarVeterinariaComponent {
 
   onImageSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this.nuevaImagen = e.target?.result as string;
-      };
-      reader.readAsDataURL(input.files[0]);
+    const archivo = input.files?.[0];
+    input.value = '';
+    if (!archivo || this.subiendoImagen) return;
+    if (!['image/png', 'image/jpeg', 'image/gif'].includes(archivo.type) || archivo.size > 2 * 1024 * 1024) {
+      this.mensajeError = 'Selecciona una imagen PNG, JPG o GIF de máximo 2 MB.';
+      return;
     }
+    this.subiendoImagen = true;
+    this.mensajeError = '';
+    this.veterinariasService.subirImagen(archivo).pipe(finalize(() => {
+      this.subiendoImagen = false;
+      this.changeDetector.markForCheck();
+    })).subscribe({
+      next: (url) => { this.nuevaImagen = url; },
+      error: (error) => { this.mensajeError = error.error?.message || error.message || 'No fue posible subir la imagen.'; },
+    });
   }
 
   agregarProducto(): void {
+    if (this.subiendoImagen) return;
     const titulo = this.nuevoTitulo.trim();
     if (!titulo) {
       alert('Por favor escribe el título del producto antes de agregarlo.');
@@ -124,26 +115,38 @@ export class AgregarVeterinariaComponent {
   }
 
   guardarVeterinaria(): void {
-    if (!this.nombre.trim()) {
-      alert('Por favor ingresa el nombre de la veterinaria.');
+    if (this.guardando || this.subiendoImagen) return;
+    if (!this.nombre.trim() || !this.ubicacion.trim() || !this.ciudad.trim() || !this.telefono.trim()) {
+      this.mensajeError = 'Completa el nombre, la dirección, la ciudad y el teléfono.';
       return;
     }
 
-    const datos: Veterinaria = {
-      id: Date.now(),
-      nombre: this.nombre,
-      ubicacion: this.ubicacion,
-      horarios: this.horarios,
-      telefono: this.telefono,
-      descripcion: this.descripcion,
-      especialidad: this.especialidad,
-      productos: this.productos(),
-    };
-
-    this.guardarEnAlmacenamiento(datos);
-
-    this.mensajeExito = `¡La veterinaria "${this.nombre}" se ha registrado con éxito!`;
-    this.mostrarModal = true;
+    this.guardando = true;
+    this.mensajeError = '';
+    this.veterinariasService.crear({
+      nombre: this.nombre.trim(),
+      descripcion: this.descripcion.trim(),
+      direccion: this.ubicacion.trim(),
+      ciudad: this.ciudad.trim(),
+      telefono: this.telefono.trim(),
+      horario_atencion: this.horarios.trim(),
+      productos: this.productos().map((producto) => ({
+        nombre: producto.nombre.trim(),
+        descripcion: producto.descripcion?.trim(),
+        imagen_url: producto.imagen,
+        precio: 0,
+      })),
+    }).subscribe({
+      next: (veterinaria) => {
+        this.guardando = false;
+        this.mensajeExito = `¡La veterinaria "${veterinaria.nombre}" se ha registrado con éxito!`;
+        this.mostrarModal = true;
+      },
+      error: (error: { error?: { message?: string }; message?: string }) => {
+        this.guardando = false;
+        this.mensajeError = error.error?.message || error.message || 'No fue posible registrar la veterinaria en el MID.';
+      },
+    });
   }
 
   cerrarModalYVolver(): void {
@@ -151,20 +154,4 @@ export class AgregarVeterinariaComponent {
     this.router.navigate(['/veterinarias']);
   }
 
-  private guardarEnAlmacenamiento(veterinaria: Veterinaria): void {
-    const veterinarias = this.cargarVeterinarias();
-    veterinarias.push(veterinaria);
-    localStorage.setItem(CLAVE_ALMACENAMIENTO, JSON.stringify(veterinarias));
-  }
-
-  private cargarVeterinarias(): Veterinaria[] {
-    const datosGuardados = localStorage.getItem(CLAVE_ALMACENAMIENTO);
-    if (!datosGuardados) return [];
-    try {
-      return JSON.parse(datosGuardados);
-    } catch {
-      // Si el JSON almacenado está corrupto, se parte de una lista vacía.
-      return [];
-    }
-  }
 }

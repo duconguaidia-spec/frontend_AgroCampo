@@ -50,6 +50,14 @@
             </div>
           </article>
 
+          <article class="info-card">
+            <div class="card-icon-wrapper pin-icon"><span class="card-icon">🏙️</span></div>
+            <div class="card-body">
+              <h3 class="card-title">Ciudad:</h3>
+              <input type="text" class="pill-input card-input" [(ngModel)]="ciudad" placeholder="Escribe la ciudad" />
+            </div>
+          </article>
+
           <!-- Card 2: Horarios -->
           <article class="info-card">
             <div class="card-icon-wrapper clock-icon">
@@ -177,7 +185,8 @@
                 <input
                   id="product-file-input"
                   type="file"
-                  accept="image/*"
+                  [disabled]="subiendoImagen || guardando"
+                  accept="image/png,image/jpeg,image/gif"
                   (change)="onImageSelected($event)"
                   style="display: none;"
                 />
@@ -221,12 +230,15 @@
 
         <!-- Bottom Action Button (Siguiente) -->
         <div class="actions-bottom-row">
+          @if (subiendoImagen) { <p role="status">Subiendo imagen del producto…</p> }
+          @if (mensajeError) { <p role="alert">{{ mensajeError }}</p> }
           <button
             type="button"
             class="btn-siguiente"
             (click)="guardarVeterinaria()"
+            [disabled]="guardando"
           >
-            Siguiente
+            {{ guardando ? 'Guardando…' : 'Siguiente' }}
           </button>
         </div>
       </div>

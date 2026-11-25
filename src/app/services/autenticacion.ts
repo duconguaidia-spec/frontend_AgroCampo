@@ -1,63 +1,44 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, computed, inject, signal } from '@angular/core';
+import { Observable, catchError, map, of, tap, timeout } from 'rxjs';
 
 export type RolUsuario = 'administrador' | 'veterinario' | 'usuario';
+export interface UsuarioSesion { id: number; nombre: string; apellido: string; correo: string; rol: RolUsuario; }
+export interface UsuarioRegistrado { nombre: string; apellido: string; correo: string; telefono: string; contrasena: string; rol: RolUsuario; }
+export interface PerfilCuenta extends UsuarioSesion { telefono: string; ubicacion: string; foto: string; intereses: string[]; }
 
-export interface UsuarioSesion {
-  nombre: string;
-  correo: string;
-  rol: RolUsuario;
-}
-
-export interface UsuarioRegistrado extends UsuarioSesion {
-  contrasena: string;
-}
+const CUENTA = '/api/v1/cuenta';
 
 @Injectable({ providedIn: 'root' })
 export class AutenticacionService {
-  private readonly claveSesion = 'agrocampo.sesion';
-  private readonly claveUsuarios = 'agrocampo.usuarios';
-  private readonly usuarioActual = signal<UsuarioSesion | null>(this.leerSesion());
-
+  private readonly http = inject(HttpClient);
+  private readonly usuarioActual = signal<UsuarioSesion | null>(null);
   readonly usuario = this.usuarioActual.asReadonly();
   readonly autenticado = computed(() => this.usuarioActual() !== null);
   readonly esAdministrador = computed(() => this.usuarioActual()?.rol === 'administrador');
-  readonly puedeGestionarVeterinarias = computed(() => {
-    const rol = this.usuarioActual()?.rol;
-    return rol === 'administrador' || rol === 'veterinario';
-  });
-  readonly puedeGestionarContenido = computed(() => {
-    const rol = this.usuarioActual()?.rol;
-    return rol === 'administrador' || rol === 'veterinario';
-  });
+  readonly puedeGestionarVeterinarias = computed(() => this.tieneRol(['administrador', 'veterinario']));
+  readonly puedeGestionarContenido = this.puedeGestionarVeterinarias;
 
-  iniciarSesion(correo: string, contrasena: string, cuentasDemostracion: UsuarioRegistrado[] = []): boolean {
-    const usuario = [...this.usuarios(), ...cuentasDemostracion].find(
-      (item) => item.correo.toLocaleLowerCase() === correo.trim().toLocaleLowerCase() && item.contrasena === contrasena,
+  iniciarSesion(correo: string, contrasena: string): Observable<UsuarioSesion> {
+    return this.http.post<{ data: UsuarioSesion }>(`${CUENTA}/login`, { correo, contrasena }).pipe(
+      timeout(12000), map(({ data }) => data), tap((usuario) => this.usuarioActual.set(usuario)),
     );
-
-    if (!usuario) {
-      return false;
-    }
-
-    const sesion: UsuarioSesion = { nombre: usuario.nombre, correo: usuario.correo, rol: usuario.rol };
-    localStorage.setItem(this.claveSesion, JSON.stringify(sesion));
-    this.usuarioActual.set(sesion);
-    return true;
   }
 
-  registrarUsuario(datos: UsuarioRegistrado): boolean {
-    const usuarios = this.usuarios();
-    if (usuarios.some((item) => item.correo.toLocaleLowerCase() === datos.correo.toLocaleLowerCase())) {
-      return false;
-    }
+  verificarSesion(): Observable<boolean> {
+    return this.http.get<{ data: UsuarioSesion }>(`${CUENTA}/sesion`).pipe(
+      timeout(12000), tap(({ data }) => this.usuarioActual.set(data)), map(() => true),
+      catchError(() => { this.usuarioActual.set(null); return of(false); }),
+    );
+  }
 
-    localStorage.setItem(this.claveUsuarios, JSON.stringify([...usuarios, datos]));
-    return true;
+  registrarUsuario(datos: UsuarioRegistrado): Observable<unknown> {
+    return this.http.post(`${CUENTA}/registro`, datos).pipe(timeout(12000));
   }
 
   cerrarSesion(): void {
-    localStorage.removeItem(this.claveSesion);
     this.usuarioActual.set(null);
+    this.http.delete(`${CUENTA}/sesion`).subscribe({ error: () => undefined });
   }
 
   tieneRol(roles: RolUsuario[]): boolean {
@@ -65,25 +46,13 @@ export class AutenticacionService {
     return !!rol && roles.includes(rol);
   }
 
-  private leerSesion(): UsuarioSesion | null {
-    try {
-      const valor = localStorage.getItem(this.claveSesion);
-      return valor ? (JSON.parse(valor) as UsuarioSesion) : null;
-    } catch {
-      return null;
-    }
+  obtenerPerfil(): Observable<PerfilCuenta> {
+    return this.http.get<{ data: PerfilCuenta }>(`${CUENTA}/perfil`).pipe(timeout(12000), map(({ data }) => data));
   }
 
-  private usuarios(): UsuarioRegistrado[] {
-    try {
-      const guardados = localStorage.getItem(this.claveUsuarios);
-      if (guardados) {
-        return JSON.parse(guardados) as UsuarioRegistrado[];
-      }
-    } catch {
-      localStorage.removeItem(this.claveUsuarios);
-    }
-
-    return [];
+  guardarPerfil(datos: Pick<PerfilCuenta, 'nombre' | 'apellido' | 'telefono' | 'ubicacion' | 'foto' | 'intereses'>): Observable<unknown> {
+    return this.http.put(`${CUENTA}/perfil`, datos).pipe(timeout(12000), tap(() => {
+      this.usuarioActual.update((u) => u ? { ...u, nombre: datos.nombre, apellido: datos.apellido } : null);
+    }));
   }
 }

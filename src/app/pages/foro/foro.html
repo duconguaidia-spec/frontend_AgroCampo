@@ -29,7 +29,7 @@
                     placeholder="Título de tu pregunta o experiencia"
                   />
                   <select class="composer-tipo" [(ngModel)]="nuevaCategoria">
-                    @for (tipo of tiposPublicacion; track tipo) {
+                    @for (tipo of tiposPublicacion(); track tipo) {
                       <option [value]="tipo">{{ tipo }}</option>
                     }
                   </select>
@@ -50,6 +50,7 @@
                 publicación</button>
             }
           </div>
+          @if (errorApi()) { <p role="alert">{{ errorApi() }}</p> }
           <div class="post-list">@for (post of publicacionesFiltradas; track post.id) { <article class="post">
               <div class="post-top"><span class="post-category">{{ post.categoria }}</span>@if (post.urgente) { <span
                   class="urgent">▲ Urgente</span> }</div>
@@ -70,7 +71,7 @@
           <section class="weather">
             <h2>⛅ Pronóstico agrícola</h2>
             <p>Bogotá, Cundinamarca</p>
-            <div><span><b>HOY</b>⛅<small>18 °C</small></span><span><b>MAR</b>🌧<small>14
+            <div><span><b>HOY</b>⛅<small>20 °C</small></span><span><b>MAR</b>🌧<small>14
                   °C</small></span><span><b>MIÉ</b>🌤<small>16 °C</small></span><span><b>JUE</b>⛅<small>15
                   °C</small></span><span><b>VIE</b>☀<small>20 °C</small></span></div>
           </section>

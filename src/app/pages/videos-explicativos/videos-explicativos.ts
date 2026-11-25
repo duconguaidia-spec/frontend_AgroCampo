@@ -1,147 +1,89 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { finalize, forkJoin } from 'rxjs';
 import { SiteFooterComponent } from '../../shared/site-footer/site-footer';
 import { SiteHeaderComponent } from '../../shared/site-header/site-header';
-import { FormsModule } from '@angular/forms';
 import { AutenticacionService } from '../../services/autenticacion';
+import { CategoriaApi, ModulosService, mensajeApi } from '../../services/modulos';
 
-interface Video {
-  id: number;
-  categoria: 'Cultivos' | 'Ganadería' | 'Maquinaria' | 'Plagas';
-  titulo: string;
-  descripcion: string;
-  imagen: string;
-  enlace: string;
-}
-
-const CLAVE_ALMACENAMIENTO = 'agrocampo_videos';
+interface VideoApi { id: number; categoria_id?: number; titulo: string; descripcion?: string; url_video: string; imagen_url?: string; activo: boolean; }
 
 @Component({
   selector: 'app-videos-explicativos',
-  standalone: true,
   imports: [CommonModule, FormsModule, SiteHeaderComponent, SiteFooterComponent],
   templateUrl: './videos-explicativos.html',
   styleUrl: './videos-explicativos.css',
 })
 export class VideosExplicativosComponent implements OnInit {
-  protected readonly categorias = [
-    'Todo',
-    'Cultivos',
-    'Ganadería',
-    'Maquinaria',
-    'Plagas',
-  ] as const;
-  protected categoriaActiva: (typeof this.categorias)[number] = 'Todo';
+  private readonly api = inject(ModulosService);
+  protected readonly autenticacion = inject(AutenticacionService);
+  protected readonly catalogo = signal<CategoriaApi[]>([]);
+  private readonly videos = signal<VideoApi[]>([]);
+  protected readonly errorApi = signal('');
+  protected readonly guardando = signal(false);
+  protected categoriaActiva = 'Todo';
   protected termino = '';
   protected formularioVisible = false;
   protected confirmacionVisible = false;
-  protected mensajeFormulario = '';
-  protected nuevoVideo: Omit<Video, 'id' | 'imagen'> = { categoria: 'Cultivos', titulo: '', descripcion: '', enlace: '' };
+  protected nuevoVideo = { categoria: '', titulo: '', descripcion: '', enlace: '' };
 
-  protected videos: Video[] = [
-    {
-      id: 1,
-      categoria: 'Cultivos',
-      titulo: '¿Cuántas veces hay que abonar el maíz?',
-      descripcion:
-        'Consejos prácticos para planificar la fertilización y favorecer una cosecha sana de maíz.',
-      imagen: 'maiz',
-      enlace: 'https://www.youtube.com/results?search_query=cuantas+veces+abonar+maiz',
-    },
-    {
-      id: 2,
-      categoria: 'Cultivos',
-      titulo: 'Recomendaciones para el cultivo óptimo de lechuga',
-      descripcion: 'Aprende sobre clima, riego y nutrientes para obtener lechugas más vigorosas.',
-      imagen: 'lechuga',
-      enlace: 'https://www.youtube.com/results?search_query=cultivo+de+lechuga+recomendaciones',
-    },
-    {
-      id: 3,
-      categoria: 'Ganadería',
-      titulo: 'Manejo responsable del ganado bovino',
-      descripcion: 'Buenas prácticas para cuidar el bienestar y la productividad de tu hato.',
-      imagen: 'ganado',
-      enlace: 'https://www.youtube.com/results?search_query=manejo+de+ganado+bovino',
-    },
-    {
-      id: 4,
-      categoria: 'Plagas',
-      titulo: 'Cómo identificar plagas en tus cultivos',
-      descripcion: 'Señales tempranas y acciones preventivas para proteger tu siembra.',
-      imagen: 'plagas',
-      enlace: 'https://www.youtube.com/results?search_query=identificar+plagas+en+cultivos',
-    },
-  ];
-
-  constructor(protected readonly autenticacion: AutenticacionService) {}
+  get categorias(): string[] { return ['Todo', ...this.catalogo().map((item) => item.nombre)]; }
 
   ngOnInit(): void {
-    this.cargarVideos();
+    forkJoin({ categorias: this.api.listar<CategoriaApi>('categorias-contenido'), videos: this.api.listar<VideoApi>('videos') }).subscribe({
+      next: ({ categorias, videos }) => {
+        this.catalogo.set(categorias.filter((item) => item.activo && item.tipo === 'video'));
+        this.videos.set(videos.filter((item) => item.activo));
+      },
+      error: (error) => this.errorApi.set(mensajeApi(error, 'No fue posible cargar los videos.')),
+    });
   }
 
-  protected get videosFiltrados(): Video[] {
-    const termino = this.termino.trim().toLocaleLowerCase();
-    return this.videos.filter(
-      (video) =>
-        (this.categoriaActiva === 'Todo' || video.categoria === this.categoriaActiva) &&
-        (!termino ||
-          `${video.titulo} ${video.descripcion} ${video.categoria}`
-            .toLocaleLowerCase()
-            .includes(termino)),
-    );
+  get videosFiltrados() {
+    const termino = this.termino.trim().toLowerCase();
+    return this.videos().map((item) => ({
+      id: item.id, titulo: item.titulo, descripcion: item.descripcion ?? '', enlace: item.url_video,
+      imagen: item.imagen_url ?? '', categoria: this.catalogo().find((cat) => cat.id === item.categoria_id)?.nombre ?? 'Sin categoría',
+    })).filter((video) => (this.categoriaActiva === 'Todo' || video.categoria === this.categoriaActiva)
+      && `${video.titulo} ${video.descripcion} ${video.categoria}`.toLowerCase().includes(termino));
   }
 
-  protected seleccionarCategoria(categoria: (typeof this.categorias)[number]): void {
-    this.categoriaActiva = categoria;
-  }
+  seleccionarCategoria(categoria: string): void { this.categoriaActiva = categoria; }
+  actualizarBusqueda(event: Event): void { this.termino = (event.target as HTMLInputElement).value; }
 
-  protected actualizarBusqueda(event: Event): void {
-    this.termino = (event.target as HTMLInputElement).value;
-  }
-
-  protected abrirFormulario(): void {
+  abrirFormulario(): void {
+    this.errorApi.set('');
+    this.nuevoVideo.categoria ||= this.catalogo()[0]?.nombre ?? '';
     this.formularioVisible = true;
-    this.mensajeFormulario = '';
   }
 
-  protected revisarVideo(): void {
-    if (!this.nuevoVideo.titulo.trim() || !this.nuevoVideo.descripcion.trim() || !this.nuevoVideo.enlace.trim()) {
-      this.mensajeFormulario = 'Completa el título, la descripción y el enlace del video.';
+  revisarVideo(): void {
+    const { categoria, titulo, descripcion, enlace } = this.nuevoVideo;
+    if (!categoria || !titulo.trim() || !descripcion.trim() || !/^https?:\/\//i.test(enlace.trim())) {
+      this.errorApi.set('Selecciona una categoría y completa el título, la descripción y el enlace HTTP o HTTPS.');
       return;
     }
+    this.errorApi.set('');
     this.confirmacionVisible = true;
   }
 
-  protected publicarVideo(): void {
-    this.videos = [{ ...this.nuevoVideo, id: Date.now(), imagen: 'custom' }, ...this.videos];
-    this.guardarVideos();
-    this.nuevoVideo = { categoria: 'Cultivos', titulo: '', descripcion: '', enlace: '' };
-    this.confirmacionVisible = false;
+  publicarVideo(): void {
+    if (this.guardando()) return;
+    const { titulo, descripcion, enlace } = this.nuevoVideo;
+    const categoria = this.catalogo().find((item) => item.nombre === this.nuevoVideo.categoria);
+    if (!categoria) return;
+    this.guardando.set(true);
+    this.api.crear<VideoApi>('videos', { titulo: titulo.trim(), descripcion: descripcion.trim(), url_video: enlace.trim(), categoria_id: categoria.id })
+      .pipe(finalize(() => this.guardando.set(false))).subscribe({
+        next: (video) => { this.videos.update((items) => [video, ...items]); this.nuevoVideo = { categoria: '', titulo: '', descripcion: '', enlace: '' }; this.cancelarFormulario(); },
+        error: (error) => { this.confirmacionVisible = false; this.errorApi.set(mensajeApi(error, 'No fue posible publicar el video.')); },
+      });
+  }
+
+  cancelarFormulario(): void {
     this.formularioVisible = false;
-  }
-
-  protected cancelarFormulario(): void {
-    this.formularioVisible = false;
     this.confirmacionVisible = false;
-    this.mensajeFormulario = '';
-  }
-
-  private cargarVideos(): void {
-    const datosGuardados = localStorage.getItem(CLAVE_ALMACENAMIENTO);
-    if (datosGuardados) {
-      try {
-        this.videos = JSON.parse(datosGuardados);
-      } catch {
-        // Si el JSON almacenado está corrupto, se conservan los videos por defecto.
-      }
-    } else {
-      // Primera vez: se guardan los videos por defecto para que persistan desde el inicio.
-      this.guardarVideos();
-    }
-  }
-
-  private guardarVideos(): void {
-    localStorage.setItem(CLAVE_ALMACENAMIENTO, JSON.stringify(this.videos));
+    this.errorApi.set('');
   }
 }

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SiteFooterComponent } from '../../shared/site-footer/site-footer';
 import { SiteHeaderComponent } from '../../shared/site-header/site-header';
@@ -20,19 +20,31 @@ declare global {
   templateUrl: './veterinarias.html',
   styleUrl: './veterinarias.css',
 })
-export class VeterinariasComponent implements AfterViewInit, OnDestroy {
+export class VeterinariasComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mapaGoogle') private mapaGoogle?: ElementRef<HTMLDivElement>;
   protected busqueda = '';
   protected servicio = 'Todos los servicios';
   protected mensajeContacto = '';
   protected mapaActivo = false;
   protected mapaSinClave = false;
+  protected cargando = true;
+  protected errorCarga = '';
   private mapa?: any;
   private marcadores: any[] = [];
   protected readonly servicios = ['Todos los servicios', 'Consulta general', 'Vacunación', 'Laboratorio', 'Urgencias'];
   protected get veterinarias(): Veterinaria[] { return this.veterinariasService.veterinarias(); }
 
   constructor(protected readonly autenticacion: AutenticacionService, private readonly veterinariasService: VeterinariasService) {}
+
+  ngOnInit(): void {
+    this.veterinariasService.listar().subscribe({
+      next: () => { this.cargando = false; this.actualizarMarcadores(); },
+      error: (error: { error?: { message?: string }; message?: string }) => {
+        this.cargando = false;
+        this.errorCarga = error.error?.message || error.message || 'No fue posible cargar las veterinarias desde el MID.';
+      },
+    });
+  }
 
   ngAfterViewInit(): void {
     void this.inicializarMapa();
@@ -77,20 +89,16 @@ export class VeterinariasComponent implements AfterViewInit, OnDestroy {
   private actualizarMarcadores(): void {
     if (!this.mapa || !window.google) return;
     this.marcadores.forEach((marcador) => marcador.setMap(null));
-    const ubicaciones = [
-      { lat: 5.3378, lng: -72.3959 }, { lat: 5.3505, lng: -72.387 },
-      { lat: 5.1716, lng: -72.547 }, { lat: 5.0128, lng: -72.7464 },
-    ];
     this.marcadores = this.resultados.map((veterinaria) => {
-      const indice = this.veterinarias.indexOf(veterinaria);
+      if (veterinaria.latitud == null || veterinaria.longitud == null) return null;
       const marcador = new window.google.maps.Marker({
         map: this.mapa,
-        position: ubicaciones[indice],
+        position: { lat: veterinaria.latitud, lng: veterinaria.longitud },
         title: veterinaria.nombre,
       });
       marcador.addListener('click', () => this.contactar(veterinaria));
       return marcador;
-    });
+    }).filter(Boolean);
   }
 
   private cargarGoogleMaps(): Promise<any | null> {
