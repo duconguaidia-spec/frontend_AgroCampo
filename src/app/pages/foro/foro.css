@@ -313,6 +313,17 @@
   width: 100%;
 }
 
+.composer-fila {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.composer-fila input {
+  flex: 1 1 15rem;
+  min-width: 0;
+}
+
 .composer-titulo {
   padding: 10px 14px;
   font-size: 0.95rem;
