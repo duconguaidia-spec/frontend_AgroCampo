@@ -9,6 +9,7 @@ import { AutenticacionService } from '../../services/autenticacion';
 
 interface TemaApi { id: number; titulo: string; descripcion: string; categoria_id: number; activo: boolean; vistas: number; urgente: boolean; autor_id: number; autor?: string; }
 interface RespuestaApi { tema_id: number; activo: boolean; }
+type EdicionTema = Pick<TemaApi, 'titulo' | 'descripcion' | 'categoria_id'>;
 
 @Component({
   selector: 'app-foro',
@@ -18,12 +19,14 @@ interface RespuestaApi { tema_id: number; activo: boolean; }
 })
 export class ForoComponent implements OnInit {
   private readonly api = inject(ModulosService);
-  private readonly auth = inject(AutenticacionService);
-  private readonly catalogo = signal<CategoriaApi[]>([]);
+  protected readonly auth = inject(AutenticacionService);
+  protected readonly catalogo = signal<CategoriaApi[]>([]);
   private readonly temas = signal<TemaApi[]>([]);
   private readonly respuestas = signal<RespuestaApi[]>([]);
   private readonly guardados = signal<number[]>([]);
   protected readonly errorApi = signal('');
+  protected readonly errorFormulario = signal('');
+  protected readonly mensaje = signal('');
   protected readonly guardando = signal(false);
   protected readonly tiposPublicacion = computed(() => this.catalogo().map((item) => item.nombre));
   protected readonly categoriasApi = computed(() => ['Todo', ...this.tiposPublicacion()]);
@@ -36,8 +39,9 @@ export class ForoComponent implements OnInit {
   protected categoriaActiva = 'Todo';
   protected busqueda = '';
   protected publicarAbierto = false;
+  protected temaEditando: number | null = null;
   protected nuevoTitulo = '';
-  protected nuevaCategoria = '';
+  protected nuevaCategoria: number | null = null;
   protected nuevaDescripcion = '';
 
   get categorias(): string[] { return this.categoriasApi(); }
@@ -51,7 +55,7 @@ export class ForoComponent implements OnInit {
     }).subscribe({
       next: ({ categorias, temas, respuestas, guardados }) => {
         this.catalogo.set(categorias.filter((item) => item.activo && item.tipo === 'foro'));
-        this.nuevaCategoria = this.tiposPublicacion()[0] ?? '';
+        this.nuevaCategoria = this.catalogo()[0]?.id ?? null;
         this.temas.set(temas.filter((tema) => tema.activo));
         this.respuestas.set(respuestas);
         this.guardados.set(guardados);
@@ -80,28 +84,67 @@ export class ForoComponent implements OnInit {
       });
   }
 
-  crearPublicacion(): void {
+  abrirPublicacion(): void {
     if (this.guardando()) return;
+    this.cerrarFormulario();
+    this.mensaje.set('');
+    this.publicarAbierto = true;
+  }
+
+  abrirEdicion(id: number): void {
+    if (this.guardando() || !this.auth.puedeGestionarContenido()) return;
+    const tema = this.temas().find((item) => item.id === id);
+    if (!tema) return;
+    this.cerrarFormulario();
+    this.mensaje.set('');
+    this.temaEditando = id;
+    this.nuevoTitulo = tema.titulo;
+    this.nuevaDescripcion = tema.descripcion;
+    this.nuevaCategoria = this.catalogo().some((item) => item.id === tema.categoria_id) ? tema.categoria_id : null;
+  }
+
+  guardarPublicacion(): void {
+    if (this.guardando()) return;
+    const id = this.temaEditando;
+    if (id !== null && !this.auth.puedeGestionarContenido()) return;
     const titulo = this.nuevoTitulo.trim();
     const descripcion = this.nuevaDescripcion.trim();
-    const categoria = this.catalogo().find((item) => item.nombre === this.nuevaCategoria);
-    if (!titulo || !descripcion || !categoria) { this.errorApi.set('Completa el título, la categoría y la descripción.'); return; }
+    const categoria = this.catalogo().find((item) => item.id === this.nuevaCategoria);
+    if (!titulo || !descripcion || !categoria) {
+      this.errorFormulario.set('Completa el título, la categoría y la descripción.');
+      return;
+    }
     this.guardando.set(true);
-    this.errorApi.set('');
-    this.api.crear<TemaApi>('temas', { titulo, descripcion, categoria_id: categoria.id })
+    this.errorFormulario.set('');
+    const datos: EdicionTema = { titulo, descripcion, categoria_id: categoria.id };
+    if (id !== null) {
+      this.api.actualizar<EdicionTema>('temas', id, datos)
+        .pipe(finalize(() => this.guardando.set(false))).subscribe({
+          next: (cambios) => {
+            this.temas.update((items) => items.map((tema) => tema.id === id ? { ...tema, ...cambios } : tema));
+            this.cerrarFormulario();
+            this.mensaje.set('El tema se actualizó correctamente.');
+          },
+          error: (error) => this.errorFormulario.set(mensajeApi(error, 'No fue posible actualizar el tema.')),
+        });
+      return;
+    }
+    this.api.crear<TemaApi>('temas', datos)
       .pipe(finalize(() => this.guardando.set(false))).subscribe({
         next: (tema) => {
           this.temas.update((items) => [{ ...tema, autor: this.auth.usuario()?.nombre }, ...items]);
           this.cerrarFormulario();
         },
-        error: (error) => this.errorApi.set(mensajeApi(error, 'No fue posible publicar el tema.')),
+        error: (error) => this.errorFormulario.set(mensajeApi(error, 'No fue posible publicar el tema.')),
       });
   }
 
   cerrarFormulario(): void {
     this.nuevoTitulo = '';
     this.nuevaDescripcion = '';
-    this.nuevaCategoria = this.tiposPublicacion()[0] ?? '';
+    this.nuevaCategoria = this.catalogo()[0]?.id ?? null;
     this.publicarAbierto = false;
+    this.temaEditando = null;
+    this.errorFormulario.set('');
   }
 }

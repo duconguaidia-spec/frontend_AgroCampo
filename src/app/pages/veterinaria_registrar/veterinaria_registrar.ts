@@ -44,6 +44,7 @@ export class AgregarVeterinariaComponent {
   // Estado de feedback
   mensajeExito = '';
   mostrarModal = false;
+  private veterinariaRegistradaId = '';
   guardando = false;
   subiendoImagen = false;
   mensajeError = '';
@@ -139,6 +140,7 @@ export class AgregarVeterinariaComponent {
     }).subscribe({
       next: (veterinaria) => {
         this.guardando = false;
+        this.veterinariaRegistradaId = veterinaria.id;
         this.mensajeExito = `¡La veterinaria "${veterinaria.nombre}" se ha registrado con éxito!`;
         this.mostrarModal = true;
       },
@@ -152,6 +154,11 @@ export class AgregarVeterinariaComponent {
   cerrarModalYVolver(): void {
     this.mostrarModal = false;
     this.router.navigate(['/veterinarias']);
+  }
+
+  abrirVeterinariaRegistrada(): void {
+    this.mostrarModal = false;
+    void this.router.navigate(['/veterinarias', this.veterinariaRegistradaId]);
   }
 
 }

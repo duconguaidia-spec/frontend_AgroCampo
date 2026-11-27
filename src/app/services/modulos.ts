@@ -28,4 +28,8 @@ export class ModulosService {
   crear<T>(recurso: string, datos: object): Observable<T> {
     return this.http.post<{ data: T }>(`${this.base}/${recurso}`, datos).pipe(timeout(12000), map(({ data }) => data));
   }
+
+  actualizar<T>(recurso: string, id: number, datos: object): Observable<T> {
+    return this.http.put<{ data: T }>(`${this.base}/${recurso}/${id}`, datos).pipe(timeout(12000), map(({ data }) => data));
+  }
 }
